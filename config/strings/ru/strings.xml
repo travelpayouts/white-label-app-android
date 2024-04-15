@@ -1,0 +1,699 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- BASE -->
+    <string name="ta_tab_flights">Билеты</string>
+    <string name="ta_tab_hotels">Отели</string>
+    <string name="ta_tab_other">Другое</string>
+    <string name="ta_tab_info">Информация</string>
+    <string name="ta_done">Готово</string>
+    <string name="ta_understand">Понятно</string>
+    <string name="ta_zero_data_error_title">Что-то пошло не так…</string>
+    <string name="ta_zero_data_error_subtitle">Повторите попытку или попробуйте позже</string>
+    <string name="ta_zero_data_error_try_again">Попробовать ещё раз</string>
+    <string name="ta_zero_data_retry_search">Повторить поиск</string>
+    <string name="ta_zero_data_no_internet_title">Нет интернета</string>
+    <string name="ta_zero_data_no_internet_subtitle">Проверьте настройки подключения к сети и повторите попытку</string>
+    <string name="ta_zero_data_survey_title">Спасибо, что прошли опрос</string>
+    <string name="ta_default_zero_data_title">Ничего не найдено</string>
+    <string name="ta_default_zero_data_subtitle">Попробуйте исправить поисковый запрос</string>
+    <string name="ta_hotels_search_not_available_title">Бронирование отелей\nнедоступно в вашем регионе</string>
+
+    <string name="ta_price_display_flight_all">Цены за всех пассажиров</string>
+    <string name="ta_price_display_flight_single">Цены за 1 пассажира</string>
+
+    <string name="ta_currency_USD">Доллар США</string>
+    <string name="ta_currency_EUR">Евро</string>
+    <string name="ta_currency_RUB">Российский рубль</string>
+
+    <!--Flight Type -->
+    <string name="ta_economy">Эконом</string>
+    <string name="ta_business">Бизнес</string>
+    <string name="ta_first_class">Первый класс</string>
+
+    <!-- Hotel type -->
+    <string name="ta_guest">Гестхаус</string>
+    <string name="ta_hotel">Отель</string>
+    <string name="ta_hostel">Хостел</string>
+    <string name="ta_apartment">Апартаменты</string>
+    <string name="ta_villa">Вилла</string>
+    <string name="ta_aparthotel">Апарт-отель</string>
+    <string name="ta_motel">Мотель</string>
+    <string name="ta_resort">Курортный отель</string>
+    <string name="ta_lodge">Лодж</string>
+    <string name="ta_bb">B\u0026B</string>
+    <string name="ta_guests">Гестхаусы</string>
+    <string name="ta_hotels">Отели</string>
+    <string name="ta_hostels">Хостелы</string>
+    <string name="ta_apartments">Апартаменты</string>
+    <string name="ta_villas">Виллы</string>
+    <string name="ta_aparthotels">Апарт-отели</string>
+    <string name="ta_motels">Мотели</string>
+    <string name="ta_resorts">Курортные отели</string>
+    <string name="ta_lodges">Лоджи</string>
+    <string name="ta_bbs">B\u0026B</string>
+
+    <!--region Views-->
+
+    <!-- AppBarView -->
+    <string name="ta_appbar_title">%1$s — %2$s</string>
+    <string name="ta_appbar_subtitle">%1$s, %2$s</string>
+    <string name="ta_filters_button_text">Фильтры</string>
+    <string name="ta_chart_button_text">График цен</string>
+    <!-- HotelsAppBarView -->
+    <string name="ta_hotels_appbar_subtitle">%1$s %2$s</string>
+    <string name="ta_on_map_button_text">На карте</string>
+    <string name="ta_list_button_text">Списком</string>
+    <!--  GuestsCountView  -->
+    <string name="ta_age_zero">до 1 г.</string>
+    <plurals name="ta_passengers_count">
+        <item quantity="zero">%s пассажиров</item>
+        <item quantity="one">%s пассажир</item>
+        <item quantity="two">%s пассажира</item>
+        <item quantity="few">%s пассажира</item>
+        <item quantity="many">%s пассажиров</item>
+        <item quantity="other">%s пассажиров</item>
+    </plurals>
+    <plurals name="ta_adults_count">
+        <item quantity="zero">%s взрослых</item>
+        <item quantity="one">%s взрослый</item>
+        <item quantity="two">%s взрослых</item>
+        <item quantity="few">%s взрослых</item>
+        <item quantity="many">%s взрослых</item>
+        <item quantity="other">%s взрослых</item>
+    </plurals>
+    <plurals name="ta_children_count">
+        <item quantity="zero">%s детей</item>
+        <item quantity="one">%s ребёнок</item>
+        <item quantity="two">%s ребёнка</item>
+        <item quantity="few">%s ребёнка</item>
+        <item quantity="many">%s детей</item>
+        <item quantity="other">%s детей</item>
+    </plurals>
+    <plurals name="ta_age_count">
+        <item quantity="one">%s год</item>
+        <item quantity="two">%s года</item>
+        <item quantity="few">%s года</item>
+        <item quantity="many">%s лет</item>
+        <item quantity="other">%s лет</item>
+    </plurals>
+    <plurals name="ta_nights_count">
+        <item quantity="zero">(%s ночей)</item>
+        <item quantity="one">(%s ночь)</item>
+        <item quantity="two">(%s ночи)</item>
+        <item quantity="few">(%s ночи)</item>
+        <item quantity="many">(%s ночей)</item>
+        <item quantity="other">(%s ночей)</item>
+    </plurals>
+
+    <!--endregion-->
+
+    <!-- region Flights SDK -->
+
+    <!-- MainFlightsFragment -->
+    <string name="ta_search_title">Поиск недорогих авиабилетов</string>
+    <string name="ta_search_departure">Откуда</string>
+    <string name="ta_search_arrival">Куда</string>
+    <string name="ta_search_departure_date">Когда</string>
+    <string name="ta_search_arrival_date">Обратно</string>
+    <string name="ta_search_button">Найти</string>
+    <string name="ta_search_dates">%1$s – %2$s</string>
+    <!-- CalendarFragment -->
+    <string name="ta_calendar_title">Когда</string>
+    <string name="ta_calendar_departure_date">Туда</string>
+    <string name="ta_calendar_select_btn_one_date">Выбрать %1$s</string>
+    <string name="ta_calendar_select_btn_two_dates">Выбрать %1$s – %2$s</string>
+    <string name="ta_calendar_select_btn_empty">Выбрать</string>
+    <string name="ta_passengers_info_text">%1$s, %2$s</string>
+    <string name="ta_price_info_text">от %1$s</string>
+    <!-- PassengersFragment -->
+    <string name="ta_passengers_title">Пассажиры</string>
+    <string name="ta_passengers_flight_type_title">Класс</string>
+    <string name="ta_passengers_adults">Взрослые</string>
+    <string name="ta_passengers_adults_description">Старше 12 лет</string>
+    <string name="ta_passengers_children">Дети</string>
+    <string name="ta_passengers_children_description">От 2 до 12 лет</string>
+    <string name="ta_passengers_babies">Младенцы</string>
+    <string name="ta_passengers_babies_description">До 2 лет, без места</string>
+    <!-- SearchAirportsFragment -->
+    <string name="ta_search_hint">Город, страна или аэропорт</string>
+    <string name="ta_search_near_arports_title">Аэропорты рядом</string>
+    <string name="ta_search_was_searched_title">Вы уже искали</string>
+    <string name="ta_search_airports_item_name">%1$s, %2$s</string>
+    <!-- SearchResults -->
+    <string name="ta_search_result_straight_flight_title">Прямые рейсы</string>
+    <string name="ta_search_result_straight_flight_show_more">Показать все</string>
+    <string name="ta_search_result_straight_flight_show_less">Свернуть</string>
+    <!-- TicketCard -->
+    <string name="ta_ticket_card_more">Подробнее</string>
+    <string name="ta_ticket_card_selected">Выбран</string>
+    <!-- FiltersFragment -->
+    <string name="ta_filters_title">Фильтры</string>
+    <string name="ta_filters_reset">Сбросить</string>
+    <string name="ta_sorting_title">Сортировка</string>
+    <string name="ta_transfer_title">Пересадки</string>
+    <string name="ta_transfer_count">Количество пересадок</string>
+    <string name="ta_transfer_time">Длительность</string>
+    <string name="ta_transfer_time_title">Длительность пересадок</string>
+    <string name="ta_transfer_time_default">до 22ч 55м</string>
+    <string name="ta_transfer_airports">Аэропорты пересадок</string>
+    <string name="ta_no_airports_change_title">Без смены аэропорта</string>
+    <string name="ta_no_night_transfer_title">Без ночных прересадок</string>
+    <string name="ta_depart_title">Вылет %1$s</string>
+    <string name="ta_return_title">Обратно %1$s</string>
+    <string name="ta_depart_time_title">Отправление</string>
+    <string name="ta_depart_time_default">00:00 – 23:55</string>
+    <string name="ta_return_time_title">Прибытие</string>
+    <string name="ta_time_morning">Утро</string>
+    <string name="ta_time_noon">День</string>
+    <string name="ta_time_evening">Вечер</string>
+    <string name="ta_luggage_title">Бесплатный провоз</string>
+    <string name="ta_luggage">Только с багажом</string>
+    <string name="ta_other_title">Дополнительно</string>
+    <string name="ta_flight_time_title">Время в пути</string>
+    <string name="ta_price_title">Цена</string>
+    <string name="ta_airports_title">Аэропорты</string>
+    <string name="ta_airlines_title">Авиакомпании</string>
+    <string name="ta_agencies_title">Агентства</string>
+    <string name="ta_filters_all">Все</string>
+    <string name="ta_filters_no_transfer">Без пересадок</string>
+    <string name="ta_filter_one_transfer">Одна и меньше</string>
+    <string name="ta_filter_transfer_count">До %d</string>
+    <string name="ta_filters_transfer_duration_minutes">от %1$sч %2$sм</string>
+    <string name="ta_filters_transfer_duration_hours_only">от %1$sч</string>
+    <string name="ta_filters_time_minutes">до %1$sч %2$sм</string>
+    <string name="ta_filters_time_hours_only">до %1$sч</string>
+    <string name="ta_filters_price_from">до %s</string>
+    <string name="ta_filters_selection_count">Выбрано: %s</string>
+    <string name="ta_filters_apply">Показать</string>
+    <!-- SearchResultsFragment -->
+    <string name="ta_flight_time_full">%1$sч %2$sм в пути</string>
+    <string name="ta_flight_time_hours_only">%1$sч в пути</string>
+    <string name="ta_flight_time_minutes_only">%1$sм в пути</string>
+    <string name="ta_transfer_duration_full">%1$sч %2$sм</string>
+    <string name="ta_transfer_duration_hours_only">%1$sч</string>
+    <string name="ta_transfer_duration_minutes_only">%1$sм</string>
+    <string name="ta_transfer_duration">%1$s %2$s</string>
+    <string name="ta_no_transfer">Без пересадок</string>
+    <string name="ta_search_results_zero_data_title">Билеты не найдены</string>
+    <string name="ta_search_results_zero_data_subtitle">Попробуйте изменить поисковый запрос или повторите поиск еще раз</string>
+    <string name="ta_search_results_popop_title">Результаты могли устареть</string>
+    <string name="ta_search_results_popop_subtitle">Обновите поиск, чтобы увидеть точные цены и применить фильтры. Цены на билеты меняются около  10 раз в день.</string>
+    <string name="ta_search_results_popop_negative">Позже</string>
+    <string name="ta_search_results_popop_positive">Обновить поиск</string>
+    <string name="ta_search_results_last_Item_text">Вы просмотрели все найденые билеты. Воспользуйтесь фильтрами для показа новых результатов поиска</string>
+    <string name="ta_search_results_visa_rules">пересадка с визой</string>
+    <string name="ta_search_results_recheck_baggage">раздельное бронирование</string>
+    <string name="ta_search_results_night_transfer">ночная пересадка</string>
+    <string name="ta_search_results_airport_change">смена аэропорта</string>
+    <string name="ta_search_results_short_layover">короткая пересадка</string>
+    <plurals name="ta_transfer_count">
+        <item quantity="one">%s пересадка</item>
+        <item quantity="few">%s пересадки</item>
+        <item quantity="many">%s пересадок</item>
+        <item quantity="other">%s пересадок</item>
+    </plurals>
+    <plurals name="ta_cheapest_transfer_count">
+        <item quantity="one">%s пересадка, зато дешевле</item>
+        <item quantity="few">%s пересадки, зато дешевле</item>
+        <item quantity="many">%s пересадок, зато дешевле</item>
+        <item quantity="other">%s пересадок, зато дешевле</item>
+    </plurals>
+    <plurals name="ta_filters_count">
+        <item quantity="one">Показать %s билет</item>
+        <item quantity="few">Показать %s билетов</item>
+        <item quantity="many">Показать %s билетов</item>
+        <item quantity="other">Показать %s билетов</item>
+    </plurals>
+    <plurals name="ta_search_results_seats_available">
+        <item quantity="one">Остался %s билет по этой цене</item>
+        <item quantity="few">Осталось %s билета по этой цене</item>
+        <item quantity="many">Осталось %s билетов по этой цене</item>
+        <item quantity="other">Осталось %s билетов  по этой цене</item>
+    </plurals>
+    <!-- PriceChartDialogFragment -->
+    <string name="ta_price_chart_depart_to">Вылет %s</string>
+    <string name="ta_price_chart_return_to">Обратно %s</string>
+    <string name="ta_price_chart_to_city">в %s</string>
+    <string name="ta_price_chart_price_from">от %s</string>
+    <string name="ta_price_chart_direct_flights_only">Только прямые рейсы</string>
+    <string name="ta_price_chart_with_luggage">С багажом</string>
+    <string name="ta_price_chart_find_from">Найти билеты от %s</string>
+    <string name="ta_price_chart_find_no_price">Найти билеты</string>
+    <string name="ta_price_chart_no_price">Цена неизвестна</string>
+    <plurals name="ta_days_count">
+        <item quantity="one">%s день</item>
+        <item quantity="few">%s дня</item>
+        <item quantity="many">%s дней</item>
+        <item quantity="other">%s дней</item>
+    </plurals>
+    <!-- SortingFiltersFragment -->
+    <string name="ta_sorting_filters_title">Сортировка</string>
+    <string name="ta_sorting_filters_recommend">Рекомендуемое</string>
+    <string name="ta_sorting_filters_price">Цена</string>
+    <string name="ta_sorting_filters_depart">Время отправления</string>
+    <string name="ta_sorting_filters_return">Время прибытия</string>
+    <string name="ta_sorting_filters_transfer_time">Длительность пересадок</string>
+    <string name="ta_sorting_filters_flight_time">Время в пути</string>
+    <string name="ta_sorting_filters_rating">Рейтинг</string>
+    <string name="ta_sorting_filters_popularity">Популярность</string>
+    <!-- AirportsFiltersFragment -->
+    <string name="ta_filters_airports_title">Аэропорты</string>
+    <string name="ta_filters_transfer_airports_title">Аэропорты пересадок</string>
+    <string name="ta_filters_airports_select_all">Выбрать все</string>
+    <string name="ta_filters_airports_to_depart">Вылет %1$s</string>
+    <string name="ta_filters_airports_to_arrive">Прибытие %1$s</string>
+    <string name="ta_filters_airports_back_depart">Вылет обратно %1$s</string>
+    <string name="ta_filters_airports_back_arrive">Прибытие обратно %1$s</string>
+    <string name="ta_filters_airports_transfer">Пересадки</string>
+    <string name="ta_filters_airports_apply">Применить</string>
+    <!-- AgentsFiltersFragment -->
+    <string name="ta_filters_agents_title">Агенства</string>
+    <!-- AirlinesFiltersFragment -->
+    <string name="ta_filters_airlines_title">Авиакомпании</string>
+    <string name="ta_filters_airlines_alliances_title">Альянсы и группы</string>
+    <string name="ta_filters_airlines_airlines_title">Авиакомпании</string>
+    <!-- SellersFragment -->
+    <string name="ta_sellers_there">Туда</string>
+    <string name="ta_sellers_back">Обратно</string>
+    <string name="ta_sellers_title">Все предложения</string>
+    <string name="ta_sellers_subtitle">Стоимость за 1 пассажира</string>
+    <string name="ta_sellers_only_luggage_title">Показать только с багажом</string>
+    <string name="ta_sellers_btn_buy">Купить за %1$s</string>
+    <!-- FavoriteFlightsFragment -->
+    <string name="ta_invalid_date_title">Даты устарели</string>
+    <string name="ta_passengers_and_type">%1$s / %2$s</string>
+    <string name="ta_zero_data_title">Нет избранных направлений</string>
+    <string name="ta_zero_data_subtitle">Сохраняйте понравившиеся направления,\nчтобы не потерять их</string>
+    <string name="ta_zero_data_find_tickets">Найти билеты</string>
+    <!-- TicketCardFragment -->
+    <string name="ta_ticket_header_price_per_person">Цена за одного пассажира</string>
+    <string name="ta_ticket_header_price">Цена за всех пассажиров</string>
+    <string name="ta_ticket_header_add_luggage_title">Добавить багаж</string>
+    <string name="ta_ticket_header_no_baggage_text">Багаж оплачивается отдельно</string>
+    <string name="ta_ticket_header_without_baggage_text">Без багажа</string>
+    <string name="ta_ticket_header_baggage_without_weight_text">Багаж включён</string>
+    <string name="ta_ticket_header_has_baggage_text">Багаж %1$sx%2$s кг на человека</string>
+    <string name="ta_luggage_information_dialog_title">Багаж можно добавить потом</string>
+    <string name="ta_luggage_information_dialog_subtitle">Например, при оформлении билета или на регистрации на рейс</string>
+    <string name="ta_flight_direction">%1$s – %2$s</string>
+    <string name="ta_trip_duration_full">%1$sч %2$sм в пути</string>
+    <string name="ta_trip_duration_hours_only">%1$sч в пути</string>
+    <string name="ta_trip_duration_minutes_only">%1$sм в пути</string>
+    <string name="ta_flight_duration_full">%1$sч %2$sм в полёте</string>
+    <string name="ta_flight_duration_hours_only">%1$sч в полёте</string>
+    <string name="ta_flight_duration_minutes_only">%1$sм в полёте</string>
+    <string name="ta_ticket_price">Купить билет за %1$s</string>
+    <string name="ta_visa_rules">У вас попросят визу %1$s</string>
+    <string name="ta_recheck_baggage">Нужно заново сдавать багаж и регистрироваться на рейс</string>
+    <string name="ta_night_transfer">Ночная пересадка %1$s</string>
+    <string name="ta_airport_change">Смена аэропорта %1$s</string>
+    <string name="ta_short_layover">Короткая пересадка %1$s</string>
+    <string name="ta_empty_transfer">Пересадка %1$s</string>
+    <string name="ta_flight_time_difference">Та же цена</string>
+    <!-- ShareDialog -->
+    <string name="ta_share">Поделиться картинкой</string>
+    <string name="ta_close">Закрыть</string>
+    <!-- BuyTicketFragment -->
+    <string name="ta_flights_webview_exit_dialog_title">Вернуться к поиску билетов?</string>
+    <string name="ta_flights_webview_exit_dialog_cancel_button">Остаться</string>
+    <string name="ta_flights_webview_exit_dialog_ok_button">Вернуться</string>
+    <!-- SellersFragment -->
+    <string name="ta_seller_no_baggage">Багаж не включен</string>
+    <string name="ta_seller_no_hand_luggage">Ручная кладь не включена</string>
+    <string name="ta_seller_handbag_dimensions">%1$d см х %2$d см х %3$d см</string>
+    <plurals name="ta_seller_baggage_without_weight_text">
+        <item quantity="one">Багаж %s место</item>
+        <item quantity="few">Багаж %s места</item>
+        <item quantity="many">Багаж %s мест</item>
+        <item quantity="other">Багаж %s мест</item>
+    </plurals>
+    <plurals name="ta_seller_baggage_with_weight_text">
+        <item quantity="one">Багаж %1$s место до %2$s кг на чел.</item>
+        <item quantity="few">Багаж %1$s места до %2$s кг на чел.</item>
+        <item quantity="many">Багаж %1$s мест до %2$s кг на чел.</item>
+        <item quantity="other">Багаж %1$s мест до %2$s кг на чел.</item>
+    </plurals>
+    <plurals name="ta_seller_handbag_without_weight_text">
+        <item quantity="one">Ручная кладь %1$s сумка</item>
+        <item quantity="few">Ручная кладь %1$s сумки</item>
+        <item quantity="many">Ручная кладь %1$s сумок</item>
+        <item quantity="other">Ручная кладь %1$s сумок</item>
+    </plurals>
+    <plurals name="ta_seller_handbag_with_weight_text">
+        <item quantity="one">Ручная кладь %1$s сумка %2$s кг</item>
+        <item quantity="few">Ручная кладь %1$s сумки %2$s кг</item>
+        <item quantity="many">Ручная кладь %1$s сумок %2$s кг</item>
+        <item quantity="other">Ручная кладь %1$s сумок %2$s кг</item>
+    </plurals>
+
+    <!-- InfoVisaFragment -->
+    <string name="ta_info_visa_title">Пересадка с визой %s</string>
+    <string name="ta_info_visa_subtitle">В некоторых аэропортах нет транзитной зоны. Это значит, что пересадка равноценна въезду в страну, и вам точно понадобится виза.</string>
+
+    <!-- InfoRecheckBaggageFragment -->
+    <string name="ta_recheck_baggage_title">Раздельное бронирование</string>
+    <string name="ta_recheck_baggage_subtitle">Это не один билет, а несколько разных. Такие бронирования называются раздельными. Они часто дешевле обычных, но есть нюансы:</string>
+    <string name="ta_recheck_baggage_subtitle1">Нужно регистрироваться на рейс при пересадке, а если у вас есть багаж – получать и сдавать его</string>
+    <string name="ta_recheck_baggage_subtitle2">Пересадка равноценна въезду в страну – если нужна виза, ее потребуют на паспортном контроле</string>
+    <string name="ta_recheck_baggage_subtitle3">Если в страну пересадки не пускают туристов, вы можете не попасть на следующий рейс</string>
+    <string name="ta_recheck_baggage_subtitle4">Если рейс задержат и вы опоздаете на следующий, все расходы лягут на вас, а не на авиакомпанию</string>
+    <string name="ta_recheck_baggage_subtitle_5">Правила обмена и возврата для каждого билета, скорее всего, отличаются</string>
+    <string name="ta_recheck_baggage_last_paragraph">В общем, такие билеты подойдут только подготовленным путешественникам</string>
+
+    <!-- InfoNightTransferFragment -->
+    <string name="ta_info_night_transfer_title">Ночная пересадка %s</string>
+    <string name="ta_info_night_transfer_subtitle">Придётся тратить деньги на отель или спать на лавочке. К тому же некоторые аэропорты закрываются на ночь.</string>
+
+    <!-- InfoFastTransferFragment -->
+    <string name="ta_info_fast_transfer_title">Короткая пересадка %s</string>
+    <string name="ta_info_fast_transfer_subtitle">Всего %s – придётся торопиться:</string>
+    <string name="ta_info_fast_transfer_subtitle1">Если вы с багажом, то надо успеть его получить и сдать снова</string>
+    <string name="ta_info_fast_transfer_subtitle2">Непредсказуемые очереди на пограничном контроле</string>
+    <string name="ta_info_fast_transfer_subtitle3">Некоторые терминалы находятся на большом расстоянии друг от друга</string>
+    <string name="ta_info_fast_transfer_subtitle4">Вы можете не успеть на следующий рейс, если предыдущий задержится</string>
+
+    <!-- InfoAirportChangeFragment -->
+    <string name="ta_info_airport_change_title">Пересадка со сменой аэропорта %s</string>
+    <string name="ta_info_airport_change_subtitle">Это не сложно, но есть нюансы:</string>
+    <string name="ta_info_airport_change_subtitle1">Вас ждут затраты на проезд по городу</string>
+    <string name="ta_info_airport_change_subtitle2">Придется получать и сдавать багаж</string>
+    <string name="ta_info_airport_change_subtitle3">Есть риск застрять в пробке и не успеть на посадку</string>
+
+    <!-- endregion -->
+
+    <!-- region Hotels SDK -->
+
+    <!--  SearchHotelsFragment  -->
+    <string name="ta_hotels_search_title">Поиск интересных отелей</string>
+    <string name="ta_hotels_search_city_or_hotel">Город или отель</string>
+    <string name="ta_hotels_search_period_dates">%1$s – %2$s</string>
+    <string name="ta_hotels_search_button">Найти</string>
+    <!--  GuestsFragment  -->
+    <string name="ta_hotels_guests_title">Гости</string>
+    <string name="ta_hotels_guests_adults_title">Взрослые</string>
+    <string name="ta_hotels_guests_adults_description">18+ лет</string>
+    <string name="ta_hotels_guests_children_title">Дети</string>
+    <string name="ta_hotels_guests_children_description">От 0 до 17 лет</string>
+    <string name="ta_hotels_guests_children_1">1 ребёнок</string>
+    <string name="ta_hotels_guests_children_2">2 ребёнок</string>
+    <string name="ta_hotels_guests_children_3">3 ребёнок</string>
+    <string name="ta_hotels_guests_children_4">4 ребёнок</string>
+    <!--  CalendarFragment  -->
+    <string name="ta_hotels_calendar_title">Когда</string>
+    <string name="ta_hotels_calendar_select_button_one_date">Выбрать %1$s</string>
+    <string name="ta_hotels_calendar_select_button_two_dates">Выбрать %1$s – %2$s</string>
+    <string name="ta_hotels_calendar_select_button">Выбрать</string>
+    <string name="ta_hotels_calendar_information_dialog_title">Превышение периода проживания</string>
+    <string name="ta_hotels_calendar_information_dialog_message">Извините, но максимальная продолжительность проживания в отеле — 30 ночей</string>
+    <!-- SearchCityOrHotelFragment -->
+    <string name="ta_hotels_search_city_or_hotel_hint">Город или отель</string>
+    <string name="ta_hotels_search_point_on_map">Точка на карте</string>
+    <string name="ta_hotels_search_my_location">Моё местоположение</string>
+    <string name="ta_hotels_search_next_to_you">Рядом с вами</string>
+    <string name="ta_hotels_search_already_searched">Вы уже искали</string>
+    <string name="ta_hotels_search_cities_title">Города</string>
+    <string name="ta_hotels_search_hotels_title">Отели</string>
+    <string name="ta_hotels_search_airports_title">Аэропорты</string>
+    <string name="ta_hotels_search_pois_title">Достопримечательности</string>
+    <string name="ta_hotels_search_permission_title">Предоставить доступ к геопозиции?</string>
+    <string name="ta_hotels_search_permission_title_rationale">Не удалось определить местоположение</string>
+    <string name="ta_hotels_search_permission_subtitle">Разрешите приложению определять вашу геопозицию</string>
+    <string name="ta_hotels_search_permission_positve_button">Перейти в настройки</string>
+    <string name="ta_hotels_search_permission_positve_button_rationale">Разрешить</string>
+    <string name="ta_hotels_search_permission_negative_button">Закрыть</string>
+    <string name="ta_hotels_search_was_searched_title">Вы уже искали</string>
+    <plurals name="ta_hotels_search_property_types_count">
+        <item quantity="one">%1$s вариант размещения</item>
+        <item quantity="few">%1$s варианта размещения</item>
+        <item quantity="many">%1$s вариантов размещения</item>
+        <item quantity="other">%1$s вариантов размещения</item>
+    </plurals>
+    <!--  DotOnMapFragment  -->
+    <string name="ta_dot_on_map_title">Выберите точку</string>
+    <string name="ta_done_button_text">Готово</string>
+    <!--  HotelsSearchResultFragment  -->
+    <string name="ta_hotels_search_results_zero_data_title">Отели не найдены</string>
+    <string name="ta_hotels_search_results_zero_data_subtitle">Попробуйте изменить поисковый запрос\nили повторите поиск еще раз</string>
+    <string name="ta_hotels_search_results_empty_hotel">Нет номеров на эти даты</string>
+    <string name="ta_hotels_search_results_for_night">за ночь</string>
+    <plurals name="ta_nights">
+        <item quantity="one">%s ночь</item>
+        <item quantity="few">%s ночи</item>
+        <item quantity="many">%s ночей</item>
+        <item quantity="other">%s ночей</item>
+    </plurals>
+    <plurals name="ta_hotels_search_results_rating">
+        <item quantity="one">%1$s – %2$s отзыв</item>
+        <item quantity="few">%1$s – %2$s отзыва</item>
+        <item quantity="many">%1$s – %2$s отзывов</item>
+        <item quantity="other">%1$s – %2$s отзывов</item>
+    </plurals>
+    <string name="ta_hotels_search_results_distance_from_center_km">%1$s км – Центр города</string>
+    <string name="ta_hotels_search_results_distance_from_center_m">%1$s м – Центр города</string>
+    <string name="ta_hotels_search_results_refundable">Бесплатная отмена</string>
+    <string name="ta_hotels_search_results_not_refundable">Без отмены</string>
+    <string name="ta_hotels_search_results_no_rooms">Нет номеров</string>
+    <!--  HotelsFavoritesFragment  -->
+    <string name="ta_dates_string">%1$s %2$s</string>
+    <string name="ta_guests_string">%1$s, %2$s</string>
+    <string name="ta_hotels_invalid_date_title">Даты устарели</string>
+    <string name="ta_hotels_zero_data_title">Нет избранных отелей</string>
+    <string name="ta_hotels_zero_data_subtitle">Сохраняйте понравившиеся отели,\nчтобы не потерять их</string>
+    <string name="ta_zero_data_find_hotels">Найти отели</string>
+    <!--  HotelsFragment  -->
+    <string name="ta_hotel_about_hotel_block_title">Об отеле</string>
+    <string name="ta_hotel_about_hotel_year_opened">Построен в %1$s году</string>
+    <string name="ta_hotel_about_hotel_year_renovated">Обновлен в %1$s году</string>
+    <string name="ta_hotel_about_hotel_type_hotel">%1$s, %2$s</string>
+    <plurals name="ta_rooms">
+        <item quantity="one">%1$s номер</item>
+        <item quantity="few">%1$s номера</item>
+        <item quantity="many">%1$s номеров</item>
+        <item quantity="other">%1$s номеров</item>
+    </plurals>
+    <string name="ta_hotel_about_hotel_price_group">Ценовая категория %1$s</string>
+    <string name="ta_hotel_about_hotel_language_amenities">Персонал говорит на языках: %1$s</string>
+    <string name="ta_hotel_about_hotel_check_in">Заезд с %1$s</string>
+    <string name="ta_hotel_about_hotel_check_out">Выезд до %1$s</string>
+    <string name="ta_hotel_room_amenities_block_title">Удобства в номере</string>
+    <string name="ta_hotel_hotel_amenities_block_title">Удобства в отеле</string>
+    <string name="ta_hotel_rating_block_title">Рейтинг</string>
+    <string name="ta_hotel_location_block_title">Расположение</string>
+    <string name="ta_hotel_reviews_block_title">Отзывы</string>
+    <string name="ta_hotel_all_reviews_button">Все отзывы</string>
+    <string name="ta_hotel_all_proposals_button">Все номера</string>
+    <plurals name="ta_hotel_rating_based_on">
+        <item quantity="one">На основе %1$s оценки</item>
+        <item quantity="few">На основе %1$s оценок</item>
+        <item quantity="many">На основе %1$s оценок</item>
+        <item quantity="other">На основе %1$s оценок</item>
+    </plurals>
+    <string name="ta_hotel_book_button">Забронировать</string>
+    <string name="ta_hotel_book_empty_button"></string>
+    <string name="ta_hotel_show_on_map_button">Показать на карте</string>
+    <string name="ta_hotels_distance_km">%1$s км</string>
+    <string name="ta_hotels_distance_m">%1$s м</string>
+    <string name="ta_hotels_distance_to_center">Центр города (%1$s)</string>
+    <string name="ta_hotels_distance_to_center_without_name">Центр города</string>
+    <string name="ta_hotels_option_breackfast_included">Завтрак включен</string>
+    <string name="ta_hotels_option_without_breakfast">Без завтрака</string>
+    <string name="ta_hotels_option_card_required">Требуется карта</string>
+    <string name="ta_hotels_option_with_deposit">С депозитом</string>
+    <string name="ta_hotels_option_free_wifi">Бесплатный wi-fi</string>
+    <string name="ta_hotels_option_free_cancelation">Бесплатная отмена</string>
+    <string name="ta_hotels_option_without_cancelation">Без отмены</string>
+    <string name="ta_hotels_option_can_smoke">Можно курить</string>
+    <string name="ta_hotels_option_cant_smoke">Нельзя курить</string>
+    <string name="ta_hotels_option_penthouse">Пентхаус</string>
+    <string name="ta_hotels_option_all_inclusive">Всё включено</string>
+    <string name="ta_hotels_option_air_conditioner">Кондиционер</string>
+    <string name="ta_hotels_option_fan">Фен</string>
+    <string name="ta_hotels_option_balcony">Балкон</string>
+    <string name="ta_hotels_option_terrace">Терраса</string>
+    <string name="ta_hotels_option_shared_bathroom">Общая ванная</string>
+    <string name="ta_hotels_option_without_card_required">Карта не требуется</string>
+    <string name="ta_hotels_option_without_deposit">Без депозита</string>
+    <string name="ta_hotels_option_half_board">Полупансион</string>
+    <string name="ta_hotels_option_full_board">Полный пансион</string>
+    <string name="ta_hotels_option_ultra_all_inclusive">Ультра всё включено</string>
+    <string name="ta_hotels_option_pay_later">Оплата позже</string>
+    <string name="ta_hotels_option_pay_now">Оплата сейчас</string>
+    <string name="ta_hotels_option_private_pool">Свой бассейн</string>
+    <plurals name="ta_hotels_option_available">
+        <item quantity="one">Остался %1$s номер</item>
+        <item quantity="few">Осталось %1$s номера</item>
+        <item quantity="many">Осталось %1$s номеров</item>
+        <item quantity="other">Осталось %1$s номеров</item>
+    </plurals>
+    <plurals name="ta_hotels_option_bedrooms">
+        <item quantity="one">%1$s спальня</item>
+        <item quantity="few">%1$s спальни</item>
+        <item quantity="many">%1$s спален</item>
+        <item quantity="other">%1$s спален</item>
+    </plurals>
+    <string name="ta_hotels_option_beds_double">Две одноместные кровати</string>
+    <string name="ta_hotels_option_beds_twin">Двуспальная кровать</string>
+    <string name="ta_hotels_suggests_title">Похожие варианты размещения</string>
+    <string name="ta_hotels_geo_position_error">Ошибка определения местоположения</string>
+    <!--    WebViewFragment-->
+    <string name="ta_hotels_webview_exit_dialog_title">Вернуться к поиску отелей?</string>
+    <string name="ta_hotels_webview_exit_dialog_ok_button">Вернуться</string>
+    <string name="ta_hotels_webview_exit_dialog_cancel_button">Остаться</string>
+    <!-- HotelMapDialog -->
+    <string name="ta_hotel_map_dialog_title">Отель на карте</string>
+    <string name="ta_hotel_map_dialog_category_metro_station">Метро</string>
+    <string name="ta_hotel_map_dialog_category_sight">Обзорная площадка</string>
+    <string name="ta_hotel_map_dialog_category_train_station">Ж/д–станция</string>
+    <string name="ta_hotel_map_dialog_category_airport">Аэропорт</string>
+    <string name="ta_hotel_map_dialog_category_business">Бизнес-район</string>
+    <string name="ta_hotel_map_dialog_category_beach">Пляж</string>
+    <string name="ta_hotel_map_dialog_category_ski_lift">Подъемник</string>
+    <string name="ta_hotel_map_dialog_category_shopping">Торговый центр</string>
+    <string name="ta_hotel_map_dialog_category_city_center">Центр города</string>
+    <string name="ta_hotel_map_dialog_distance_km">%1$s км</string>
+    <string name="ta_hotel_map_dialog_distance_m">%1$s м</string>
+    <!-- HotelReviewsFragment -->
+    <string name="ta_hotel_reviews_toolbar_title">Все отзывы</string>
+    <string name="ta_hotel_reviews_header_title">Главное из отзывов</string>
+    <string name="ta_hotel_reviews_header_description">Вам не нужно читать тысячи отзывов для каждого отеля – умный компьютер проанализировал их все и выбрал главное по каждой теме.</string>
+    <!-- HotelRoomsDialog -->
+    <string name="ta_hotel_rooms_title">Все номера</string>
+    <string name="ta_hotel_rooms_choose_button">Выбрать номер</string>
+    <string name="ta_hotel_rooms_other_rooms">Другие номера</string>
+    <!-- HotelFiltersDialog -->
+    <string name="ta_hotel_filters_toolbar_title">Фильтры</string>
+    <string name="ta_hotel_filters_reset">Сбросить</string>
+    <string name="ta_hotel_filters_sort">Сортировка</string>
+    <string name="ta_hotel_filters_recommend">Рекомендуемое</string>
+    <string name="ta_hotel_filters_cost">Стоимость</string>
+    <string name="ta_hotel_filters_rating">Рейтинг</string>
+    <string name="ta_hotel_filters_rewiews">Количество отзывов</string>
+    <string name="ta_hotel_filters_any">Любой</string>
+    <string name="ta_hotel_filters_location">Местоположение</string>
+    <string name="ta_hotel_filters_distance_to_center">Расстояние до центра</string>
+    <string name="ta_hotel_filters_distance_km">до %1$s км</string>
+    <string name="ta_hotel_filters_distance_km_max">%1$s км</string>
+    <string name="ta_hotel_filters_distance_m">до %1$s м</string>
+    <string name="ta_hotel_filters_distance_m_max">%1$s м</string>
+    <string name="ta_hotel_filters_rating_range">от %1$s</string>
+    <string name="ta_hotel_filters_payment">Питание и оплата</string>
+    <string name="ta_hotel_filters_extra_title">Дополнительно</string>
+    <plurals name="ta_hotel_filters_success_button">
+        <item quantity="one">Показать %1$s отель</item>
+        <item quantity="few">Показать %1$s отеля</item>
+        <item quantity="many">Показать %1$s отелей</item>
+        <item quantity="other">Показать %1$s отелей</item>
+    </plurals>
+    <string name="ta_hotel_filters_no_hotels">Нет подходящих отелей</string>
+    <string name="ta_hotel_filters_housing_type_title">Тип жилья</string>
+    <string name="ta_hotel_filters_hide_common_rooms">Скрыть общие номера</string>
+    <string name="ta_hotel_filters_hide_no_available_rooms">Скрыть распроданное жилье</string>
+    <string name="ta_hotel_filters_room_amenities_title">Удобства в номере</string>
+    <string name="ta_hotel_filters_hotel_amenities">Удобства в отеле</string>
+    <string name="ta_hotel_filters_hotel_popularity">Популярность</string>
+    <string name="ta_hotel_filters_stars_count">Количество звезд</string>
+    <string name="ta_hotel_filters_atmosphere">Атмосфера</string>
+    <string name="ta_hotel_filters_search_hotel">Поиск конкретного отеля</string>
+    <string name="ta_hotel_filters_search_choose_on_map">Выбрать на карте</string>
+    <string name="ta_hotel_filters_search_hotel_hint">Поиск отеля</string>
+    <string name="ta_hotel_filters_distance_to_anu_subway">Любое метро</string>
+    <string name="ta_hotel_filters_hotels_nets_title">Отельные сети</string>
+    <string name="ta_hotel_filters_hotels_nets_all">Любые</string>
+    <string name="ta_hotel_filters_districts_title">Районы</string>
+    <string name="ta_hotel_filters_districts_all">Любые</string>
+    <string name="ta_hotel_filters_agencies_title">Агентства бронирования</string>
+    <string name="ta_hotel_filters_agencies_all">Любые</string>
+    <!-- HotelChainFiltersFragment -->
+    <string name="ta_filters_hotel_chain_title">Отельные сети</string>
+    <!-- HotelSortDialog -->
+    <string name="ta_hotel_sort_title">Сортировка</string>
+    <string name="ta_hotel_sort_recommend">Рекомендуемое</string>
+    <string name="ta_hotel_sort_popularity">Популярность</string>
+    <string name="ta_hotel_sort_gaining_popularity">Набирающие популярность</string>
+    <string name="ta_hotel_sort_ratings">Оценка гостей</string>
+    <string name="ta_hotel_sort_distance_to">Расстояние до</string>
+    <string name="ta_hotel_sort_price">Цена</string>
+
+    <!-- RoomPhotosDialog -->
+    <string name="ta_hotel_photos">Фотографии отеля</string>
+    <string name="ta_room_photos">Фотографии номера</string>
+
+    <!-- HotelRoomsFiltersDialog -->
+    <string name="ta_hotel__rooms_filter_dialog_grouping_title">Группировка</string>
+    <string name="ta_hotel__rooms_filter_dialog_bed_type_title">Тип кровати</string>
+    <string name="ta_hotel__rooms_filter_dialog_button">Показать %1$s вариантов</string>
+    <string name="ta_hotel_rooms_filter_dialog_rooms">Номера</string>
+    <string name="ta_hotel_rooms_filter_dialog_agents">Агентства</string>
+    <string name="ta_hotel_rooms_filter_dialog_disable_common_filters">Отключить общие фильтры</string>
+    <string name="ta_hotel_rooms_filter_dialog_show_all_results_without_filters">Показать все предложения без учёта фильтров, выбранных в результате поиска</string>
+    <string name="ta_hotel_rooms_filter_dialog_prices">Цены</string>
+    <plurals name="ta_hotel_rooms_filter_dialog_success_button">
+        <item quantity="one">Показать %1$s вариант</item>
+        <item quantity="few">Показать %1$s варианта</item>
+        <item quantity="many">Показать %1$s вариантов</item>
+        <item quantity="other">Показать %1$s вариантов</item>
+    </plurals>
+    <string name="ta_hotel_rooms_filter_dialog_no_hotels">Нет подходящих вариантов</string>
+
+    <!-- SelectHotelDistanceToDialog -->
+    <string name="ta_select_hotel_distance_to_title">Расстояние до</string>
+    <string name="ta_select_hotel_distance_to_search_point">Точка поиска</string>
+    <string name="ta_select_hotel_distance_to_map_point">Точка на карте</string>
+    <string name="ta_select_hotel_distance_to_any_subway">Любое метро</string>
+    <string name="ta_select_hotel_distance_to_airports">Аэропорты</string>
+    <string name="ta_select_hotel_distance_to_train_stations">Вокзалы</string>
+
+    <!-- endregion -->
+
+    <!-- region Feature-info -->
+
+    <!-- InfoFragment -->
+    <string name="ta_info_title">Информация</string>
+    <string name="ta_info_personal_item_title">Персональное</string>
+    <string name="ta_info_other_item_title">Другое</string>
+    <string name="ta_info_item_favorites">Избранное</string>
+    <string name="ta_info_item_region_settings">Региональные настройки</string>
+    <string name="ta_info_item_prices_display">Отображение цен</string>
+    <string name="ta_info_item_about_app">О приложении</string>
+    <string name="ta_info_item_contact_us">Связаться с нами</string>
+    <string name="ta_info_item_rate_app">Оценить приложение</string>
+    <string name="ta_info_item_share_app">Поделиться приложением</string>
+    <string name="ta_info_item_confidential">Конфиденциальность</string>
+    <string name="ta_info_feedback_subject">"Whitelabel feedback"</string>
+
+    <!-- RegionSettingsFragment -->
+    <string name="ta_region_settings_subtitle">Региональные настройки нужны для отображения подходящих билетов и правил въезда в страну</string>
+    <string name="ta_region_settings_item_app_language">Язык приложения</string>
+    <string name="ta_region_settings_item_country">Страна</string>
+    <string name="ta_region_settings_item_currency">Валюта</string>
+    <!-- CurrenciesFragment -->
+    <string name="ta_currency_fragment_title">Валюта</string>
+    <string name="ta_currency_item_show_all">Все валюты</string>
+    <string name="ta_currency_search_hint">Поиск валюты</string>
+    <string name="ta_currency_search_zero_data_title">Валюта не найдена</string>
+    <string name="ta_currency_search_zero_data_subtitle">Попробуйте исправить поисковый запрос</string>
+    <string name="ta_currency_auto_selected_title">Не удалось подобрать валюту по вашему местоположению. Установлена валюта по умолчанию</string>
+    <!-- LanguageFragment -->
+    <string name="ta_language_search_zero_data_title">Язык не найден</string>
+    <!-- CountriesFragment -->
+    <string name="ta_country_search_hint">Поиск страны</string>
+    <string name="ta_country_search_zero_data_title">Страна не найдена</string>
+    <!-- PriceDisplayFragment -->
+    <string name="ta_price_display_title">Отображение цен</string>
+    <string name="ta_price_display_flight_title">Авиабилеты</string>
+    <string name="ta_price_display_hotel_title">Отели</string>
+    <string name="ta_price_display_hotel_all">Цены за все ночи</string>
+    <string name="ta_price_display_hotel_single">Цены за 1 ночь</string>
+    <!-- FavoritesFragment -->
+    <string name="ta_favorites_title">Избранное</string>
+    <string name="ta_flights_tab">Авиабилеты</string>
+    <string name="ta_hotels_tab">Отели</string>
+    <string name="ta_confidentiality">Конфиденциальность</string>
+
+    <!-- AboutAppFragment -->
+    <string name="ta_about_app_subtitle">Версия приложения %s</string>
+    <string name="ta_about_app_button_text">Посетить сайт</string>
+
+    <!-- endregion -->
+
+</resources>

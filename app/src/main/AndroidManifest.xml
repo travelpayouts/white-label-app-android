@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <application
+        android:name="com.travelapp.TravelApp"
+        android:allowBackup="false"
+        android:label="@string/ta_app_name"
+        android:icon="${appIconRes}"
+        android:supportsRtl="true"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:theme="@style/Theme.TravelApp"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        tools:replace="android:allowBackup">
+
+        <activity
+            android:name="${custom_app_id}.StartActivity"
+            android:exported="true"
+            android:windowSoftInputMode="adjustResize"
+            android:screenOrientation="portrait"
+            android:noHistory="true"
+            tools:ignore="LockedOrientationActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="https" />
+                <data android:host="${intent_filter}" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name="com.travelapp.ui.activities.MainActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity">
+        </activity>
+
+        <service
+            android:name=".TravelAppMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+
+
+        <!-- Set custom default icon. This is used when no icon is set for incoming notification messages. -->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/ic_16_push_notification" />
+                        
+            <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="@string/google_admob_app_id"/>
+                        
+    </application>
+
+</manifest>
