@@ -12,7 +12,7 @@ object WhiteLabelConf {
 
     const val host: String = "com.travelapp"
     
-    const val apiKey: String = "1357a67c2ab973dc8604f34481e7c51f"
+    const val apiKey: String = ""
 
     const val email: String = "test@test.com"
 
@@ -20,7 +20,7 @@ object WhiteLabelConf {
 
     const val appId: String = "com.travelapp"
     
-    val marker: Int = 418761
+    val marker: Int = 0
     
     val clientDeviceHost: String = "iphone.apartments"
 
@@ -46,7 +46,7 @@ object WhiteLabelConf {
     }
 
     object Advertising {
-        const val appodealApiKey: String = "e17770bc804233f23f7a8fdfd5e8c7f2d0053be8630313a8"
+        const val appodealApiKey: String = ""
 
         object Placements {
             const val airTicketPlacementInterstitial: String = "air_ticket_placement_interstitial"

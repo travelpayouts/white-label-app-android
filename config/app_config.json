@@ -7,8 +7,8 @@
         "versionCode": 2
       },
       "apple": {
-        "id": "io.cleverpumpkin.travel-app",
-        "team_id": "LSKU6K4UN2"
+        "id": "com.travelapp",
+        "team_id": ""
       }
     },
     "display_name": {
@@ -19,8 +19,8 @@
       }
     },
     "advertising": {
-      "appodeal_api_key": "e17770bc804233f23f7a8fdfd5e8c7f2d0053be8630313a8",
-      "google_admob_app_id": "ca-app-pub-3940256099942544~1458002511",
+      "appodeal_api_key": "",
+      "google_admob_app_id": "",
       "placements": {
         "air_ticket_placement_interstitial": "air_ticket_placement_interstitial",
         "air_ticket_placement_banner": "air_ticket_placement_banner",
@@ -38,12 +38,12 @@
       }
     },
     "feedback_email": "test@test.com",
-    "google_maps_api_key": "AIzaSyBpbAYkGmVS22Sedxv-jNy3t7ykbxgx3Jk",
+    "google_maps_api_key": "",
     "appstore_id": "",
-    "marker": 418761,
+    "marker": 0,
     "client_device_host": "iphone.apartments",
     "host": "com.travelapp",
-    "api_key": "1357a67c2ab973dc8604f34481e7c51f",
+    "api_key": "",
     "sharing_data": {
       "sharing_link": "https://travelapp.whitelabel.org",
       "handling_link": "https://travelapp.whitelabel.org"
@@ -74,7 +74,7 @@
       "developer": {
         "base": "en",
         "localized": {
-          "en": "CleverPunpkin Ltd.",
+          "en": "CleverPumpkin Ltd.",
           "ru": "OOO CleverPumpkin"
         }
       },
