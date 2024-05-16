@@ -18,7 +18,7 @@ object HsvColorsHandler {
         print("Generating colors.xml... ")
         val baseColor = Color.decode(baseColorString)
         val primaryLight = baseColor.toHexString()
-        val primaryDark = baseColor.modifyHSB(0.55f, 1f).toHexString() //TODO discuss with designer
+        val primaryDark = baseColor.modifyHSB(0.55f, 1f).toHexString()
 
         val primaryDisableLight = baseColor.modifyHSB(0.5f, 1.0f).toHexString()
         val primaryDisableDark = baseColor.modifyHSB(0.5f, 0.3f).toHexString()

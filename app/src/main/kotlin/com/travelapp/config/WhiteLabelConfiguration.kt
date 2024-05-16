@@ -35,13 +35,13 @@ object WhiteLabelConf {
     const val appsflyerDevKey: String = ""
 
     object Style {
-        val cornerType: CornerType = CornerType.getByName("sharp")
+        val cornerType: CornerType = CornerType.getByName("round")
         val iconsType: IconsType = IconsType.getByName("tint")
     }
     
     object InfoConfig {
         val enabledItems: Set<EnabledInfoItems> = setOf<EnabledInfoItems?>(
-            EnabledInfoItems.getByName("favorites"), EnabledInfoItems.getByName("about_app"), EnabledInfoItems.getByName("rate_app"), EnabledInfoItems.getByName("share_app")
+            EnabledInfoItems.getByName("about_app"), EnabledInfoItems.getByName("rate_app"), EnabledInfoItems.getByName("share_app")
         ).filterNotNull().toSet()
     }
 

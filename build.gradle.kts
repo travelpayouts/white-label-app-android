@@ -1,3 +1,5 @@
+import kotlin.jvm.internal.Intrinsics.Kotlin
+
 
 
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
@@ -5,6 +7,7 @@ allprojects {
     repositories {
         google()
         mavenCentral()
+        mavenLocal()
         gradlePluginPortal()
         maven("https://jitpack.io")
         // Add Appodeal repository
@@ -16,6 +19,7 @@ buildscript {
     repositories {
         google()
         mavenCentral()
+        mavenLocal()
         gradlePluginPortal()
     }
     dependencies {

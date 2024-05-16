@@ -51,14 +51,13 @@
     "appsflyer_dev_key": ""
   },
   "style": {
-    "base_color": "#FFC515",
-    "corners_type": "sharp",
+    "base_color": "#122faa",
+    "corners_type": "round",
     "icons_type": "tint",
-    "palette": "hsv"
+    "palette": "lab"
   },
   "info_screen_config": {
     "items_to_display": [
-      "favorites",
       "about_app",
       "rate_app",
       "share_app"

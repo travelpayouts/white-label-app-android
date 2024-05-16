@@ -15,6 +15,7 @@ plugins {
     id(configuration.BuildPlugins.GOOGLE_SERVICES)
     id(configuration.BuildPlugins.EASY_LAUNCHER) version "6.2.0"
 
+
 }
 
 private val FILE_NAME = "handling_link.properties"
@@ -25,6 +26,7 @@ private val prop: Properties = Properties().apply {
     load(fis)
     fis.close()
 }
+
 
 android {
     namespace = "com.travelapp"

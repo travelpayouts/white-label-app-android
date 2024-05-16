@@ -38,13 +38,6 @@ open class TravelApp : Application() {
                 WhiteLabelConf.Style.iconsType.name
             )
         )
-        val flightsFavEnabled =
-            WhiteLabelConf.InfoConfig.enabledItems.contains(EnabledInfoItems.FAVORITES) &&
-                    WhiteLabelConf.flightsTabEnabled
-
-        val hotelsFavEnabled =
-            WhiteLabelConf.InfoConfig.enabledItems.contains(EnabledInfoItems.FAVORITES) &&
-                    WhiteLabelConf.hotelsTabEnabled
 
         val advertisingConfig = if (DebugMenu.getShowAds(this)) {
             AdvertisingConfig(
@@ -63,8 +56,8 @@ open class TravelApp : Application() {
             cornerType = cornerType,
             marker = WhiteLabelConf.marker,
             apiKey = WhiteLabelConf.apiKey,
-            flightsFavoritesEnabled = flightsFavEnabled,
-            hotelsFavoritesEnabled = hotelsFavEnabled,
+            flightsFavoritesEnabled = WhiteLabelConf.flightsTabEnabled,
+            hotelsFavoritesEnabled = WhiteLabelConf.hotelsTabEnabled,
             flightsPriceSettingsEnabled = WhiteLabelConf.flightsTabEnabled,
             hotelsPriceSettingsEnabled = WhiteLabelConf.hotelsTabEnabled,
             enabledInfoItems = WhiteLabelConf.InfoConfig.enabledItems,
