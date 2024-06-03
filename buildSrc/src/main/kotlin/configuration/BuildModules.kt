@@ -9,7 +9,7 @@ object BuildModules {
     const val SDK = ":travel-sdk"
 
     object Common {
-        const val DEBUG = ":common-debug-menu-noop"
+        const val DEBUG = ":common-debug-menu"
     }
 
 }

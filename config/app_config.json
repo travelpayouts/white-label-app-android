@@ -3,11 +3,11 @@
     "identifier": {
       "android": {
         "id": "com.travelapp",
-        "versionName": "1.2.0",
-        "versionCode": 2
+        "versionName": "1.2.1",
+        "versionCode": 3
       },
       "apple": {
-        "id": "com.travelapp",
+        "id": "",
         "team_id": ""
       }
     },
@@ -22,10 +22,10 @@
       "appodeal_api_key": "",
       "google_admob_app_id": "",
       "placements": {
-        "air_ticket_placement_interstitial": "air_ticket_placement_interstitial",
-        "air_ticket_placement_banner": "air_ticket_placement_banner",
-        "hotels_placement_interstitial": "hotels_placement_interstitial",
-        "hotels_placement_banner": "hotels_placement_banner"
+        "air_ticket_placement_interstitial": "",
+        "air_ticket_placement_banner": "",
+        "hotels_placement_interstitial": "",
+        "hotels_placement_banner": ""
       }
     }
   },
@@ -45,8 +45,8 @@
     "host": "com.travelapp",
     "api_key": "",
     "sharing_data": {
-      "sharing_link": "https://travelapp.whitelabel.org",
-      "handling_link": "https://travelapp.whitelabel.org"
+      "sharing_link": "",
+      "handling_link": ""
     },
     "appsflyer_dev_key": ""
   },

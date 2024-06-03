@@ -16,7 +16,7 @@ object WhiteLabelConf {
 
     const val email: String = "test@test.com"
 
-    const val appVerison: String = "1.2.0"
+    const val appVerison: String = "1.2.1"
 
     const val appId: String = "com.travelapp"
     
@@ -28,9 +28,9 @@ object WhiteLabelConf {
     
     val hotelsTabEnabled: Boolean = true
 
-    const val sharingLink: String = "https://travelapp.whitelabel.org"
+    const val sharingLink: String = ""
 
-    const val handlingLink: String = "https://travelapp.whitelabel.org"
+    const val handlingLink: String = ""
 
     const val appsflyerDevKey: String = ""
 
@@ -49,13 +49,13 @@ object WhiteLabelConf {
         const val appodealApiKey: String = ""
 
         object Placements {
-            const val airTicketPlacementInterstitial: String = "air_ticket_placement_interstitial"
+            const val airTicketPlacementInterstitial: String = ""
 
-            const val airTicketPlacementBanner: String = "air_ticket_placement_banner"
+            const val airTicketPlacementBanner: String = ""
 
-            const val hotelsPlacementInterstitial: String = "hotels_placement_interstitial"
+            const val hotelsPlacementInterstitial: String = ""
 
-            const val hotelsPlacementBanner: String = "hotels_placement_banner"
+            const val hotelsPlacementBanner: String = ""
 
         }
     }
