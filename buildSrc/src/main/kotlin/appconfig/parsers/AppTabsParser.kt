@@ -16,6 +16,7 @@ object AppTabsParser {
      * Generate AppTabs object with tabs to provide in MainActivity bottombar
      */
     fun parseTabs(appModule: Project, screensToDisplay: List<ScreenToDisplay>) {
+        print("Generating AppTabs object...    ")
 
         val listString = buildString {
             append("listOf<AppTabs>(\n")
@@ -35,7 +36,6 @@ object AppTabsParser {
                         val id = "other$otherTabCount"
 
                         val params = screen.parameters ?: throw IllegalArgumentException("Parameters must not be null for 'other' tab")
-                        val icon = params.icon
                         LocalizationParser.parseLocalization(appModule, "ta_title_$id.xml", "ta_title_$id", params.title)
                         LocalizationParser.parseLocalization(appModule, "ta_url_$id.xml", "ta_url_$id", params.url)
                         append(
@@ -44,7 +44,7 @@ object AppTabsParser {
                                     idRes = R.id.ta_$id,
                                     graphId = R.navigation.ta_$id,
                                     title = R.string.ta_title_$id,
-                                    icon = R.drawable.ta_$icon,
+                                    icon = R.drawable.ta_ic_other_$otherTabCount,
                                     url = R.string.ta_url_$id
                                 ),
                             """//.trimIndent()
@@ -65,6 +65,8 @@ object AppTabsParser {
             appModule.layout.projectDirectory.file("$srcDir$packageNamePath/$filename").asFile
         file.parentFile.mkdirs()
         file.writeText(template.format(listString))
+
+        println("✅ ")
     }
 
 

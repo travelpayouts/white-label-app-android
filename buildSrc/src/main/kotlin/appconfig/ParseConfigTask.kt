@@ -101,7 +101,9 @@ abstract class ParseConfigTask : DefaultTask() {
             LabColorsHandler.generateColorsXml(appModule, baseColor)
         }
 
-        IconsHandler.copyCustomIcons(project, appModule)
+        IconsHandler.copyCustomAppIcons(project, appModule)
+
+        IconsHandler.copyCustomOtherIcons(project, appModule)
 
         BgImageParser.parseImage(project, appModule)
 

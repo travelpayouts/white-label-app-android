@@ -14,7 +14,7 @@ AppTabs.Hotels,
                                     idRes = R.id.ta_other1,
                                     graphId = R.navigation.ta_other1,
                                     title = R.string.ta_title_other1,
-                                    icon = R.drawable.ta_ic_default_other,
+                                    icon = R.drawable.ta_ic_other_1,
                                     url = R.string.ta_url_other1
                                 ),
                             
@@ -23,7 +23,7 @@ AppTabs.Hotels,
                                     idRes = R.id.ta_other2,
                                     graphId = R.navigation.ta_other2,
                                     title = R.string.ta_title_other2,
-                                    icon = R.drawable.ta_ic_default_other,
+                                    icon = R.drawable.ta_ic_other_2,
                                     url = R.string.ta_url_other2
                                 ),
                             

@@ -55,7 +55,7 @@ class AppModuleBuildConfiguration(
                 versionNameSuffix = ApplicationVersions.VERSION_NAME_SUFFIX
                 signingConfig = appExtension.signingConfigs.getByName(SigningConfigs.Debug.NAME)
                 setManifestPlaceholders(
-                    mapOf("appIconRes" to "@mipmap/ic_launcher")
+                    mapOf("appIconRes" to "@mipmap/ta_ic_launcher")
                 )
             }
 
@@ -67,7 +67,7 @@ class AppModuleBuildConfiguration(
                 signingConfig = appExtension.signingConfigs.getByName(SigningConfigs.Debug.NAME)
                 proguardFiles(*projectProguardFiles)
                 setManifestPlaceholders(
-                    mapOf("appIconRes" to "@mipmap/ic_launcher")
+                    mapOf("appIconRes" to "@mipmap/ta_ic_launcher")
                 )
             }
 
@@ -78,7 +78,7 @@ class AppModuleBuildConfiguration(
                 signingConfig = appExtension.signingConfigs.getByName(SigningConfigs.Release.NAME)
                 proguardFiles(*projectProguardFiles)
                 setManifestPlaceholders(
-                    mapOf("appIconRes" to "@mipmap/ic_launcher")
+                    mapOf("appIconRes" to "@mipmap/ta_ic_launcher")
                 )
             }
 
@@ -89,7 +89,7 @@ class AppModuleBuildConfiguration(
                 proguardFiles(*projectProguardFiles)
                 setMatchingFallbacks(BuildTypes.RC.name)
                 setManifestPlaceholders(
-                    mapOf("appIconRes" to "@mipmap/ic_launcher")
+                    mapOf("appIconRes" to "@mipmap/ta_ic_launcher")
                 )
             }
         }

@@ -14,8 +14,8 @@
     "display_name": {
       "base": "en",
       "localized": {
-        "en": "Travel App EN TEST",
-        "ru": "Travel App RU TEST"
+        "en": "Travel App EN",
+        "ru": "Travel App RU"
       }
     },
     "advertising": {
@@ -51,7 +51,7 @@
     "appsflyer_dev_key": ""
   },
   "style": {
-    "base_color": "#122faa",
+    "base_color": "#7648C5",
     "corners_type": "round",
     "icons_type": "tint",
     "palette": "lab"
@@ -98,7 +98,6 @@
         "type": "other",
         "parameters": {
           "id": "Other1",
-          "icon": "ic_default_other",
           "title": {
             "base": "en",
             "localized": {
@@ -119,7 +118,6 @@
         "type": "other",
         "parameters": {
           "id": "Other2",
-          "icon": "ic_default_other",
           "title": {
             "base": "en",
             "localized": {

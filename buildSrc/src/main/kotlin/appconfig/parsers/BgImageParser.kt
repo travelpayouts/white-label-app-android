@@ -4,9 +4,7 @@ import org.gradle.api.Project
 import org.jetbrains.kotlin.gradle.internal.ensureParentDirsCreated
 import java.awt.image.BufferedImage
 import java.io.File
-import javax.imageio.IIOImage
 import javax.imageio.ImageIO
-import javax.imageio.ImageWriteParam
 
 
 object BgImageParser {
@@ -16,10 +14,10 @@ object BgImageParser {
 
     // config module dirs and files
     private const val RES_FOLDER = "src/main/res/"
-    private const val IMG_FILENAME = "img_default_background.png"
-    private const val IMG_FILENAME_XML = "img_default_background.xml"
+    private const val IMG_FILENAME = "ta_img_default_background.png"
+    private const val IMG_FILENAME_XML = "ta_img_default_background.xml"
 
-    private const val DEFAULT_IMG_PATH = "src/main/res/drawable/img_default_main_background.xml"
+    private const val DEFAULT_IMG_PATH = "src/main/res/drawable/ta_img_default_main_background.xml"
 
     private const val WIDTH = 1440
     private const val HEIGHT = 3216
@@ -38,32 +36,32 @@ object BgImageParser {
 
         val files = project.file(IMAGES_DIR).listFiles()
 
-        val configModule = project.childProjects["config"] ?: throw IllegalStateException("config project not found")
+        val appModule = project.childProjects["app"] ?: throw IllegalStateException("config project not found")
 
         if (files.any { it.isXml() }) {
             val xmlDrawable = files.first { it.isXml() }
-            xmlDrawable.copyTo(configModule.file(RES_FOLDER + "drawable/" + IMG_FILENAME_XML), true)
+            xmlDrawable.copyTo(appModule.file(RES_FOLDER + "drawable/" + IMG_FILENAME_XML), true)
 
             Density.values().forEach {  density ->
-                val toDelete = configModule.file(RES_FOLDER + density.dirName + "/" + IMG_FILENAME)
+                val toDelete = appModule.file(RES_FOLDER + density.dirName + "/" + IMG_FILENAME)
                 if (toDelete.exists()) {
                     toDelete.delete()
                 }
             }
         } else if (files.any { it.isPng() || it.isJpg() }) {
             val srcFile = files.first { it.isPng() || it.isJpg() }
-            parseRasterImage(srcFile, configModule)
+            parseRasterImage(srcFile, appModule)
 
-            val toDelete = configModule.file(RES_FOLDER + "drawable/" + IMG_FILENAME_XML)
+            val toDelete = appModule.file(RES_FOLDER + "drawable/" + IMG_FILENAME_XML)
             if (toDelete.exists()) {
                 toDelete.delete()
             }
         } else {
-            val defaultDrawable = configModule.file(DEFAULT_IMG_PATH)
-            defaultDrawable.copyTo(configModule.file(RES_FOLDER + "drawable/" + IMG_FILENAME_XML), true)
+            val defaultDrawable = appModule.file(DEFAULT_IMG_PATH)
+            defaultDrawable.copyTo(appModule.file(RES_FOLDER + "drawable/" + IMG_FILENAME_XML), true)
 
             Density.values().forEach {  density ->
-                val toDelete = configModule.file(RES_FOLDER + density.dirName + "/" + IMG_FILENAME)
+                val toDelete = appModule.file(RES_FOLDER + density.dirName + "/" + IMG_FILENAME)
                 if (toDelete.exists()) {
                     toDelete.delete()
                 }
