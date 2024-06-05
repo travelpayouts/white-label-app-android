@@ -85,6 +85,7 @@ class AppModuleBuildConfiguration(
             getByName(BuildTypes.RELEASE.name).apply {
                 isDebuggable = false
                 isMinifyEnabled = true
+                isShrinkResources = false
                 signingConfig = appExtension.signingConfigs.getByName(SigningConfigs.Release.NAME)
                 proguardFiles(*projectProguardFiles)
                 setMatchingFallbacks(BuildTypes.RC.name)
