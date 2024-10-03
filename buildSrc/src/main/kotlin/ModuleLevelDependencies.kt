@@ -194,7 +194,7 @@ object Tools {
     const val KEYBOARD_VISIBILITY_EVENT = "net.yslibrary.keyboardvisibilityevent:keyboardvisibilityevent:3.0.0-RC3"
     const val CRUNCHY_CALENDAR = "ru.cleverpumpkin:crunchycalendar:2.6.1"
     const val SEISMIC = "com.squareup:seismic:1.0.3"
-    const val APPODEAL = "com.appodeal.ads:sdk:3.1.3.0"
+    const val APPODEAL = "com.appodeal.ads:sdk:3.3.1.0"
 }
 
 object Lottie {

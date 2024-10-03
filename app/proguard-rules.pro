@@ -153,5 +153,8 @@
 -keep class com.travelapp.sdk.internal.ui.utils.CommonExtensionsKt {
     *;
 }
+-keep class com.travelapp.sdk.internal.ui.utils.KeyboardVisibilityListener {
+    public <methods>;
+}
 
 # endregion

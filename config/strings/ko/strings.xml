@@ -108,7 +108,7 @@
   <string name="ta_filters_reset">재설정</string>
   <string name="ta_sorting_title">정렬 기준</string>
   <string name="ta_transfer_title">경유 횟수</string>
-  <plurals name="ta_transfer_count">
+  <plurals name="ta_transfer_count_0">
     <item quantity="other">%s회 경유</item>
   </plurals>
   <string name="ta_transfer_count">중간기착 횟수</string>
@@ -127,6 +127,7 @@
   <string name="ta_time_noon">오후</string>
   <string name="ta_time_evening">저녁</string>
   <string name="ta_luggage_title">항공권에 포함</string>
+  <string name="ta_layover_filter_title">최대 1회 경유</string>
   <string name="ta_luggage">수화물 포함만</string>
   <string name="ta_other_title">다른 옵션</string>
   <string name="ta_flight_time_title">비행 시간</string>
@@ -165,6 +166,7 @@
   <string name="ta_search_results_night_transfer">오버나이트 경유</string>
   <string name="ta_search_results_airport_change">공항 변경</string>
   <string name="ta_search_results_short_layover">짧은 레이오버</string>
+  <string name="ta_search_results_loading_text">항공권 검색 중…</string>
   <plurals name="ta_cheapest_transfer_count">
     <item quantity="other">%s회의 레이오버지만, 더 저렴합니다</item>
   </plurals>
@@ -342,6 +344,7 @@
   <string name="ta_hotels_search_results_not_refundable">취소 불가</string>
   <string name="ta_hotels_search_results_no_rooms">객실을 찾을 수 없습니다.</string>
   <string name="ta_hotels_search_results_loading_prices">가격 로드 중</string>
+  <string name="ta_hotels_search_results_loading_text">호텔 검색 중…</string>
   <string name="ta_dates_string">%1$s %2$s</string>
   <string name="ta_guests_string">%1$s, %2$s</string>
   <string name="ta_hotels_invalid_date_title">선택한 날짜가 지났습니다.</string>
@@ -511,7 +514,7 @@
   <string name="ta_info_feedback_subject">Whitelabel 피드백</string>
   <string name="ta_region_settings_subtitle">국가별 설정은 적합한 항공권 및 국가마다 다른 입국 규칙을 표시하는데 사용됩니다</string>
   <string name="ta_region_settings_item_app_language">앱 언어</string>
-  <string name="ta_region_settings_item_country">국가</string>
+  <string name="ta_region_settings_item_country">국가 / 지역</string>
   <string name="ta_region_settings_item_currency">통화</string>
   <string name="ta_currency_fragment_title">통화</string>
   <string name="ta_currency_item_show_all">모든 통화</string>

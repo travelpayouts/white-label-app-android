@@ -171,6 +171,7 @@
   <string name="ta_search_results_night_transfer">overnight layover</string>
   <string name="ta_search_results_airport_change">airport change</string>
   <string name="ta_search_results_short_layover">short layover</string>
+  <string name="ta_search_results_loading_text">Ищем авиабилеты…</string>
   <plurals name="ta_cheapest_transfer_count">
     <item quantity="one">%s layover, but it\'s cheaper</item>
     <item quantity="other">%s layovers, but it\'s cheaper</item>
@@ -359,6 +360,7 @@
   <string name="ta_hotels_search_results_not_refundable">Non-cancelable</string>
   <string name="ta_hotels_search_results_no_rooms">No rooms found</string>
   <string name="ta_hotels_search_results_loading_prices">Loading prices</string>
+  <string name="ta_hotels_search_results_loading_text">Ищем отели…</string>
   <string name="ta_dates_string">%1$s %2$s</string>
   <string name="ta_guests_string">%1$s, %2$s</string>
   <string name="ta_hotels_invalid_date_title">Selected dates have passed</string>

@@ -1,12 +1,13 @@
 package buildconfig
 
-import org.gradle.api.Project
 import com.android.build.gradle.LibraryExtension
 import com.android.build.gradle.internal.dsl.BuildType
+import com.android.build.gradle.internal.dsl.ProductFlavor
 import com.android.build.gradle.internal.dsl.SigningConfig
 import configuration.BuildTypes
+import configuration.ProductFlavors
 import org.gradle.api.NamedDomainObjectContainer
-import java.io.File
+import org.gradle.api.Project
 
 /**
  * Build configuration for android library module
@@ -48,5 +49,19 @@ class LibraryModuleBuildConfiguration(
         }
     }
 
+    override fun configureProductFlavors(
+        productFlavors: NamedDomainObjectContainer<ProductFlavor>,
+        buildTypes: NamedDomainObjectContainer<BuildType>
+    ) {
+        productFlavors.apply {
+            maybeCreate(ProductFlavors.BASIC).apply {
+                dimension = "products"
+            }
+
+            maybeCreate(ProductFlavors.UNLIMITED).apply {
+                dimension = "products"
+            }
+        }
+    }
 
 }

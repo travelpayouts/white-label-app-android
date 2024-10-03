@@ -113,7 +113,7 @@
   <string name="ta_filters_reset">Zurücksetzen</string>
   <string name="ta_sorting_title">Sortieren nach</string>
   <string name="ta_transfer_title">Zwischenstopps</string>
-  <plurals name="ta_transfer_count">
+  <plurals name="ta_transfer_count_0">
     <item quantity="one">%s Zwischenstop</item>
     <item quantity="other">%s Zwischenstopps</item>
   </plurals>
@@ -133,6 +133,7 @@
   <string name="ta_time_noon">Nachmittag</string>
   <string name="ta_time_evening">Abend</string>
   <string name="ta_luggage_title">Im Ticket enthalten</string>
+  <string name="ta_layover_filter_title">Max. 1 Zwischenlandung</string>
   <string name="ta_luggage">Nur inklusive Gepäck</string>
   <string name="ta_other_title">Mehr Optionen</string>
   <string name="ta_flight_time_title">Dauer</string>
@@ -171,6 +172,7 @@
   <string name="ta_search_results_night_transfer">zwischenstopp mit Übernachtung</string>
   <string name="ta_search_results_airport_change">flughafenwechsel</string>
   <string name="ta_search_results_short_layover">kurzer Zwischenstopp</string>
+  <string name="ta_search_results_loading_text">Flüge werden gesucht …</string>
   <plurals name="ta_cheapest_transfer_count">
     <item quantity="one">%s Zwischenstopp, aber günstiger</item>
     <item quantity="other">%s Zwischenstopps, aber günstiger</item>
@@ -359,6 +361,7 @@
   <string name="ta_hotels_search_results_not_refundable">Nicht stornierbar</string>
   <string name="ta_hotels_search_results_no_rooms">Keine Zimmer gefunden</string>
   <string name="ta_hotels_search_results_loading_prices">Preise werden geladen</string>
+  <string name="ta_hotels_search_results_loading_text">Hotels werden gesucht …</string>
   <string name="ta_dates_string">%1$s %2$s</string>
   <string name="ta_guests_string">%1$s, %2$s</string>
   <string name="ta_hotels_invalid_date_title">Ausgewählte Daten sind bereits verstrichen</string>
@@ -534,7 +537,7 @@
   <string name="ta_info_feedback_subject">Feedback zur Whitelabel</string>
   <string name="ta_region_settings_subtitle">Regionale Einstellungen werden verwendet, um geeignete Tickets und Einreiseregeln für verschiedene Länder anzuzeigen</string>
   <string name="ta_region_settings_item_app_language">App-Sprache</string>
-  <string name="ta_region_settings_item_country">Land</string>
+  <string name="ta_region_settings_item_country">Land / Region</string>
   <string name="ta_region_settings_item_currency">Währung</string>
   <string name="ta_currency_fragment_title">Währung</string>
   <string name="ta_currency_item_show_all">Alle Währungen</string>

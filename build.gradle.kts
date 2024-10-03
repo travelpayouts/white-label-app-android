@@ -38,6 +38,3 @@ tasks.register<util.IncreaseAppVersionTask>("increaseAppVersion")
 tasks.register<util.CleanBuildSrc>("cleanBuildSrc")
 
 tasks.register<appconfig.ParseConfigTask>("parseConfig")
-
-
-

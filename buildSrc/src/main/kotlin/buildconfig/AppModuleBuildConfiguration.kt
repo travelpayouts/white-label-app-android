@@ -3,10 +3,12 @@ package buildconfig
 import com.android.build.api.dsl.ApplicationDefaultConfig
 import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
 import com.android.build.gradle.internal.dsl.BuildType
+import com.android.build.gradle.internal.dsl.ProductFlavor
 import com.android.build.gradle.internal.dsl.SigningConfig
 import configuration.ApplicationVersions
 import configuration.BuildTypes
 import configuration.Config
+import configuration.ProductFlavors
 import configuration.SigningConfigs
 import org.gradle.api.NamedDomainObjectContainer
 import org.gradle.api.Project
@@ -118,7 +120,20 @@ class AppModuleBuildConfiguration(
             .setStorePassword(signingProps.getProperty("KEYSTORE_FILE_PASSWORD_RELEASE"))
             .setKeyAlias(signingProps.getProperty("KEY_ALIAS_RELEASE"))
             .setKeyPassword(signingProps.getProperty("KEY_PASSWORD_RELEASE"))
-
     }
 
+    override fun configureProductFlavors(
+        productFlavors: NamedDomainObjectContainer<ProductFlavor>,
+        buildTypes: NamedDomainObjectContainer<BuildType>
+    ) {
+        productFlavors.apply {
+            maybeCreate(ProductFlavors.BASIC).apply {
+                dimension = "products"
+            }
+
+            maybeCreate(ProductFlavors.UNLIMITED).apply {
+                dimension = "products"
+            }
+        }
+    }
 }

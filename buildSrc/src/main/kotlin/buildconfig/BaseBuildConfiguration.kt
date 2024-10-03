@@ -5,6 +5,7 @@ import org.gradle.api.Project
 import com.android.build.gradle.BaseExtension
 import com.android.build.gradle.internal.dsl.BuildType
 import com.android.build.gradle.internal.dsl.JavaCompileOptions
+import com.android.build.gradle.internal.dsl.ProductFlavor
 import com.android.build.gradle.internal.dsl.SigningConfig
 import configuration.Config
 import model.ProguardFiles
@@ -63,6 +64,9 @@ abstract class BaseBuildConfiguration(
 
             configureSigningConfigs(signingConfigs)
             configureBuildTypes(buildTypes)
+
+            flavorDimensions("products")
+            configureProductFlavors(productFlavors, buildTypes)
         }
     }
 
@@ -83,7 +87,10 @@ abstract class BaseBuildConfiguration(
         )
     }
 
-
+    abstract fun configureProductFlavors(
+        productFlavors: NamedDomainObjectContainer<ProductFlavor>,
+        buildTypes: NamedDomainObjectContainer<BuildType>
+    )
 }
 
 fun BaseExtension.setCompose(compilerVersion: String) {

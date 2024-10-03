@@ -2,9 +2,9 @@
   "base_configuration": {
     "identifier": {
       "android": {
-        "id": "com.travelapp",
-        "versionName": "1.2.2",
-        "versionCode": 3
+        "id": "",
+        "versionName": "1.0.0",
+        "versionCode": 1
       },
       "apple": {
         "id": "",
@@ -14,8 +14,8 @@
     "display_name": {
       "base": "en",
       "localized": {
-        "en": "Travel App EN",
-        "ru": "Travel App RU"
+        "en": "White Label App",
+        "ru": ""
       }
     },
     "advertising": {
@@ -41,8 +41,8 @@
     "google_maps_api_key": "",
     "appstore_id": "",
     "marker": 0,
-    "client_device_host": "iphone.apartments",
-    "host": "com.travelapp",
+    "client_device_host": "",
+    "host": "",
     "api_key": "",
     "sharing_data": {
       "sharing_link": "",
@@ -51,10 +51,13 @@
     "appsflyer_dev_key": ""
   },
   "style": {
-    "base_color": "#7648C5",
+    "base_color": "#d9332e",
     "corners_type": "round",
     "icons_type": "tint",
-    "palette": "lab"
+    "palette": "lab",
+    "overridden_color": {
+
+    }
   },
   "info_screen_config": {
     "items_to_display": [
@@ -66,15 +69,14 @@
       "description": {
         "base": "en",
         "localized": {
-          "en": "Application description",
-          "ru": "Описание приложения"
+          "en": ""
         }
       },
       "developer": {
         "base": "en",
         "localized": {
           "en": "CleverPumpkin Ltd.",
-          "ru": "OOO CleverPumpkin"
+          "ru": "CleverPumpkin"
         }
       },
       "partner_url": {

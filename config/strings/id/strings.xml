@@ -108,7 +108,7 @@
   <string name="ta_filters_reset">Atur ulang</string>
   <string name="ta_sorting_title">Urutkan berdasarkan</string>
   <string name="ta_transfer_title">Transit</string>
-  <plurals name="ta_transfer_count">
+  <plurals name="ta_transfer_count_0">
     <item quantity="other">%s transit</item>
   </plurals>
   <string name="ta_transfer_count">Jumlah singgahan</string>
@@ -127,6 +127,7 @@
   <string name="ta_time_noon">Sore</string>
   <string name="ta_time_evening">Malam</string>
   <string name="ta_luggage_title">Masuk dalam harga tiket</string>
+  <string name="ta_layover_filter_title">Maks. 1x transit</string>
   <string name="ta_luggage">Hanya termasuk bagasi</string>
   <string name="ta_other_title">Pilihan lainnya</string>
   <string name="ta_flight_time_title">Durasi</string>
@@ -165,6 +166,7 @@
   <string name="ta_search_results_night_transfer">transit malam</string>
   <string name="ta_search_results_airport_change">pindah bandara</string>
   <string name="ta_search_results_short_layover">singgah singkat</string>
+  <string name="ta_search_results_loading_text">Mencari penerbangan…</string>
   <plurals name="ta_cheapest_transfer_count">
     <item quantity="other">%s singgah, tapi lebih murah</item>
   </plurals>
@@ -342,6 +344,7 @@
   <string name="ta_hotels_search_results_not_refundable">Tidak dapat dibatalkan</string>
   <string name="ta_hotels_search_results_no_rooms">Tidak menemukan kamar</string>
   <string name="ta_hotels_search_results_loading_prices">Memuat harga</string>
+  <string name="ta_hotels_search_results_loading_text">Mencari hotel…</string>
   <string name="ta_dates_string">%1$s %2$s</string>
   <string name="ta_guests_string">%1$s, %2$s</string>
   <string name="ta_hotels_invalid_date_title">Tanggal yang dipilih telah lewat</string>
@@ -511,7 +514,7 @@
   <string name="ta_info_feedback_subject">Umpan balik Whitelabel</string>
   <string name="ta_region_settings_subtitle">Pengaturan regional digunakan untuk menampilkan tiket dan aturan masuk yang sesuai untuk berbagai negara</string>
   <string name="ta_region_settings_item_app_language">Bahasa aplikasi</string>
-  <string name="ta_region_settings_item_country">Negara</string>
+  <string name="ta_region_settings_item_country">Negara / Wilayah</string>
   <string name="ta_region_settings_item_currency">Mata uang</string>
   <string name="ta_currency_fragment_title">Mata uang</string>
   <string name="ta_currency_item_show_all">Semua mata uang</string>

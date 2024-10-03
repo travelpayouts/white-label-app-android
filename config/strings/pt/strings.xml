@@ -113,7 +113,7 @@
   <string name="ta_filters_reset">Repor</string>
   <string name="ta_sorting_title">Ordenar por</string>
   <string name="ta_transfer_title">Escalas</string>
-  <plurals name="ta_transfer_count">
+  <plurals name="ta_transfer_count_0">
     <item quantity="one">%s escala</item>
     <item quantity="other">%s escalas</item>
   </plurals>
@@ -133,6 +133,7 @@
   <string name="ta_time_noon">Tarde</string>
   <string name="ta_time_evening">Noite</string>
   <string name="ta_luggage_title">Incluído no bilhete</string>
+  <string name="ta_layover_filter_title">1 escala no máximo</string>
   <string name="ta_luggage">Apenas com bagagem incluída</string>
   <string name="ta_other_title">Mais opções</string>
   <string name="ta_flight_time_title">Duração</string>
@@ -171,6 +172,7 @@
   <string name="ta_search_results_night_transfer">escala com pernoite</string>
   <string name="ta_search_results_airport_change">alteração de aeroporto</string>
   <string name="ta_search_results_short_layover">escala de curta duração</string>
+  <string name="ta_search_results_loading_text">A procurar voos…</string>
   <plurals name="ta_cheapest_transfer_count">
     <item quantity="one">%s escala, mas é mais barato</item>
     <item quantity="other">%s escalas, mas é mais barato</item>
@@ -359,6 +361,7 @@
   <string name="ta_hotels_search_results_not_refundable">Não cancelável</string>
   <string name="ta_hotels_search_results_no_rooms">Não foram encontrados quartos</string>
   <string name="ta_hotels_search_results_loading_prices">A carregar preços</string>
+  <string name="ta_hotels_search_results_loading_text">A procurar hotéis…</string>
   <string name="ta_dates_string">%1$s %2$s</string>
   <string name="ta_guests_string">%1$s, %2$s</string>
   <string name="ta_hotels_invalid_date_title">As datas selecionadas já passaram</string>
@@ -534,7 +537,7 @@
   <string name="ta_info_feedback_subject">Comentários sobre a Whitelabel</string>
   <string name="ta_region_settings_subtitle">As definições regionais são usadas para exibir bilhetes adequados e regras de entrada para diferentes países</string>
   <string name="ta_region_settings_item_app_language">Idioma da aplicação</string>
-  <string name="ta_region_settings_item_country">País</string>
+  <string name="ta_region_settings_item_country">País / Região</string>
   <string name="ta_region_settings_item_currency">Moeda</string>
   <string name="ta_currency_fragment_title">Moeda</string>
   <string name="ta_currency_item_show_all">Todas as moedas</string>

@@ -132,7 +132,10 @@ class Style(
     val iconsType: String,
 
     @SerializedName("palette")
-    val palette: String?
+    val palette: String?,
+
+    @SerializedName("overridden_color")
+    val overriddenColor: Map<String, String>
 
 )
 

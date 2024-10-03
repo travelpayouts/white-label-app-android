@@ -1,11 +1,25 @@
 package appconfig
 
+import appconfig.parsers.AppConfigJsonParser
+import appconfig.parsers.AppDescriptionHandler
+import appconfig.parsers.AppNameHandler
+import appconfig.parsers.AppTabsParser
+import appconfig.parsers.AppVersionHandler
+import appconfig.parsers.BgImageParser
+import appconfig.parsers.GoogleAdMobAppIdHandler
+import appconfig.parsers.GoogleMapsApiKeyHandler
+import appconfig.parsers.GoogleServicesHandler
+import appconfig.parsers.HandlingLinkHandler
+import appconfig.parsers.HsvColorsHandler
+import appconfig.parsers.IconsHandler
+import appconfig.parsers.LabColorsHandler
+import appconfig.parsers.PartnerUrlHandler
+import appconfig.parsers.PolicyUrlHandler
+import appconfig.parsers.StringsHandler
 import com.google.gson.Gson
+import java.io.FileInputStream
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.TaskAction
-import java.io.FileInputStream
-import appconfig.parsers.*
-import java.lang.IllegalStateException
 
 abstract class ParseConfigTask : DefaultTask() {
 
@@ -50,7 +64,10 @@ abstract class ParseConfigTask : DefaultTask() {
 
         AppConfigJsonParser.parse(buildSrcAppConfig, appModule)
 
-        GoogleAdMobAppIdHandler.generateXml(appModule, buildSrcAppConfig.baseConfiguration.advertising?.googleAdmobAppId.orEmpty())
+        GoogleAdMobAppIdHandler.generateXml(
+            appModule,
+            buildSrcAppConfig.baseConfiguration.advertising?.googleAdmobAppId.orEmpty()
+        )
 
         AppTabsParser.parseTabs(appModule, buildSrcAppConfig.whiteLabelConfig.screensToDisplay)
 
@@ -95,10 +112,19 @@ abstract class ParseConfigTask : DefaultTask() {
 
         val palette = buildSrcAppConfig.style.palette
 
+
         if (palette == "hsv") {
-            HsvColorsHandler.generateColorsXml(appModule, baseColor)
+            HsvColorsHandler.generateColorsXml(
+                project = appModule,
+                baseColorString = baseColor,
+                overriddenColors = buildSrcAppConfig.style.overriddenColor
+            )
         } else {
-            LabColorsHandler.generateColorsXml(appModule, baseColor)
+            LabColorsHandler.generateColorsXml(
+                project = appModule,
+                baseColorString = baseColor,
+                overriddenColors = buildSrcAppConfig.style.overriddenColor
+            )
         }
 
         IconsHandler.copyCustomAppIcons(project, appModule)

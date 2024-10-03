@@ -113,7 +113,7 @@
   <string name="ta_filters_reset">Resetten</string>
   <string name="ta_sorting_title">Sorteren op</string>
   <string name="ta_transfer_title">Tussenstops</string>
-  <plurals name="ta_transfer_count">
+  <plurals name="ta_transfer_count_0">
     <item quantity="one">%s tussenstop</item>
     <item quantity="other">%s tussenstops</item>
   </plurals>
@@ -133,6 +133,7 @@
   <string name="ta_time_noon">Middag</string>
   <string name="ta_time_evening">Avond</string>
   <string name="ta_luggage_title">Inbegrepen in het ticket</string>
+  <string name="ta_layover_filter_title">Max. 1 overstap</string>
   <string name="ta_luggage">Alleen inclusief bagage</string>
   <string name="ta_other_title">Meer opties</string>
   <string name="ta_flight_time_title">Duur</string>
@@ -171,6 +172,7 @@
   <string name="ta_search_results_night_transfer">nachtelijke tussenstop</string>
   <string name="ta_search_results_airport_change">verandering van luchthaven</string>
   <string name="ta_search_results_short_layover">korte tussenstop</string>
+  <string name="ta_search_results_loading_text">Vluchten zoeken…</string>
   <plurals name="ta_cheapest_transfer_count">
     <item quantity="one">%s tussenstop, maar wel goedkoper</item>
     <item quantity="other">%s tussenstops, maar wel goedkoper</item>
@@ -359,6 +361,7 @@
   <string name="ta_hotels_search_results_not_refundable">Niet te annuleren</string>
   <string name="ta_hotels_search_results_no_rooms">Geen kamers gevonden</string>
   <string name="ta_hotels_search_results_loading_prices">Bezig met laden van prijzen</string>
+  <string name="ta_hotels_search_results_loading_text">Hotels zoeken…</string>
   <string name="ta_dates_string">%1$s %2$s</string>
   <string name="ta_guests_string">%1$s, %2$s</string>
   <string name="ta_hotels_invalid_date_title">Geselecteerde datums zijn voorbij</string>
@@ -534,7 +537,7 @@
   <string name="ta_info_feedback_subject">Whitelabel feedback</string>
   <string name="ta_region_settings_subtitle">Regionale instellingen worden gebruikt om geschikte tickets en toegangsregels voor verschillende landen te tonen</string>
   <string name="ta_region_settings_item_app_language">App-taal</string>
-  <string name="ta_region_settings_item_country">Land</string>
+  <string name="ta_region_settings_item_country">Land/regio</string>
   <string name="ta_region_settings_item_currency">Valuta</string>
   <string name="ta_currency_fragment_title">Valuta</string>
   <string name="ta_currency_item_show_all">Alle valuta</string>

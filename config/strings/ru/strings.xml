@@ -167,6 +167,7 @@
     <string name="ta_time_noon">День</string>
     <string name="ta_time_evening">Вечер</string>
     <string name="ta_luggage_title">Бесплатный провоз</string>
+    <string name="ta_layover_filter_title">Максимум 1 пересадка</string>
     <string name="ta_luggage">Только с багажом</string>
     <string name="ta_other_title">Дополнительно</string>
     <string name="ta_flight_time_title">Время в пути</string>
@@ -206,6 +207,7 @@
     <string name="ta_search_results_night_transfer">ночная пересадка</string>
     <string name="ta_search_results_airport_change">смена аэропорта</string>
     <string name="ta_search_results_short_layover">короткая пересадка</string>
+    <string name="ta_search_results_loading_text">Ищем авиабилеты…</string>
     <plurals name="ta_transfer_count">
         <item quantity="one">%s пересадка</item>
         <item quantity="few">%s пересадки</item>
@@ -453,6 +455,7 @@
     <string name="ta_hotels_search_results_refundable">Бесплатная отмена</string>
     <string name="ta_hotels_search_results_not_refundable">Без отмены</string>
     <string name="ta_hotels_search_results_no_rooms">Нет номеров</string>
+    <string name="ta_hotels_search_results_loading_text">Ищем отели…</string>
     <!--  HotelsFavoritesFragment  -->
     <string name="ta_dates_string">%1$s %2$s</string>
     <string name="ta_guests_string">%1$s, %2$s</string>
@@ -664,7 +667,7 @@
     <!-- RegionSettingsFragment -->
     <string name="ta_region_settings_subtitle">Региональные настройки нужны для отображения подходящих билетов и правил въезда в страну</string>
     <string name="ta_region_settings_item_app_language">Язык приложения</string>
-    <string name="ta_region_settings_item_country">Страна</string>
+    <string name="ta_region_settings_item_country">Страна / Регион</string>
     <string name="ta_region_settings_item_currency">Валюта</string>
     <!-- CurrenciesFragment -->
     <string name="ta_currency_fragment_title">Валюта</string>

@@ -10,19 +10,19 @@ import com.travelapp.sdk.config.IconsType
 */
 object WhiteLabelConf {
 
-    const val host: String = "com.travelapp"
+    const val host: String = ""
     
     const val apiKey: String = ""
 
     const val email: String = "test@test.com"
 
-    const val appVerison: String = "1.2.2"
+    const val appVerison: String = "1.0.0"
 
-    const val appId: String = "com.travelapp"
+    const val appId: String = ""
     
     val marker: Int = 0
     
-    val clientDeviceHost: String = "iphone.apartments"
+    val clientDeviceHost: String = ""
 
     val flightsTabEnabled: Boolean = true
     

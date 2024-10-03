@@ -16,10 +16,10 @@ import com.travelapp.R
 import com.travelapp.config.AppTabsList
 import com.travelapp.databinding.ActivityMainBinding
 import com.travelapp.debugmenu.DebugMenu
-import com.travelapp.sdk.flights.ui.fragments.FlightsFragment
 import com.travelapp.sdk.internal.core.config.providers.navigation.NavigationBarItem
 import com.travelapp.sdk.internal.ui.base.BaseActivity
 import com.travelapp.sdk.internal.ui.utils.BottomBarVisibilityHandler
+import com.travelapp.sdk.internal.ui.utils.KeyboardVisibilityListener
 import com.travelapp.sdk.internal.ui.utils.TabSelector
 import com.travelapp.sdk.internal.ui.utils.doOnBackStackChanged
 import com.travelapp.sdk.internal.ui.utils.dp
@@ -64,17 +64,16 @@ class MainActivity : BaseActivity(R.layout.activity_main), BottomBarVisibilityHa
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         initBottomNavigationBar()
-
         if (savedInstanceState == null) {
             setupBottomNavigationBar()
         }
 
         initViews()
+        initKeyboardVisibilityListener()
         initShakeDetector()
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             permissionRequestLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
         }
-
     }
 
     override fun onResume() {
@@ -177,6 +176,12 @@ class MainActivity : BaseActivity(R.layout.activity_main), BottomBarVisibilityHa
         currentNavController = controller
     }
 
+    private fun initKeyboardVisibilityListener() {
+        KeyboardVisibilityListener(binding.root) { isOpen ->
+            toggleBottomBar(!isOpen)
+        }
+    }
+
     /**
      * Select tab in bottom nav view and navigate to destination inside navController of selected tab
      */
@@ -196,6 +201,15 @@ class MainActivity : BaseActivity(R.layout.activity_main), BottomBarVisibilityHa
             .launchIn(lifecycleScope)
 
         binding.bottomBar.selectedItemId = tab
+    }
+
+
+    /**
+     * Select first tab in bottom nav view
+     */
+    override fun selectFirstTab() {
+        val firstBottomItemId = binding.bottomBar.menu.getItem(0).itemId
+        binding.bottomBar.selectedItemId = firstBottomItemId
     }
 
     private fun openDebugFragment() {
