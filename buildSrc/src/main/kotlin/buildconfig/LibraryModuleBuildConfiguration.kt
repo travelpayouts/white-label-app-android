@@ -53,15 +53,7 @@ class LibraryModuleBuildConfiguration(
         productFlavors: NamedDomainObjectContainer<ProductFlavor>,
         buildTypes: NamedDomainObjectContainer<BuildType>
     ) {
-        productFlavors.apply {
-            maybeCreate(ProductFlavors.BASIC).apply {
-                dimension = "products"
-            }
 
-            maybeCreate(ProductFlavors.UNLIMITED).apply {
-                dimension = "products"
-            }
-        }
     }
 
 }

@@ -14,8 +14,7 @@
     "display_name": {
       "base": "en",
       "localized": {
-        "en": "White Label App",
-        "ru": ""
+        "en": "whitelabel"
       }
     },
     "advertising": {
@@ -69,21 +68,19 @@
       "description": {
         "base": "en",
         "localized": {
-          "en": ""
+          "en": "Application description"
         }
       },
       "developer": {
         "base": "en",
         "localized": {
-          "en": "CleverPumpkin Ltd.",
-          "ru": "CleverPumpkin"
+          "en": "CleverPumpkin Ltd."
         }
       },
       "partner_url": {
         "base": "en",
         "localized": {
-          "en": "https://www.google.com",
-          "ru": "https://www.google.ru"
+          "en": "https://www.google.com"
         }
       }
     }
