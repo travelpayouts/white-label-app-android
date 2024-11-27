@@ -1,9 +1,9 @@
 import buildconfig.AppModuleBuildConfiguration
 import com.project.starter.easylauncher.plugin.EasyLauncherConfig
 import configuration.BuildModules
-import org.jetbrains.kotlin.gradle.plugin.mpp.pm20.util.archivesName
 import java.io.FileInputStream
 import java.util.Properties
+import org.jetbrains.kotlin.gradle.plugin.mpp.pm20.util.archivesName
 
 plugins {
     id(configuration.BuildPlugins.ANDROID_APPLICATION)
@@ -154,7 +154,8 @@ dependencies {
     implementation(Tools.INSETTER)
     implementation(Tools.GSON)
     implementation(Tools.SEISMIC)
-    implementation(Tools.APPODEAL)
+
+    implementation(Tools.APPODEAL) { exclude("com.android.billingclient", "billing") }
 
     // AppsFlyer
     implementation(AppsFlyer.LIBRARY)
@@ -180,4 +181,26 @@ fun EasyLauncherConfig.configure(icons: List<String>, ribbonColor: String) {
             ribbonColor = ribbonColor
         )
     )
+}
+
+private fun DependencyHandlerScope.appodealNetworkWithoutAdmob() {
+    implementation(Tools.APPODEAL_AMAZON)
+    implementation(Tools.APPODEAL_APPLOVIN)
+    implementation(Tools.APPODEAL_APPLOVIN_MAX)
+    implementation(Tools.APPODEAL_BIDMACHINE)
+    implementation(Tools.APPODEAL_BIDON)
+    implementation(Tools.APPODEAL_BIGO_ADS)
+    implementation(Tools.APPODEAL_DT_EXCHANGE)
+    implementation(Tools.APPODEAL_IAB)
+    implementation(Tools.APPODEAL_INMOBI)
+    implementation(Tools.APPODEAL_IRONSOURCE)
+    implementation(Tools.APPODEAL_META)
+    implementation(Tools.APPODEAL_MINTEGRAL)
+    implementation(Tools.APPODEAL_MY_TARGET) {
+        exclude("com.android.billingclient", "billing")
+    }
+    implementation(Tools.APPODEAL_PANGLE)
+    implementation(Tools.APPODEAL_UNITY_ADS)
+    implementation(Tools.APPODEAL_VUNGLE)
+    implementation(Tools.APPODEAL_YANDEX)
 }

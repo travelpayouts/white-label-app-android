@@ -108,7 +108,7 @@
   <string name="ta_filters_reset">ตั้งค่าใหม่</string>
   <string name="ta_sorting_title">เรียงตาม</string>
   <string name="ta_transfer_title">การเปลี่ยนเครื่อง</string>
-  <plurals name="ta_transfer_count">
+  <plurals name="ta_transfer_count_0">
     <item quantity="other">%s เปลี่ยนเครื่อง</item>
   </plurals>
   <string name="ta_transfer_count">จำนวนครั้งที่หยุดพักระหว่างทาง</string>
@@ -127,6 +127,7 @@
   <string name="ta_time_noon">ช่วงบ่าย</string>
   <string name="ta_time_evening">ช่วงเย็น</string>
   <string name="ta_luggage_title">สิ่งที่รวมอยู่ในตั๋ว</string>
+  <string name="ta_layover_filter_title">แวะพักเครื่องสูงสุด 1 ครั้ง</string>
   <string name="ta_luggage">รวมสัมภาระเท่านั้น</string>
   <string name="ta_other_title">ตัวเลือกเพิ่มเติม</string>
   <string name="ta_flight_time_title">ระยะเวลา</string>
@@ -165,6 +166,7 @@
   <string name="ta_search_results_night_transfer">หยุดพักค้างคืน</string>
   <string name="ta_search_results_airport_change">เปลี่ยนสนามบิน</string>
   <string name="ta_search_results_short_layover">หยุดพักระยะสั้น</string>
+  <string name="ta_search_results_loading_text">กำลังค้นหาเที่ยวบิน…</string>
   <plurals name="ta_cheapest_transfer_count">
     <item quantity="other">แวะพัก %s จุด แต่ถูกกว่า</item>
   </plurals>
@@ -342,6 +344,7 @@
   <string name="ta_hotels_search_results_not_refundable">ไม่สามารถยกเลิก</string>
   <string name="ta_hotels_search_results_no_rooms">ไม่พบห้อง</string>
   <string name="ta_hotels_search_results_loading_prices">กำลังโหลดราคา</string>
+  <string name="ta_hotels_search_results_loading_text">กำลังค้นหาโรงแรม…</string>
   <string name="ta_dates_string">%1$s %2$s</string>
   <string name="ta_guests_string">%1$s, %2$s</string>
   <string name="ta_hotels_invalid_date_title">วันที่เลือกผ่านไปแล้ว</string>
@@ -511,7 +514,7 @@
   <string name="ta_info_feedback_subject">ข้อเสนอแนะเกี่ยวกับ Whitelabel</string>
   <string name="ta_region_settings_subtitle">การตั้งค่าภูมิภาคใช้เพื่อแสดงตั๋วและกฎการเข้าประเทศที่เหมาะสมสำหรับประเทศต่าง ๆ</string>
   <string name="ta_region_settings_item_app_language">ภาษาของแอป</string>
-  <string name="ta_region_settings_item_country">ประเทศ</string>
+  <string name="ta_region_settings_item_country">ประเทศ / ภูมิภาค</string>
   <string name="ta_region_settings_item_currency">สกุลเงิน</string>
   <string name="ta_currency_fragment_title">สกุลเงิน</string>
   <string name="ta_currency_item_show_all">สกุลเงินทั้งหมด</string>

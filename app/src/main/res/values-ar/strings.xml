@@ -133,7 +133,7 @@
   <string name="ta_filters_reset">إعادة تعيين</string>
   <string name="ta_sorting_title">الترتيب حسب</string>
   <string name="ta_transfer_title">توقفات</string>
-  <plurals name="ta_transfer_count">
+  <plurals name="ta_transfer_count_0">
     <item quantity="zero">توقف %s</item>
     <item quantity="one">توقف %s</item>
     <item quantity="two">توقف %s</item>
@@ -157,6 +157,7 @@
   <string name="ta_time_noon">بعد الظهر</string>
   <string name="ta_time_evening">مساءً</string>
   <string name="ta_luggage_title">مشمول في التذكرة</string>
+  <string name="ta_layover_filter_title">الحد الأقصى توقف مؤقت واحد</string>
   <string name="ta_luggage">شاملة الأمتعة فقط</string>
   <string name="ta_other_title">خيارات آخرى</string>
   <string name="ta_flight_time_title">مدة السفر</string>
@@ -195,6 +196,7 @@
   <string name="ta_search_results_night_transfer">توقف أثناء الليل</string>
   <string name="ta_search_results_airport_change">تغيير المطار</string>
   <string name="ta_search_results_short_layover">توقف قصير</string>
+  <string name="ta_search_results_loading_text">جارٍ البحث في الرحلات الجوية…</string>
   <plurals name="ta_cheapest_transfer_count">
     <item quantity="zero">%s توقفاً مؤقتاً، لكنها أرخص</item>
     <item quantity="one">%s توقف مؤقت، لكنها أرخص</item>
@@ -427,6 +429,7 @@
   <string name="ta_hotels_search_results_not_refundable">غير قابل للإلغاء</string>
   <string name="ta_hotels_search_results_no_rooms">لم نعثر على غرف</string>
   <string name="ta_hotels_search_results_loading_prices">جاري تحميل الأسعار</string>
+  <string name="ta_hotels_search_results_loading_text">جارٍ البحث في الفنادق…</string>
   <string name="ta_dates_string">%1$s %2$s</string>
   <string name="ta_guests_string">%1$s, %2$s</string>
   <string name="ta_hotels_invalid_date_title">لقد ولّت التواريخ المحددة</string>
@@ -626,7 +629,7 @@
   <string name="ta_info_feedback_subject">تعليقات حول Whitelabel</string>
   <string name="ta_region_settings_subtitle">تُستخدم الإعدادات الإقليمية لعرض تذاكر وقواعد دخول مناسبة لدول مختلفة</string>
   <string name="ta_region_settings_item_app_language">لغة التطبيق</string>
-  <string name="ta_region_settings_item_country">الدولة</string>
+  <string name="ta_region_settings_item_country">البلد / المنطقة</string>
   <string name="ta_region_settings_item_currency">العملة</string>
   <string name="ta_currency_fragment_title">العملة</string>
   <string name="ta_currency_item_show_all">كل العملات</string>

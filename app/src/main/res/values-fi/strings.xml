@@ -113,7 +113,7 @@
   <string name="ta_filters_reset">Tyhjennä</string>
   <string name="ta_sorting_title">Lajittele</string>
   <string name="ta_transfer_title">Välilaskut</string>
-  <plurals name="ta_transfer_count">
+  <plurals name="ta_transfer_count_0">
     <item quantity="one">%s vaihto</item>
     <item quantity="other">%s vaihtoa</item>
   </plurals>
@@ -133,6 +133,7 @@
   <string name="ta_time_noon">Iltapäivä</string>
   <string name="ta_time_evening">Ilta</string>
   <string name="ta_luggage_title">Sisältyy lippuun</string>
+  <string name="ta_layover_filter_title">Enintään 1 välilasku</string>
   <string name="ta_luggage">Vain, jos sisältää matkatavarat</string>
   <string name="ta_other_title">Lisävalinnat</string>
   <string name="ta_flight_time_title">Kesto</string>
@@ -171,6 +172,7 @@
   <string name="ta_search_results_night_transfer">yön yli kestävä välilasku</string>
   <string name="ta_search_results_airport_change">lentoaseman vaihto</string>
   <string name="ta_search_results_short_layover">lyhyt välilasku</string>
+  <string name="ta_search_results_loading_text">Etsitään lentoja…</string>
   <plurals name="ta_cheapest_transfer_count">
     <item quantity="one">%s välilasku, mutta se on halvempi</item>
     <item quantity="other">%s välilaskua, mutta se on halvempi</item>
@@ -359,6 +361,7 @@
   <string name="ta_hotels_search_results_not_refundable">Ei peruutettavissa</string>
   <string name="ta_hotels_search_results_no_rooms">Huoneita ei löytynyt</string>
   <string name="ta_hotels_search_results_loading_prices">Ladataan hintoja</string>
+  <string name="ta_hotels_search_results_loading_text">Etsitään hotelleja…</string>
   <string name="ta_dates_string">%1$s %2$s</string>
   <string name="ta_guests_string">%1$s, %2$s</string>
   <string name="ta_hotels_invalid_date_title">Valitut päivämäärät ovat menneisyydessä</string>
@@ -534,7 +537,7 @@
   <string name="ta_info_feedback_subject">Whitelabel palaute</string>
   <string name="ta_region_settings_subtitle">Alueellisia asetuksia käytetään sopivien lippujen ja eri maiden maahantulosäännösten näyttämiseen</string>
   <string name="ta_region_settings_item_app_language">Sovelluksen kieli</string>
-  <string name="ta_region_settings_item_country">Maa</string>
+  <string name="ta_region_settings_item_country">Maa/alue</string>
   <string name="ta_region_settings_item_currency">Valuutta</string>
   <string name="ta_currency_fragment_title">Valuutta</string>
   <string name="ta_currency_item_show_all">Kaikki valuutat</string>

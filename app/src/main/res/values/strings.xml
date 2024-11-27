@@ -113,7 +113,7 @@
   <string name="ta_filters_reset">Reset</string>
   <string name="ta_sorting_title">Sort by</string>
   <string name="ta_transfer_title">Layovers</string>
-  <plurals name="ta_transfer_count">
+  <plurals name="ta_transfer_count_0">
     <item quantity="one">%s layover</item>
     <item quantity="other">%s layovers</item>
   </plurals>
@@ -133,6 +133,7 @@
   <string name="ta_time_noon">Afternoon</string>
   <string name="ta_time_evening">Evening</string>
   <string name="ta_luggage_title">Included in the ticket</string>
+  <string name="ta_layover_filter_title">Max. 1 layover</string>
   <string name="ta_luggage">Only including baggage</string>
   <string name="ta_other_title">More options</string>
   <string name="ta_flight_time_title">Travel time</string>
@@ -171,7 +172,7 @@
   <string name="ta_search_results_night_transfer">overnight layover</string>
   <string name="ta_search_results_airport_change">airport change</string>
   <string name="ta_search_results_short_layover">short layover</string>
-  <string name="ta_search_results_loading_text">Ищем авиабилеты…</string>
+  <string name="ta_search_results_loading_text">Searching flights…</string>
   <plurals name="ta_cheapest_transfer_count">
     <item quantity="one">%s layover, but it\'s cheaper</item>
     <item quantity="other">%s layovers, but it\'s cheaper</item>
@@ -360,7 +361,7 @@
   <string name="ta_hotels_search_results_not_refundable">Non-cancelable</string>
   <string name="ta_hotels_search_results_no_rooms">No rooms found</string>
   <string name="ta_hotels_search_results_loading_prices">Loading prices</string>
-  <string name="ta_hotels_search_results_loading_text">Ищем отели…</string>
+  <string name="ta_hotels_search_results_loading_text">Searching hotels…</string>
   <string name="ta_dates_string">%1$s %2$s</string>
   <string name="ta_guests_string">%1$s, %2$s</string>
   <string name="ta_hotels_invalid_date_title">Selected dates have passed</string>
@@ -391,7 +392,6 @@
     <item quantity="other">Based on %1$s reviews</item>
   </plurals>
   <string name="ta_hotel_book_button">Book</string>
-  <string name="ta_hotel_book_empty_button"></string>
   <string name="ta_hotel_show_on_map_button">Show on map</string>
   <string name="ta_hotels_distance_km">%1$skm</string>
   <string name="ta_hotels_distance_m">%1$sm</string>
@@ -537,7 +537,7 @@
   <string name="ta_info_feedback_subject">Whitelabel feedback</string>
   <string name="ta_region_settings_subtitle">Regional settings are used to display suitable tickets and entry rules for different countries</string>
   <string name="ta_region_settings_item_app_language">App language</string>
-  <string name="ta_region_settings_item_country">Country</string>
+  <string name="ta_region_settings_item_country">Country / Region</string>
   <string name="ta_region_settings_item_currency">Currency</string>
   <string name="ta_currency_fragment_title">Currency</string>
   <string name="ta_currency_item_show_all">All currencies</string>

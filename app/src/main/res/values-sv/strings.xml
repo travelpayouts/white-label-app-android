@@ -113,7 +113,7 @@
   <string name="ta_filters_reset">Återställ</string>
   <string name="ta_sorting_title">Sortera efter</string>
   <string name="ta_transfer_title">Mellanladningar</string>
-  <plurals name="ta_transfer_count">
+  <plurals name="ta_transfer_count_0">
     <item quantity="one">%s mellanlandning</item>
     <item quantity="other">%s mellanlandningar</item>
   </plurals>
@@ -133,6 +133,7 @@
   <string name="ta_time_noon">Eftermiddagen</string>
   <string name="ta_time_evening">Kväll</string>
   <string name="ta_luggage_title">Ingår i biljetten</string>
+  <string name="ta_layover_filter_title">Max. 1 mellanlandning</string>
   <string name="ta_luggage">Endast inklusive bagage</string>
   <string name="ta_other_title">Fler alternativ</string>
   <string name="ta_flight_time_title">Längd</string>
@@ -171,6 +172,7 @@
   <string name="ta_search_results_night_transfer">övernattande mellanlandning</string>
   <string name="ta_search_results_airport_change">flygplatsbyte</string>
   <string name="ta_search_results_short_layover">kort uppehåll</string>
+  <string name="ta_search_results_loading_text">Söker flyg …</string>
   <plurals name="ta_cheapest_transfer_count">
     <item quantity="one">%s mellanlandning, men det är billigare</item>
     <item quantity="other">%s mellanlandningar, men det är billigare</item>
@@ -359,6 +361,7 @@
   <string name="ta_hotels_search_results_not_refundable">Ej avbokningsbar</string>
   <string name="ta_hotels_search_results_no_rooms">Inga rum hittades</string>
   <string name="ta_hotels_search_results_loading_prices">Laddar priser</string>
+  <string name="ta_hotels_search_results_loading_text">Söker hotell …</string>
   <string name="ta_dates_string">%1$s %2$s</string>
   <string name="ta_guests_string">%1$s, %2$s</string>
   <string name="ta_hotels_invalid_date_title">Valda datum har passerat</string>
@@ -534,7 +537,7 @@
   <string name="ta_info_feedback_subject">Whitelabel återkoppling</string>
   <string name="ta_region_settings_subtitle">Regionala inställningar används för att visa lämpliga biljetter och inreseregler för olika länder</string>
   <string name="ta_region_settings_item_app_language">Språk i appen</string>
-  <string name="ta_region_settings_item_country">Land</string>
+  <string name="ta_region_settings_item_country">Land/region</string>
   <string name="ta_region_settings_item_currency">Valuta</string>
   <string name="ta_currency_fragment_title">Valuta</string>
   <string name="ta_currency_item_show_all">Alla valutor</string>

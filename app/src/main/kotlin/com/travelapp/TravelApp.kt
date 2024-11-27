@@ -8,6 +8,7 @@ import com.travelapp.config.WhiteLabelConf
 import com.travelapp.debugmenu.DebugMenu
 import com.travelapp.sdk.config.AdvertisingConfig
 import com.travelapp.sdk.config.CornerType
+import com.travelapp.sdk.config.EnabledInfoItems
 import com.travelapp.sdk.config.IconsType
 import com.travelapp.sdk.config.SdkConfig
 import com.travelapp.sdk.config.TravelSdk
@@ -50,13 +51,15 @@ open class TravelApp : Application() {
             AdvertisingConfig()
         }
 
+        val isFavoriteEnabled = WhiteLabelConf.InfoConfig.enabledItems.contains(EnabledInfoItems.FAVORITES)
+
         val config = SdkConfig(
             icons = icons,
             cornerType = cornerType,
             marker = WhiteLabelConf.marker,
             apiKey = WhiteLabelConf.apiKey,
-            flightsFavoritesEnabled = WhiteLabelConf.flightsTabEnabled,
-            hotelsFavoritesEnabled = WhiteLabelConf.hotelsTabEnabled,
+            flightsFavoritesEnabled = WhiteLabelConf.flightsTabEnabled && isFavoriteEnabled,
+            hotelsFavoritesEnabled = WhiteLabelConf.hotelsTabEnabled && isFavoriteEnabled,
             flightsPriceSettingsEnabled = WhiteLabelConf.flightsTabEnabled,
             hotelsPriceSettingsEnabled = WhiteLabelConf.hotelsTabEnabled,
             enabledInfoItems = WhiteLabelConf.InfoConfig.enabledItems,

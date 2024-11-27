@@ -118,7 +118,7 @@
   <string name="ta_filters_reset">Resetează</string>
   <string name="ta_sorting_title">Triază după</string>
   <string name="ta_transfer_title">Escale</string>
-  <plurals name="ta_transfer_count">
+  <plurals name="ta_transfer_count_0">
     <item quantity="one">%s escală</item>
     <item quantity="few">%s escale</item>
     <item quantity="other">%s escale</item>
@@ -139,6 +139,7 @@
   <string name="ta_time_noon">După-amiaza</string>
   <string name="ta_time_evening">Seara</string>
   <string name="ta_luggage_title">Inclus în bilet</string>
+  <string name="ta_layover_filter_title">Max. 1 escală</string>
   <string name="ta_luggage">Numai cu bagaje incluse</string>
   <string name="ta_other_title">Mai multe opțiuni</string>
   <string name="ta_flight_time_title">Durată</string>
@@ -177,6 +178,7 @@
   <string name="ta_search_results_night_transfer">escală peste noapte</string>
   <string name="ta_search_results_airport_change">schimbare de aeroport</string>
   <string name="ta_search_results_short_layover">escală scurtă</string>
+  <string name="ta_search_results_loading_text">Se caută zboruri…</string>
   <plurals name="ta_cheapest_transfer_count">
     <item quantity="one">%s escală, dar e mai ieftin</item>
     <item quantity="few">%s de escale, dar e mai ieftin</item>
@@ -376,6 +378,7 @@
   <string name="ta_hotels_search_results_not_refundable">Nu se poate anula</string>
   <string name="ta_hotels_search_results_no_rooms">Nu au fost găsite camere</string>
   <string name="ta_hotels_search_results_loading_prices">Se încarcă prețurile</string>
+  <string name="ta_hotels_search_results_loading_text">Se caută hoteluri…</string>
   <string name="ta_dates_string">%1$s %2$s</string>
   <string name="ta_guests_string">%1$s, %2$s</string>
   <string name="ta_hotels_invalid_date_title">Datele selectate sunt în trecut</string>
@@ -557,7 +560,7 @@
   <string name="ta_info_feedback_subject">Feedback Whitelabel</string>
   <string name="ta_region_settings_subtitle">Configurările regionale sunt utilizate pentru a afișa bilete și reguli de intrare corespunzătoare diferitelor țări</string>
   <string name="ta_region_settings_item_app_language">Limba aplicației</string>
-  <string name="ta_region_settings_item_country">Țară</string>
+  <string name="ta_region_settings_item_country">Țara / Regiunea</string>
   <string name="ta_region_settings_item_currency">Monedă</string>
   <string name="ta_currency_fragment_title">Monedă</string>
   <string name="ta_currency_item_show_all">Toate monedele</string>

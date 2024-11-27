@@ -113,7 +113,7 @@
   <string name="ta_filters_reset">Nullstill</string>
   <string name="ta_sorting_title">Sorter etter</string>
   <string name="ta_transfer_title">Mellomlandinger</string>
-  <plurals name="ta_transfer_count">
+  <plurals name="ta_transfer_count_0">
     <item quantity="one">%s opphold</item>
     <item quantity="other">%s mellomlandinger</item>
   </plurals>
@@ -133,6 +133,7 @@
   <string name="ta_time_noon">Ettermiddag</string>
   <string name="ta_time_evening">Kveld</string>
   <string name="ta_luggage_title">Inkludert i billetten</string>
+  <string name="ta_layover_filter_title">Maks en overnatting</string>
   <string name="ta_luggage">Bare inkludert bagasje</string>
   <string name="ta_other_title">Flere alternativer</string>
   <string name="ta_flight_time_title">Varighet</string>
@@ -171,6 +172,7 @@
   <string name="ta_search_results_night_transfer">opphold med overnatting</string>
   <string name="ta_search_results_airport_change">flyplassbytte</string>
   <string name="ta_search_results_short_layover">kort mellomlanding</string>
+  <string name="ta_search_results_loading_text">Søker etter flyvninger …</string>
   <plurals name="ta_cheapest_transfer_count">
     <item quantity="one">%s stopp, men det er billigere</item>
     <item quantity="other">%s stopp, men det er billigere</item>
@@ -359,6 +361,7 @@
   <string name="ta_hotels_search_results_not_refundable">Kan ikke kanselleres</string>
   <string name="ta_hotels_search_results_no_rooms">Ingen rom funnet</string>
   <string name="ta_hotels_search_results_loading_prices">Laster inn priser</string>
+  <string name="ta_hotels_search_results_loading_text">Søker etter hoteller …</string>
   <string name="ta_dates_string">%1$s %2$s</string>
   <string name="ta_guests_string">%1$s, %2$s</string>
   <string name="ta_hotels_invalid_date_title">Utvalgte datoer har forfalt</string>
@@ -534,7 +537,7 @@
   <string name="ta_info_feedback_subject">Tilbakemeldinger fra Whitelabel</string>
   <string name="ta_region_settings_subtitle">Regionale innstillinger brukes for å vise passende billetter og innreiseregler for forskjellige land</string>
   <string name="ta_region_settings_item_app_language">Appspråk</string>
-  <string name="ta_region_settings_item_country">Land</string>
+  <string name="ta_region_settings_item_country">Land/region</string>
   <string name="ta_region_settings_item_currency">Valuta</string>
   <string name="ta_currency_fragment_title">Valuta</string>
   <string name="ta_currency_item_show_all">Alle valutaer</string>

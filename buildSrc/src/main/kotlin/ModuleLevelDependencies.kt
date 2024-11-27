@@ -6,7 +6,8 @@ object KotlinLibs {
     private const val COROUTINES_VERSION = "1.6.4"
 
     const val COROUTINES_CORE = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$COROUTINES_VERSION"
-    const val COROUTINES_ANDROID = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$COROUTINES_VERSION"
+    const val COROUTINES_ANDROID =
+        "org.jetbrains.kotlinx:kotlinx-coroutines-android:$COROUTINES_VERSION"
 }
 
 object KotlinXSerialization {
@@ -14,7 +15,8 @@ object KotlinXSerialization {
     const val LIBRARY = "org.jetbrains.kotlinx:kotlinx-serialization-json:$VERSION"
     const val PROPERTIES = "org.jetbrains.kotlinx:kotlinx-serialization-properties:$VERSION"
 
-    const val RETROFIT_FACTORY = "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.8.0"
+    const val RETROFIT_FACTORY =
+        "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.8.0"
 }
 
 object AndroidX {
@@ -134,8 +136,10 @@ object FlowBinding {
     const val NAVIGATION = "io.github.reactivecircus.flowbinding:flowbinding-navigation:$VERSION"
     const val VIEWPAGER = "io.github.reactivecircus.flowbinding:flowbinding-viewpager:$VERSION"
     const val VIEWPAGER2 = "io.github.reactivecircus.flowbinding:flowbinding-viewpager2:$VERSION"
-    const val RECYCLERVIEW = "io.github.reactivecircus.flowbinding:flowbinding-recyclerview:$VERSION"
-    const val SWIPE_REFRESH = "io.github.reactivecircus.flowbinding:flowbinding-swiperefreshlayout:$VERSION"
+    const val RECYCLERVIEW =
+        "io.github.reactivecircus.flowbinding:flowbinding-recyclerview:$VERSION"
+    const val SWIPE_REFRESH =
+        "io.github.reactivecircus.flowbinding:flowbinding-swiperefreshlayout:$VERSION"
 
 }
 
@@ -156,7 +160,8 @@ object AdapterDelegate {
     private const val VERSION = "4.3.2"
 
     const val CORE = "com.hannesdorfmann:adapterdelegates4:$VERSION"
-    const val LAYOUT_CONTAINER = "com.hannesdorfmann:adapterdelegates4-kotlin-dsl-layoutcontainer:$VERSION"
+    const val LAYOUT_CONTAINER =
+        "com.hannesdorfmann:adapterdelegates4-kotlin-dsl-layoutcontainer:$VERSION"
     const val DSL = "com.hannesdorfmann:adapterdelegates4-kotlin-dsl:$VERSION"
     const val VIEW_BINDING = "com.hannesdorfmann:adapterdelegates4-kotlin-dsl-viewbinding:$VERSION"
     const val PAGINATION = "com.hannesdorfmann:adapterdelegates4-pagination:$VERSION"
@@ -172,7 +177,8 @@ object Coil {
 }
 
 object UI {
-    const val VIEWBINDING_PROPERTY_DELEGATE = "com.github.kirich1409:viewbindingpropertydelegate-noreflection:1.5.9"
+    const val VIEWBINDING_PROPERTY_DELEGATE =
+        "com.github.kirich1409:viewbindingpropertydelegate-noreflection:1.5.9"
 }
 
 object Skeleton {
@@ -185,16 +191,42 @@ object Skeleton {
  * Utilities and tools.
  */
 object Tools {
+
     const val DESUGAR_JDK_LIBS = "com.android.tools:desugar_jdk_libs:2.0.2"
     const val JUNIT = "junit:junit:4.12"
     const val GSON = "com.google.code.gson:gson:2.10.1"
     const val TIMBER = "com.github.ajalt:timberkt:1.5.1"
     const val INSETTER = "dev.chrisbanes.insetter:insetter:0.6.1"
     const val BROWSER_HELPER = "com.google.androidbrowserhelper:androidbrowserhelper:2.4.0"
-    const val KEYBOARD_VISIBILITY_EVENT = "net.yslibrary.keyboardvisibilityevent:keyboardvisibilityevent:3.0.0-RC3"
+    const val KEYBOARD_VISIBILITY_EVENT =
+        "net.yslibrary.keyboardvisibilityevent:keyboardvisibilityevent:3.0.0-RC3"
     const val CRUNCHY_CALENDAR = "ru.cleverpumpkin:crunchycalendar:2.6.1"
     const val SEISMIC = "com.squareup:seismic:1.0.3"
-    const val APPODEAL = "com.appodeal.ads:sdk:3.3.1.0"
+
+    //need to update library version synchronously
+    private const val APPODEAL_VERSION = "3.3.1.0"
+
+    const val APPODEAL = "com.appodeal.ads:sdk:$APPODEAL_VERSION"
+    const val APPODEAL_CORE = "com.appodeal.ads.sdk:core:3.3.1"
+
+    const val APPODEAL_ADMOB = "com.appodeal.ads.sdk.networks:admob:$APPODEAL_VERSION"
+    const val APPODEAL_AMAZON = "com.appodeal.ads.sdk.networks:amazon:$APPODEAL_VERSION"
+    const val APPODEAL_APPLOVIN = "com.appodeal.ads.sdk.networks:applovin:$APPODEAL_VERSION"
+    const val APPODEAL_APPLOVIN_MAX = "com.appodeal.ads.sdk.networks:applovin_max:$APPODEAL_VERSION"
+    const val APPODEAL_BIDMACHINE = "com.appodeal.ads.sdk.networks:bidmachine:$APPODEAL_VERSION"
+    const val APPODEAL_BIDON = "com.appodeal.ads.sdk.networks:bidon:$APPODEAL_VERSION"
+    const val APPODEAL_BIGO_ADS = "com.appodeal.ads.sdk.networks:bigo_ads:$APPODEAL_VERSION"
+    const val APPODEAL_DT_EXCHANGE = "com.appodeal.ads.sdk.networks:dt_exchange:$APPODEAL_VERSION"
+    const val APPODEAL_IAB = "com.appodeal.ads.sdk.networks:iab:$APPODEAL_VERSION"
+    const val APPODEAL_INMOBI = "com.appodeal.ads.sdk.networks:inmobi:$APPODEAL_VERSION"
+    const val APPODEAL_IRONSOURCE = "com.appodeal.ads.sdk.networks:ironsource:$APPODEAL_VERSION"
+    const val APPODEAL_META = "com.appodeal.ads.sdk.networks:meta:$APPODEAL_VERSION"
+    const val APPODEAL_MINTEGRAL = "com.appodeal.ads.sdk.networks:mintegral:$APPODEAL_VERSION"
+    const val APPODEAL_MY_TARGET = "com.appodeal.ads.sdk.networks:my_target:$APPODEAL_VERSION"
+    const val APPODEAL_PANGLE = "com.appodeal.ads.sdk.networks:pangle:$APPODEAL_VERSION"
+    const val APPODEAL_UNITY_ADS = "com.appodeal.ads.sdk.networks:unity_ads:$APPODEAL_VERSION"
+    const val APPODEAL_VUNGLE = "com.appodeal.ads.sdk.networks:vungle:$APPODEAL_VERSION"
+    const val APPODEAL_YANDEX = "com.appodeal.ads.sdk.networks:yandex:$APPODEAL_VERSION"
 }
 
 object Lottie {
@@ -217,10 +249,13 @@ object Compose {
     // Choose one of the following:
     // Material Design 3
     const val MATERIAL_YOU = "androidx.compose.material3:material3"
+
     // or Material Design 2
     const val MATERIAL = "androidx.compose.material:material"
+
     // or skip Material Design and build directly on top of foundational components
     const val FOUNDATION = "androidx.compose.foundation:foundation"
+
     // or only import the main APIs for the underlying toolkit systems,
     // such as input and measurement/layout
     const val UI = "androidx.compose.ui:ui"
@@ -233,13 +268,16 @@ object Compose {
     // the icons but not the material library (e.g. when using Material3 or a
     // custom design system based on Foundation)
     const val ICONS_CORE = "androidx.compose.material:material-icons-core"
+
     // Optional - Add full set of material icons
     const val ICONS_EXTENDED = "androidx.compose.material:material-icons-extended"
+
     // Optional - Add window size utils
     const val WINDOW_SIZE = "androidx.compose.material3:material3-window-size-class"
 
     // Optional - Integration with activities
     const val ACTIVITY = "androidx.activity:activity-compose:1.7.2"
+
     // Optional - Integration with ViewModels
     const val VIEWMODELS = "androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1"
 

@@ -113,7 +113,7 @@
   <string name="ta_filters_reset">Επαναφορά</string>
   <string name="ta_sorting_title">Ταξινόμηση κατά</string>
   <string name="ta_transfer_title">Ενδιάμεσες Στάσεις</string>
-  <plurals name="ta_transfer_count">
+  <plurals name="ta_transfer_count_0">
     <item quantity="one">%s στάση</item>
     <item quantity="other">%s στάσεις</item>
   </plurals>
@@ -133,6 +133,7 @@
   <string name="ta_time_noon">Μεσημέρι</string>
   <string name="ta_time_evening">Απόγευμα</string>
   <string name="ta_luggage_title">Περιλαμβάνεται στο εισιτήριο</string>
+  <string name="ta_layover_filter_title">Μέγ. 1 ενδιάμεση στάση</string>
   <string name="ta_luggage">Μόνο μαζί με αποσκευές</string>
   <string name="ta_other_title">Περισσότερες επιλογές</string>
   <string name="ta_flight_time_title">Διάρκεια</string>
@@ -171,6 +172,7 @@
   <string name="ta_search_results_night_transfer">ολονύκτια στάση</string>
   <string name="ta_search_results_airport_change">αλλαγή αεροδρομίου</string>
   <string name="ta_search_results_short_layover">σύντομη στάση</string>
+  <string name="ta_search_results_loading_text">Αναζήτηση πτήσεων…</string>
   <plurals name="ta_cheapest_transfer_count">
     <item quantity="one">%s στάση, αλλά είναι φθηνότερη</item>
     <item quantity="other">%s στάσεις, αλλά είναι φθηνότερη</item>
@@ -359,6 +361,7 @@
   <string name="ta_hotels_search_results_not_refundable">Μη ακυρώσιμο</string>
   <string name="ta_hotels_search_results_no_rooms">Δεν βρέθηκαν δωμάτια</string>
   <string name="ta_hotels_search_results_loading_prices">Φόρτωση τιμών</string>
+  <string name="ta_hotels_search_results_loading_text">Αναζήτηση ξενοδοχείων…</string>
   <string name="ta_dates_string">%1$s %2$s</string>
   <string name="ta_guests_string">%1$s, %2$s</string>
   <string name="ta_hotels_invalid_date_title">Οι επιλεγμένες ημερομηνίες έχουν παρέλθει</string>
@@ -534,7 +537,7 @@
   <string name="ta_info_feedback_subject">Σχόλια για την Whitelabel</string>
   <string name="ta_region_settings_subtitle">Οι τοπικές ρυθμίσεις χρησιμοποιούνται για την εμφάνιση των κατάλληλων εισιτηρίων και κανόνων εισόδου για κάθε χώρα</string>
   <string name="ta_region_settings_item_app_language">Γλώσσα εφαρμογής</string>
-  <string name="ta_region_settings_item_country">Χώρα</string>
+  <string name="ta_region_settings_item_country">Χώρα/Περιοχή</string>
   <string name="ta_region_settings_item_currency">Νόμισμα</string>
   <string name="ta_currency_fragment_title">Νόμισμα</string>
   <string name="ta_currency_item_show_all">Όλα τα Νομίσματα</string>

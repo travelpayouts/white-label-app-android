@@ -108,7 +108,7 @@
   <string name="ta_filters_reset">リセット</string>
   <string name="ta_sorting_title">並び替え：</string>
   <string name="ta_transfer_title">途中降機</string>
-  <plurals name="ta_transfer_count">
+  <plurals name="ta_transfer_count_0">
     <item quantity="other">レイオーバー%s 回</item>
   </plurals>
   <string name="ta_transfer_count">乗り継ぎ回数</string>
@@ -127,6 +127,7 @@
   <string name="ta_time_noon">午後</string>
   <string name="ta_time_evening">夜</string>
   <string name="ta_luggage_title">航空券に含まれるもの</string>
+  <string name="ta_layover_filter_title">最大1回の乗り継ぎ</string>
   <string name="ta_luggage">手荷物込みのみ</string>
   <string name="ta_other_title">その他の選択肢</string>
   <string name="ta_flight_time_title">飛行時間</string>
@@ -165,6 +166,7 @@
   <string name="ta_search_results_night_transfer">深夜乗り換え</string>
   <string name="ta_search_results_airport_change">空港間の地上移動</string>
   <string name="ta_search_results_short_layover">短い乗り継ぎ</string>
+  <string name="ta_search_results_loading_text">航空便を検索中…</string>
   <plurals name="ta_cheapest_transfer_count">
     <item quantity="other">%s回の乗り継ぎですが、割安です</item>
   </plurals>
@@ -342,6 +344,7 @@
   <string name="ta_hotels_search_results_not_refundable">キャンセル不可</string>
   <string name="ta_hotels_search_results_no_rooms">部屋が見つかりません</string>
   <string name="ta_hotels_search_results_loading_prices">価格を読み込み中</string>
+  <string name="ta_hotels_search_results_loading_text">ホテルを検索中…</string>
   <string name="ta_dates_string">%1$s %2$s</string>
   <string name="ta_guests_string">%1$s, %2$s</string>
   <string name="ta_hotels_invalid_date_title">選択した日付は過ぎています</string>
@@ -511,7 +514,7 @@
   <string name="ta_info_feedback_subject">Whitelabelのフィードバック</string>
   <string name="ta_region_settings_subtitle">地域設定は、さまざまな国に適したチケットと入国に関する規則を表示するために使われます</string>
   <string name="ta_region_settings_item_app_language">アプリの言語</string>
-  <string name="ta_region_settings_item_country">国</string>
+  <string name="ta_region_settings_item_country">国/地域</string>
   <string name="ta_region_settings_item_currency">通貨</string>
   <string name="ta_currency_fragment_title">通貨</string>
   <string name="ta_currency_item_show_all">すべての通貨</string>

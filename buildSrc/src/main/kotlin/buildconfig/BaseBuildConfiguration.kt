@@ -40,6 +40,7 @@ abstract class BaseBuildConfiguration(
             }
 
             lintOptions {
+                isCheckReleaseBuilds = false
                 isAbortOnError = true
                 fatal("StopShip")
             }

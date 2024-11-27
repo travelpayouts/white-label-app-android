@@ -113,7 +113,7 @@
   <string name="ta_filters_reset">Sıfırla</string>
   <string name="ta_sorting_title">Şuna göre sırala</string>
   <string name="ta_transfer_title">Aktarmalar</string>
-  <plurals name="ta_transfer_count">
+  <plurals name="ta_transfer_count_0">
     <item quantity="one">%s aktarma</item>
     <item quantity="other">%s aktarma</item>
   </plurals>
@@ -133,6 +133,7 @@
   <string name="ta_time_noon">Öğlen</string>
   <string name="ta_time_evening">Akşam</string>
   <string name="ta_luggage_title">Bilete dahil</string>
+  <string name="ta_layover_filter_title">En fazla 1 aktarma</string>
   <string name="ta_luggage">Sadece bagaj dahil</string>
   <string name="ta_other_title">Daha fazla seçenek</string>
   <string name="ta_flight_time_title">Uçuş Süresi</string>
@@ -171,6 +172,7 @@
   <string name="ta_search_results_night_transfer">gece bekleme</string>
   <string name="ta_search_results_airport_change">havalimanı değişikliği</string>
   <string name="ta_search_results_short_layover">kısa aktarma</string>
+  <string name="ta_search_results_loading_text">Uçuşlar aranıyor…</string>
   <plurals name="ta_cheapest_transfer_count">
     <item quantity="one">%s aktarma ama daha ucuz</item>
     <item quantity="other">%s aktarma ama daha ucuz</item>
@@ -359,6 +361,7 @@
   <string name="ta_hotels_search_results_not_refundable">İptal edilemez</string>
   <string name="ta_hotels_search_results_no_rooms">Oda bulunamadı</string>
   <string name="ta_hotels_search_results_loading_prices">Fiyatlar yükleniyor</string>
+  <string name="ta_hotels_search_results_loading_text">Oteller aranıyor…</string>
   <string name="ta_dates_string">%1$s %2$s</string>
   <string name="ta_guests_string">%1$s, %2$s</string>
   <string name="ta_hotels_invalid_date_title">Seçilen tarihler geçti</string>
@@ -534,7 +537,7 @@
   <string name="ta_info_feedback_subject">Whitelabel geri bildirimi</string>
   <string name="ta_region_settings_subtitle">Bölgesel ayarlar, uygun biletleri ve farklı ülkelere yönelik giriş kurallarını göstermekte kullanılır</string>
   <string name="ta_region_settings_item_app_language">Uygulama dili</string>
-  <string name="ta_region_settings_item_country">Ülke</string>
+  <string name="ta_region_settings_item_country">Ülke / Bölge</string>
   <string name="ta_region_settings_item_currency">Kur</string>
   <string name="ta_currency_fragment_title">Kur</string>
   <string name="ta_currency_item_show_all">Tüm para birimleri</string>

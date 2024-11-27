@@ -11,21 +11,34 @@ object GoogleAdMobAppIdHandler {
 
     private const val MANIFEST_PATH = "src/main/AndroidManifest.xml"
 
-    private val APPODEAL = "implementation(Tools.APPODEAL)"
+    private const val APPODEAL_WITH_ADMOB =
+        "implementation(Tools.APPODEAL) { exclude(\"com.android.billingclient\", \"billing\") }"
 
-    private val APPODEAL_EXCLUDE = "implementation(Tools.APPODEAL) { exclude(\"com.appodeal.ads.sdk.networks\", \"admob\") }"
+    private const val APPODEAL_CORE = "implementation(Tools.APPODEAL_CORE)"
 
-    private const val ADMOB_META = """        <meta-data
+    private const val APPODEAL_WITHOUT_ADMOB = """
+    implementation(Tools.APPODEAL_CORE)
+    appodealNetworkWithoutAdmob()
+    """
+
+    private const val ADMOB_FULL_INFO =
+        """    <property
+            android:name="android.adservices.AD_SERVICES_CONFIG"
+            android:resource="@xml/gma_ad_services_config"
+            tools:replace="android:resource" />
+        <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="@string/google_admob_app_id"/>
-                        
+            android:value="@string/google_admob_app_id" />
     </application>"""
 
-    private val ADMOB_META_REGEX = """
-                    [ ]*<meta-data[ ]*
-                        [ ]*android:name="com.google.android.gms.ads.APPLICATION_ID"[ ]*
-                        [ ]*android:value="@string/google_admob_app_id"/>[ ]*
-                """.trimIndent().toRegex()
+    private val ADMOB_FULL_INFO_REGEX =
+        """[ ]*<property[ ]*
+            [ ]*android:name="android.adservices.AD_SERVICES_CONFIG"[ ]*
+            [ ]*android:resource="@xml/gma_ad_services_config"[ ]*
+            [ ]*tools:replace="android:resource" />[ ]*
+        [ ]*<meta-data[ ]*
+            [ ]*android:name="com.google.android.gms.ads.APPLICATION_ID"[ ]*
+            [ ]*android:value="@string/google_admob_app_id" />[ ]*""".trimIndent().toRegex()
 
     /**
      * Create strings resource file with Advertising configs
@@ -38,46 +51,83 @@ object GoogleAdMobAppIdHandler {
         </resources>
     """.trimIndent()
 
-    fun generateXml(
-        customProject: Project,
-        googleAdmobAppId: String
+    fun handleAdmobConfig(
+        appModule: Project,
+        googleAdmobAppId: String,
+        isAppodealKeyEmpty: Boolean
     ) {
         print("Generating advertising config strings.xml... ")
 
-        val file = customProject.file(PATH)
+        handleAppodealGradleDeps(
+            module = appModule,
+            googleAdmobIsEmpty = googleAdmobAppId.isEmpty(),
+            isAppodealKeyEmpty = isAppodealKeyEmpty
+        )
 
-        val gradleFile = customProject.file(GRADLE_PATH)
-        val gradleFileText = gradleFile.readText()
+        handleManifest(
+            module = appModule,
+            googleAdmobIsEmpty = googleAdmobAppId.isEmpty(),
+            isAppodealKeyEmpty = isAppodealKeyEmpty
+        )
 
-        val manifestFile = customProject.file(MANIFEST_PATH)
-        val manifestFileText = manifestFile.readText()
+        val appodealConfig = appModule.file(PATH)
 
-        if (googleAdmobAppId.isEmpty()) {
-            if (!gradleFileText.contains(APPODEAL_EXCLUDE)) {
-                val editedGradleText = gradleFileText.replace(APPODEAL, APPODEAL_EXCLUDE)
-                gradleFile.writeText(editedGradleText)
-            }
-
-            val editedManifestText = manifestFileText.replace(ADMOB_META_REGEX, "")
-            manifestFile.writeText(editedManifestText)
-        } else {
-            val editedGradleText = gradleFileText.replace(APPODEAL_EXCLUDE, APPODEAL)
-            gradleFile.writeText(editedGradleText)
-
-            if (!manifestFileText.contains(ADMOB_META_REGEX)) {
-                val editedManifestText = manifestFileText.replace("</application>", ADMOB_META)
-                manifestFile.writeText(editedManifestText)
-            }
+        if (!appodealConfig.exists()) {
+            appodealConfig.createNewFile()
         }
 
-        if (!file.exists()) {
-            file.createNewFile()
-        }
-
-        file.writeText(
+        appodealConfig.writeText(
             template.format(googleAdmobAppId)
         )
 
         println("✅ ")
+    }
+
+    private fun handleAppodealGradleDeps(
+        module: Project,
+        googleAdmobIsEmpty: Boolean,
+        isAppodealKeyEmpty: Boolean
+    ) {
+        val gradleFile = module.file(GRADLE_PATH)
+        val gradleFileText = gradleFile.readText()
+
+        val editedGradleText = when {
+            isAppodealKeyEmpty -> {
+                gradleFileText
+                    .replace(APPODEAL_WITHOUT_ADMOB, APPODEAL_CORE)
+                    .replace(APPODEAL_WITH_ADMOB, APPODEAL_CORE)
+            }
+            googleAdmobIsEmpty -> {
+                gradleFileText
+                    .replace(APPODEAL_CORE, APPODEAL_WITHOUT_ADMOB)
+                    .replace(APPODEAL_WITH_ADMOB, APPODEAL_WITHOUT_ADMOB)
+            }
+            else -> {
+                gradleFileText
+                    .replace(APPODEAL_WITHOUT_ADMOB, APPODEAL_WITH_ADMOB)
+                    .replace(APPODEAL_CORE, APPODEAL_WITH_ADMOB)
+            }
+        }
+
+        gradleFile.writeText(editedGradleText)
+    }
+
+    private fun handleManifest(
+        module: Project,
+        googleAdmobIsEmpty: Boolean,
+        isAppodealKeyEmpty: Boolean
+    ) {
+        val manifestFile = module.file(MANIFEST_PATH)
+        val manifestFileText = manifestFile.readText()
+
+        if (googleAdmobIsEmpty || isAppodealKeyEmpty) {
+            val editedManifestText = manifestFileText.replace(ADMOB_FULL_INFO_REGEX, "")
+            manifestFile.writeText(editedManifestText)
+        } else {
+            if (!manifestFileText.contains(ADMOB_FULL_INFO_REGEX)) {
+                val editedManifestText = manifestFileText.replace("</application>", ADMOB_FULL_INFO)
+                manifestFile.writeText(editedManifestText)
+            }
+        }
     }
 }

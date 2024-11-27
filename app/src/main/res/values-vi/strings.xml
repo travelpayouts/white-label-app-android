@@ -108,7 +108,7 @@
   <string name="ta_filters_reset">Cài đặt lại</string>
   <string name="ta_sorting_title">Sắp xếp theo</string>
   <string name="ta_transfer_title">Điểm dừng</string>
-  <plurals name="ta_transfer_count">
+  <plurals name="ta_transfer_count_0">
     <item quantity="other">%s điểm dừng</item>
   </plurals>
   <string name="ta_transfer_count">Số điểm dừng</string>
@@ -127,6 +127,7 @@
   <string name="ta_time_noon">Buổi chiều</string>
   <string name="ta_time_evening">Buổi tối</string>
   <string name="ta_luggage_title">Đã bao gồm trong vé</string>
+  <string name="ta_layover_filter_title">Tối đa 1 lần quá cảnh</string>
   <string name="ta_luggage">Chỉ bao gồm hành lý</string>
   <string name="ta_other_title">Tùy chọn khác</string>
   <string name="ta_flight_time_title">Thời gian</string>
@@ -165,6 +166,7 @@
   <string name="ta_search_results_night_transfer">quá cảnh qua đêm</string>
   <string name="ta_search_results_airport_change">thay đổi sân bay</string>
   <string name="ta_search_results_short_layover">quá cảnh ngắn</string>
+  <string name="ta_search_results_loading_text">Đang tìm chuyến bay…</string>
   <plurals name="ta_cheapest_transfer_count">
     <item quantity="other">%s điểm tạm dừng, nhưng rẻ hơn</item>
   </plurals>
@@ -342,6 +344,7 @@
   <string name="ta_hotels_search_results_not_refundable">Không thể hủy</string>
   <string name="ta_hotels_search_results_no_rooms">Không tìm thấy phòng nào</string>
   <string name="ta_hotels_search_results_loading_prices">Đang tải giá</string>
+  <string name="ta_hotels_search_results_loading_text">Đang tìm khách sạn…</string>
   <string name="ta_dates_string">%1$s %2$s</string>
   <string name="ta_guests_string">%1$s, %2$s</string>
   <string name="ta_hotels_invalid_date_title">Ngày được chọn đã qua</string>
@@ -511,7 +514,7 @@
   <string name="ta_info_feedback_subject">Phản hồi Whitelabel</string>
   <string name="ta_region_settings_subtitle">Cài đặt vùng được sử dụng để hiển thị vé và quy tắc nhập cảnh phù hợp cho các quốc gia khác nhau</string>
   <string name="ta_region_settings_item_app_language">Ngôn ngữ ứng dụng</string>
-  <string name="ta_region_settings_item_country">Quốc gia</string>
+  <string name="ta_region_settings_item_country">Quốc gia / Khu vực</string>
   <string name="ta_region_settings_item_currency">Tiền tệ</string>
   <string name="ta_currency_fragment_title">Tiền tệ</string>
   <string name="ta_currency_item_show_all">Tất cả loại tiền</string>

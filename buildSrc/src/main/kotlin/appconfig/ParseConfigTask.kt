@@ -39,18 +39,6 @@ abstract class ParseConfigTask : DefaultTask() {
         val appModule =
             project.childProjects["app"] ?: throw IllegalStateException("App module not found!")
 
-        /*        appModule.extensions.findByType(AppExtension::class.java)!!.sourceSets.getByName("main").java.srcDir(
-                    File(appModule.getGeneratedSourcesDir().toString())
-                )
-
-                appModule.extensions.findByType(AppExtension::class.java)!!.sourceSets.getByName("main").java.srcDirs.forEach {
-                    println("srcDir: $it")
-                }
-
-                appModule.extensions.findByType(AppExtension::class.java)!!.applicationVariants.all {
-
-                }*/
-
         val fis = FileInputStream("$CONFIG_DIR/$JSON_FILE_NAME")
 
         val jsonString = fis
@@ -64,9 +52,10 @@ abstract class ParseConfigTask : DefaultTask() {
 
         AppConfigJsonParser.parse(buildSrcAppConfig, appModule)
 
-        GoogleAdMobAppIdHandler.generateXml(
-            appModule,
-            buildSrcAppConfig.baseConfiguration.advertising?.googleAdmobAppId.orEmpty()
+        GoogleAdMobAppIdHandler.handleAdmobConfig(
+            appModule = appModule,
+            googleAdmobAppId = buildSrcAppConfig.baseConfiguration.advertising?.googleAdmobAppId.orEmpty(),
+            isAppodealKeyEmpty = buildSrcAppConfig.baseConfiguration.advertising?.appodealApiKey.isNullOrBlank()
         )
 
         AppTabsParser.parseTabs(appModule, buildSrcAppConfig.whiteLabelConfig.screensToDisplay)

@@ -167,6 +167,7 @@
     <string name="ta_time_noon">День</string>
     <string name="ta_time_evening">Вечер</string>
     <string name="ta_luggage_title">Бесплатный провоз</string>
+    <string name="ta_layover_filter_title">Максимум 1 пересадка</string>
     <string name="ta_luggage">Только с багажом</string>
     <string name="ta_other_title">Дополнительно</string>
     <string name="ta_flight_time_title">Время в пути</string>

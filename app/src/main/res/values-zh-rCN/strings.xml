@@ -108,7 +108,7 @@
   <string name="ta_filters_reset">重置</string>
   <string name="ta_sorting_title">排序方式</string>
   <string name="ta_transfer_title">中途停留</string>
-  <plurals name="ta_transfer_count">
+  <plurals name="ta_transfer_count_0">
     <item quantity="other">中途停留 %s 次</item>
   </plurals>
   <string name="ta_transfer_count">中转次数</string>
@@ -127,6 +127,7 @@
   <string name="ta_time_noon">下午</string>
   <string name="ta_time_evening">晚上</string>
   <string name="ta_luggage_title">包含在机票内</string>
+  <string name="ta_layover_filter_title">最多 1 次中转</string>
   <string name="ta_luggage">仅显示包含行李的</string>
   <string name="ta_other_title">更多选项</string>
   <string name="ta_flight_time_title">飞行时间</string>
@@ -165,6 +166,7 @@
   <string name="ta_search_results_night_transfer">过夜中转</string>
   <string name="ta_search_results_airport_change">变更机场</string>
   <string name="ta_search_results_short_layover">中途短暂停留</string>
+  <string name="ta_search_results_loading_text">正在搜索航班……</string>
   <plurals name="ta_cheapest_transfer_count">
     <item quantity="other">%s次中转，但它更便宜。</item>
   </plurals>
@@ -342,6 +344,7 @@
   <string name="ta_hotels_search_results_not_refundable">不可取消</string>
   <string name="ta_hotels_search_results_no_rooms">没有找到房间</string>
   <string name="ta_hotels_search_results_loading_prices">正在加载价格</string>
+  <string name="ta_hotels_search_results_loading_text">正在搜索酒店……</string>
   <string name="ta_dates_string">%1$s %2$s</string>
   <string name="ta_guests_string">%1$s, %2$s</string>
   <string name="ta_hotels_invalid_date_title">选择的日期已过去</string>
@@ -511,7 +514,7 @@
   <string name="ta_info_feedback_subject">Whitelabel 反馈</string>
   <string name="ta_region_settings_subtitle">区域设置用于为不同国家的用户显示合适的机票和入境规则</string>
   <string name="ta_region_settings_item_app_language">应用程序语言</string>
-  <string name="ta_region_settings_item_country">国家</string>
+  <string name="ta_region_settings_item_country">国家/地区</string>
   <string name="ta_region_settings_item_currency">货币</string>
   <string name="ta_currency_fragment_title">货币</string>
   <string name="ta_currency_item_show_all">所有货币</string>
