@@ -95,9 +95,6 @@ class Constants(
     @SerializedName("client_device_host")
     val clientDeviceHost: String,
 
-    @SerializedName("host")
-    val host: String,
-
     @SerializedName("api_key")
     val apiKey: String?,
 

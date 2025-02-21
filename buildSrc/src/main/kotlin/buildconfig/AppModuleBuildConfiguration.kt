@@ -131,9 +131,7 @@ class AppModuleBuildConfiguration(
                 dimension = "products"
             }
 
-            maybeCreate(ProductFlavors.UNLIMITED).apply {
-                dimension = "products"
-            }
+
         }
     }
 }

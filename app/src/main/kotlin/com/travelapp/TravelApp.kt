@@ -64,6 +64,7 @@ open class TravelApp : Application() {
             hotelsPriceSettingsEnabled = WhiteLabelConf.hotelsTabEnabled,
             enabledInfoItems = WhiteLabelConf.InfoConfig.enabledItems,
             clientDeviceHost = WhiteLabelConf.clientDeviceHost,
+            appId = WhiteLabelConf.appId,
             appVersion = WhiteLabelConf.appVerison,
             email = WhiteLabelConf.email,
             advertising = advertisingConfig,

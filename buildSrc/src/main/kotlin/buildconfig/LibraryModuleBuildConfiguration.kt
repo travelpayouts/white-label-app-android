@@ -58,9 +58,7 @@ class LibraryModuleBuildConfiguration(
                 dimension = "products"
             }
 
-            maybeCreate(ProductFlavors.UNLIMITED).apply {
-                dimension = "products"
-            }
+
         }
     }
 
