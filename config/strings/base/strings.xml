@@ -256,6 +256,15 @@
   <string name="ta_empty_transfer">Layover %1$s</string>
   <string name="ta_flight_time_difference">Same price</string>
   <string name="ta_share">Share as image</string>
+  <string name="ta_share_deeplink">Share as link</string>
+  <string name="ta_iata_error_title">No cities found</string>
+  <string name="ta_iata_error_description">Enter your departure and arrival cities manually</string>
+  <string name="ta_date_error_title">Selected dates have passed</string>
+  <string name="ta_date_error_description">Enter your travel dates manually</string>
+  <string name="ta_link_error_title">Link not recognized</string>
+  <string name="ta_link_error_description">Select your search parameters manually</string>
+  <string name="ta_loading_city">Determining departure city</string>
+  <string name="ta_ticket_error">We couldn\'t find any tickets via your link</string>
   <string name="ta_close">Close</string>
   <string name="ta_flights_webview_exit_dialog_title">Return to ticket search?</string>
   <string name="ta_flights_webview_exit_dialog_cancel_button">Stay</string>
@@ -534,7 +543,7 @@
   <string name="ta_info_item_rate_app">Rate this app</string>
   <string name="ta_info_item_share_app">Share this app</string>
   <string name="ta_info_item_confidential">Privacy</string>
-  <string name="ta_info_feedback_subject">Whitelabel feedback</string>
+  <string name="ta_info_feedback_subject">App feedback</string>
   <string name="ta_region_settings_subtitle">Regional settings are used to display suitable tickets and entry rules for different countries</string>
   <string name="ta_region_settings_item_app_language">App language</string>
   <string name="ta_region_settings_item_country">Country / Region</string>

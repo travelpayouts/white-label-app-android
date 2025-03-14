@@ -203,6 +203,9 @@ object Tools {
     const val CRUNCHY_CALENDAR = "ru.cleverpumpkin:crunchycalendar:2.6.1"
     const val SEISMIC = "com.squareup:seismic:1.0.3"
 
+    const val IN_APP_REVIEW = "com.google.android.play:review:2.0.2"
+    const val IN_APP_REVIEW_KTX = "com.google.android.play:review-ktx:2.0.2"
+
     //need to update library version synchronously
     private const val APPODEAL_VERSION = "3.3.1.0"
 

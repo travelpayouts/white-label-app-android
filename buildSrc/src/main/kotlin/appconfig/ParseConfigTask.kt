@@ -54,8 +54,8 @@ abstract class ParseConfigTask : DefaultTask() {
 
         GoogleAdMobAppIdHandler.handleAdmobConfig(
             appModule = appModule,
-            googleAdmobAppId = buildSrcAppConfig.baseConfiguration.advertising?.googleAdmobAppId.orEmpty(),
-            isAppodealKeyEmpty = buildSrcAppConfig.baseConfiguration.advertising?.appodealApiKey.isNullOrBlank()
+            googleAdmobAppId = buildSrcAppConfig.advertising?.googleAdmobAppId.orEmpty(),
+            isAppodealKeyEmpty = buildSrcAppConfig.advertising?.appodealApiKey.isNullOrBlank()
         )
 
         AppTabsParser.parseTabs(appModule, buildSrcAppConfig.whiteLabelConfig.screensToDisplay)

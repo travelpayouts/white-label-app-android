@@ -160,6 +160,10 @@ dependencies {
     // AppsFlyer
     implementation(AppsFlyer.LIBRARY)
 
+    //InAppReview
+    implementation(Tools.IN_APP_REVIEW)
+    implementation(Tools.IN_APP_REVIEW_KTX)
+
 }
 
 //evaluationDependsOn(BuildModules.Config.LIBRARY)

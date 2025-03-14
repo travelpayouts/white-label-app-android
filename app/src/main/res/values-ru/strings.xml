@@ -314,6 +314,15 @@
     <string name="ta_flight_time_difference">Та же цена</string>
     <!-- ShareDialog -->
     <string name="ta_share">Поделиться картинкой</string>
+    <string name="ta_share_deeplink">Поделиться ссылкой</string>
+    <string name="ta_iata_error_title">Города не найдены</string>
+    <string name="ta_iata_error_description">Пожалуйста укажите города отправления и назначения вручную</string>
+    <string name="ta_date_error_title">Даты устарели</string>
+    <string name="ta_date_error_description">Пожалуйста укажите актуальные даты поездки вручную</string>
+    <string name="ta_link_error_title">Ссылка не распознана</string>
+    <string name="ta_link_error_description">Пожалуйста укажите параметры поиска авиабилетов вручную</string>
+    <string name="ta_loading_city">Определяем город вылета</string>
+    <string name="ta_ticket_error">По вашей ссылке билет не найден</string>
     <string name="ta_close">Закрыть</string>
     <!-- BuyTicketFragment -->
     <string name="ta_flights_webview_exit_dialog_title">Вернуться к поиску билетов?</string>
@@ -662,7 +671,7 @@
     <string name="ta_info_item_rate_app">Оценить приложение</string>
     <string name="ta_info_item_share_app">Поделиться приложением</string>
     <string name="ta_info_item_confidential">Конфиденциальность</string>
-    <string name="ta_info_feedback_subject">"Whitelabel feedback"</string>
+    <string name="ta_info_feedback_subject">"App feedback"</string>
 
     <!-- RegionSettingsFragment -->
     <string name="ta_region_settings_subtitle">Региональные настройки нужны для отображения подходящих билетов и правил въезда в страну</string>
