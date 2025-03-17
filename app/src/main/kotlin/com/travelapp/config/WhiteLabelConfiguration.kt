@@ -1,6 +1,7 @@
 package com.travelapp.config
 
 import com.travelapp.sdk.config.CornerType
+import com.travelapp.sdk.config.AppTabs
 import com.travelapp.sdk.config.EnabledInfoItems
 import com.travelapp.sdk.config.IconsType
         
@@ -13,10 +14,14 @@ object WhiteLabelConf {
 
     const val email: String = "test@test.com"
 
-    const val appVerison: String = "1.3.4"
+    const val feedbackTheme: String = ""
+
+    const val appVerison: String = "1.4.0"
 
     const val appId: String = ""
-    
+
+    val reviewRequestFrequency: Int = 0
+
     val marker: Int = 0
     
     val clientDeviceHost: String = ""

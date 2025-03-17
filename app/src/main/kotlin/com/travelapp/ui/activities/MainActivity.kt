@@ -16,6 +16,8 @@ import com.travelapp.R
 import com.travelapp.config.AppTabsList
 import com.travelapp.databinding.ActivityMainBinding
 import com.travelapp.debugmenu.DebugMenu
+import com.travelapp.sdk.config.AppTabs
+import com.travelapp.sdk.config.TravelSdk
 import com.travelapp.sdk.internal.core.config.providers.navigation.NavigationBarItem
 import com.travelapp.sdk.internal.ui.base.BaseActivity
 import com.travelapp.sdk.internal.ui.utils.BottomBarVisibilityHandler
@@ -73,6 +75,14 @@ class MainActivity : BaseActivity(R.layout.activity_main), BottomBarVisibilityHa
         initShakeDetector()
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             permissionRequestLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+        }
+
+        checkForFlightTicketLink()
+    }
+
+    private fun checkForFlightTicketLink() {
+        if (intent.data.toString().contains(TravelSdk.config.sharingLink) && intent.data.toString().contains("flightSearch")) {
+            binding.bottomBar.selectedItemId = AppTabs.Flights.idRes
         }
     }
 

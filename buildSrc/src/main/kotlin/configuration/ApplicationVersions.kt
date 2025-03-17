@@ -14,11 +14,12 @@ object ApplicationVersions {
     private const val PROP_VERSION = "version"
     private const val PROP_BUILD_TYPE = "buildTypeName"
 
-    private val prop: Properties = Properties().apply {
-        val fis = FileInputStream(FILENAME)
-        load(fis)
-        fis.close()
-    }
+    private val prop: Properties
+        get() = Properties().apply {
+            val fis = FileInputStream(FILENAME)
+            load(fis)
+            fis.close()
+        }
 
 
     private val version: String = prop.getProperty(PROP_VERSION)

@@ -254,6 +254,7 @@
   <string name="ta_empty_transfer">Layover %1$s</string>
   <string name="ta_flight_time_difference">Same price</string>
   <string name="ta_share">Share as image</string>
+  <string name="ta_share_deeplink">Share as link</string>
   <string name="ta_close">Close</string>
   <string name="ta_flights_webview_exit_dialog_title">Return to ticket search?</string>
   <string name="ta_flights_webview_exit_dialog_cancel_button">Stay</string>

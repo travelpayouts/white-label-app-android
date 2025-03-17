@@ -256,6 +256,15 @@
   <string name="ta_empty_transfer">%1$s\'de Aktarma</string>
   <string name="ta_flight_time_difference">Aynı fiyat</string>
   <string name="ta_share">Resim olarak paylaş</string>
+  <string name="ta_share_deeplink">Bağlantı olarak paylaşın</string>
+  <string name="ta_iata_error_title">Hiç şehir bulunamadı</string>
+  <string name="ta_iata_error_description">Kalkış ve varış şehirlerini manuel olarak gir</string>
+  <string name="ta_date_error_title">Seçilen tarihler geçti</string>
+  <string name="ta_date_error_description">Seyahat tarihlerini manuel olarak gir</string>
+  <string name="ta_link_error_title">Bağlantı tanınmadı</string>
+  <string name="ta_link_error_description">Arama parametrelerinizi elle seçin</string>
+  <string name="ta_loading_city">Kalkış şehrini belirleme</string>
+  <string name="ta_ticket_error">Bağlantınızdan hiçbir bilet bulamadık</string>
   <string name="ta_close">Kapat</string>
   <string name="ta_flights_webview_exit_dialog_title">Bilet aramaya dönülsün mü?</string>
   <string name="ta_flights_webview_exit_dialog_cancel_button">Kal</string>
@@ -534,7 +543,7 @@
   <string name="ta_info_item_rate_app">Bu uygulamayı oyla</string>
   <string name="ta_info_item_share_app">Bu uygulamayı paylaş</string>
   <string name="ta_info_item_confidential">Gizlilik</string>
-  <string name="ta_info_feedback_subject">Whitelabel geri bildirimi</string>
+  <string name="ta_info_feedback_subject">App feedback</string>
   <string name="ta_region_settings_subtitle">Bölgesel ayarlar, uygun biletleri ve farklı ülkelere yönelik giriş kurallarını göstermekte kullanılır</string>
   <string name="ta_region_settings_item_app_language">Uygulama dili</string>
   <string name="ta_region_settings_item_country">Ülke / Bölge</string>

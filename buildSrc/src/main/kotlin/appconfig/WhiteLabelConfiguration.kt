@@ -10,6 +10,9 @@ class WhiteLabelConfiguration(
     @SerializedName("constants")
     val constants: Constants,
 
+    @SerializedName("advertising")
+    val advertising: Advertising?,
+
     @SerializedName("style")
     val style: Style,
 
@@ -30,8 +33,8 @@ class BaseConfiguration(
     @SerializedName("display_name")
     val displayName: Localization,
 
-    @SerializedName("advertising")
-    val advertising: Advertising?,
+    @SerializedName("booking_review_request_frequency")
+    val reviewRequestFrequency: Int?,
 )
 
 class Identifier(
@@ -85,6 +88,9 @@ class Constants(
 
     @SerializedName("feedback_email")
     val feedbackEmail: String?,
+
+    @SerializedName("feedback_theme")
+    val feedbackTheme: String?,
 
     @SerializedName("google_maps_api_key")
     val googleMapsApiKey: String,

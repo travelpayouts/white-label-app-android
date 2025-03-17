@@ -4,7 +4,7 @@
       "android": {
         "id": "",
         "versionCode": 1,
-        "versionName": "1.3.5"
+        "versionName": "1.4.0"
       },
       "apple": {
         "id": "",
@@ -17,16 +17,7 @@
         "en": "whitelabel"
       }
     },
-    "advertising": {
-      "appodeal_api_key": "",
-      "google_admob_app_id": "",
-      "placements": {
-        "air_ticket_placement_interstitial": "",
-        "air_ticket_placement_banner": "",
-        "hotels_placement_interstitial": "",
-        "hotels_placement_banner": ""
-      }
-    }
+    "booking_review_request_frequency": 0
   },
   "constants": {
     "policy_url": {
@@ -37,6 +28,7 @@
       }
     },
     "feedback_email": "test@test.com",
+    "feedback_theme": null,
     "google_maps_api_key": "",
     "appstore_id": "",
     "marker": 0,
@@ -47,6 +39,16 @@
       "handling_link": ""
     },
     "appsflyer_dev_key": ""
+  },
+  "advertising": {
+    "appodeal_api_key": "",
+    "google_admob_app_id": "",
+    "placements": {
+      "air_ticket_placement_interstitial": "",
+      "air_ticket_placement_banner": "",
+      "hotels_placement_interstitial": "",
+      "hotels_placement_banner": ""
+    }
   },
   "style": {
     "base_color": "#d9332e",

@@ -3,7 +3,10 @@ package com.travelapp
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
+import android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK
 import androidx.core.app.NotificationCompat
+import androidx.core.net.toUri
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.travelapp.debugmenu.DebugMenu
@@ -14,6 +17,7 @@ class TravelAppMessagingService : FirebaseMessagingService() {
 
     companion object {
         const val NOTIFICATION_CHANNEL_ID = "TravelApp"
+        private const val LINK_KEY = "link"
     }
 
     private val notificationManager by lazy {
@@ -28,7 +32,8 @@ class TravelAppMessagingService : FirebaseMessagingService() {
 
     override fun onMessageReceived(message: RemoteMessage) {
         super.onMessageReceived(message)
-        val intent = message.toIntent()
+        val intent = Intent(Intent.ACTION_VIEW, message.data[LINK_KEY]?.toUri(), this, StartActivity::class.java)
+        intent.setFlags(FLAG_ACTIVITY_CLEAR_TASK)
 
         val id = Random.nextInt()
 

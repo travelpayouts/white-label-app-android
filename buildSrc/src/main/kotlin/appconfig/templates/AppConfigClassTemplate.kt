@@ -72,10 +72,14 @@ class AppConfigClassTemplate(
         
             const val email: String = "${whiteLabelConfig.constants.feedbackEmail}"
 
+            const val feedbackTheme: String = "${whiteLabelConfig.constants.feedbackTheme.orEmpty()}"
+
             const val appVerison: String = "${whiteLabelConfig.baseConfiguration.identifier.android.versionName}"
 
             const val appId: String = "${whiteLabelConfig.baseConfiguration.identifier.android.applicationId}"
-            
+
+            val reviewRequestFrequency: Int = ${whiteLabelConfig.baseConfiguration.reviewRequestFrequency ?: 0}
+
             val marker: Int = ${whiteLabelConfig.constants.marker}
             
             val clientDeviceHost: String = "${whiteLabelConfig.constants.clientDeviceHost}"
@@ -102,16 +106,16 @@ class AppConfigClassTemplate(
             }
         
             object Advertising {
-                const val appodealApiKey: String = "${whiteLabelConfig.baseConfiguration.advertising?.appodealApiKey.orEmpty()}"
+                const val appodealApiKey: String = "${whiteLabelConfig.advertising?.appodealApiKey.orEmpty()}"
 
                 object Placements {
-                    const val airTicketPlacementInterstitial: String = "${whiteLabelConfig.baseConfiguration.advertising?.placements?.airTicketPlacementInterstitial.orEmpty()}"
+                    const val airTicketPlacementInterstitial: String = "${whiteLabelConfig.advertising?.placements?.airTicketPlacementInterstitial.orEmpty()}"
 
-                    const val airTicketPlacementBanner: String = "${whiteLabelConfig.baseConfiguration.advertising?.placements?.airTicketPlacementBanner.orEmpty()}"
+                    const val airTicketPlacementBanner: String = "${whiteLabelConfig.advertising?.placements?.airTicketPlacementBanner.orEmpty()}"
 
-                    const val hotelsPlacementInterstitial: String = "${whiteLabelConfig.baseConfiguration.advertising?.placements?.hotelsPlacementInterstitial.orEmpty()}"
+                    const val hotelsPlacementInterstitial: String = "${whiteLabelConfig.advertising?.placements?.hotelsPlacementInterstitial.orEmpty()}"
 
-                    const val hotelsPlacementBanner: String = "${whiteLabelConfig.baseConfiguration.advertising?.placements?.hotelsPlacementBanner.orEmpty()}"
+                    const val hotelsPlacementBanner: String = "${whiteLabelConfig.advertising?.placements?.hotelsPlacementBanner.orEmpty()}"
 
                 }
             }
