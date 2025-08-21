@@ -246,15 +246,6 @@
   <string name="ta_empty_transfer">หยุดพักใน %1$s</string>
   <string name="ta_flight_time_difference">ราคาเดียวกัน</string>
   <string name="ta_share">แชร์เป็นรูปภาพ</string>
-  <string name="ta_share_deeplink">แชร์เป็นลิงก์</string>
-  <string name="ta_iata_error_title">ไม่พบเมือง</string>
-  <string name="ta_iata_error_description">กรอกเมืองต้นทางและปลายทางด้วยตนเอง</string>
-  <string name="ta_date_error_title">วันที่เลือกผ่านไปแล้ว</string>
-  <string name="ta_date_error_description">กรอกวันที่เดินทางด้วยตนเอง</string>
-  <string name="ta_link_error_title">ไม่รู้จักลิงก์</string>
-  <string name="ta_link_error_description">เลือกพารามิเตอร์การค้นหาด้วยตนเอง</string>
-  <string name="ta_loading_city">กำหนดเมืองต้นทาง</string>
-  <string name="ta_ticket_error">เราไม่พบตั๋วผ่านลิงก์ของคุณ</string>
   <string name="ta_close">ปิด</string>
   <string name="ta_flights_webview_exit_dialog_title">กลับไปที่การค้นหาตั๋ว?</string>
   <string name="ta_flights_webview_exit_dialog_cancel_button">พัก</string>
@@ -520,7 +511,7 @@
   <string name="ta_info_item_rate_app">ให้คะแนนแอปฯนี้</string>
   <string name="ta_info_item_share_app">แชร์แอปนี้</string>
   <string name="ta_info_item_confidential">ความเป็นส่วนตัว</string>
-  <string name="ta_info_feedback_subject">App feedback</string>
+  <string name="ta_info_feedback_subject">ข้อเสนอแนะเกี่ยวกับ Whitelabel</string>
   <string name="ta_region_settings_subtitle">การตั้งค่าภูมิภาคใช้เพื่อแสดงตั๋วและกฎการเข้าประเทศที่เหมาะสมสำหรับประเทศต่าง ๆ</string>
   <string name="ta_region_settings_item_app_language">ภาษาของแอป</string>
   <string name="ta_region_settings_item_country">ประเทศ / ภูมิภาค</string>

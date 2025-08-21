@@ -256,15 +256,6 @@
   <string name="ta_empty_transfer">Välilasku kohteessa %1$s</string>
   <string name="ta_flight_time_difference">Sama hinta</string>
   <string name="ta_share">Jaa kuvana</string>
-  <string name="ta_share_deeplink">Jaa linkkinä</string>
-  <string name="ta_iata_error_title">Paikkakuntia ei löytynyt</string>
-  <string name="ta_iata_error_description">Lisää lähtö- ja määränpääkaupunkisi manuaalisesti</string>
-  <string name="ta_date_error_title">Valitut päivämäärät ovat menneisyydessä</string>
-  <string name="ta_date_error_description">Lisää matkustuspäiväsi manuaalisesti</string>
-  <string name="ta_link_error_title">Linkkiä ei tunnistettu</string>
-  <string name="ta_link_error_description">Valitse hakuparametrit manuaalisesti</string>
-  <string name="ta_loading_city">Määritetään lähtöpaikkakuntaa</string>
-  <string name="ta_ticket_error">Emme onnistuneet löytämään lippuja linkkisi kautta</string>
   <string name="ta_close">Sulje</string>
   <string name="ta_flights_webview_exit_dialog_title">Palataanko lippuhakuun?</string>
   <string name="ta_flights_webview_exit_dialog_cancel_button">Pysy</string>
@@ -543,7 +534,7 @@
   <string name="ta_info_item_rate_app">Arvostele sovellus</string>
   <string name="ta_info_item_share_app">Jaa tämä sovellus</string>
   <string name="ta_info_item_confidential">Tietosuoja</string>
-  <string name="ta_info_feedback_subject">App feedback</string>
+  <string name="ta_info_feedback_subject">Whitelabel palaute</string>
   <string name="ta_region_settings_subtitle">Alueellisia asetuksia käytetään sopivien lippujen ja eri maiden maahantulosäännösten näyttämiseen</string>
   <string name="ta_region_settings_item_app_language">Sovelluksen kieli</string>
   <string name="ta_region_settings_item_country">Maa/alue</string>

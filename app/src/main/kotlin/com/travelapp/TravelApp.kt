@@ -43,7 +43,9 @@ open class TravelApp : Application() {
             AdvertisingConfig(
                 appodealApiKey = WhiteLabelConf.Advertising.appodealApiKey,
                 airTicketPlacementInterstitial = WhiteLabelConf.Advertising.Placements.airTicketPlacementInterstitial,
-                airTicketPlacementBanner = WhiteLabelConf.Advertising.Placements.airTicketPlacementBanner
+                airTicketPlacementBanner = WhiteLabelConf.Advertising.Placements.airTicketPlacementBanner,
+                hotelsPlacementInterstitial = WhiteLabelConf.Advertising.Placements.hotelsPlacementInterstitial,
+                hotelsPlacementBanner = WhiteLabelConf.Advertising.Placements.hotelsPlacementBanner
             )
         } else {
             AdvertisingConfig()
@@ -57,12 +59,13 @@ open class TravelApp : Application() {
             marker = WhiteLabelConf.marker,
             apiKey = WhiteLabelConf.apiKey,
             flightsFavoritesEnabled = WhiteLabelConf.flightsTabEnabled && isFavoriteEnabled,
+            hotelsFavoritesEnabled = WhiteLabelConf.hotelsTabEnabled && isFavoriteEnabled,
             flightsPriceSettingsEnabled = WhiteLabelConf.flightsTabEnabled,
+            hotelsPriceSettingsEnabled = WhiteLabelConf.hotelsTabEnabled,
             reviewRequestFrequency = WhiteLabelConf.reviewRequestFrequency,
             enabledInfoItems = WhiteLabelConf.InfoConfig.enabledItems,
             clientDeviceHost = WhiteLabelConf.clientDeviceHost,
             appId = WhiteLabelConf.appId,
-            appStoreLink = WhiteLabelConf.appStoreLink,
             appVersion = WhiteLabelConf.appVerison,
             email = WhiteLabelConf.email,
             feedbackTheme = WhiteLabelConf.feedbackTheme,

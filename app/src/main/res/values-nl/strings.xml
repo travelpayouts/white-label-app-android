@@ -256,15 +256,6 @@
   <string name="ta_empty_transfer">Tussenstop in %1$s</string>
   <string name="ta_flight_time_difference">Zelfde prijs</string>
   <string name="ta_share">Delen als afbeelding</string>
-  <string name="ta_share_deeplink">Als link delen</string>
-  <string name="ta_iata_error_title">Geen steden gevonden</string>
-  <string name="ta_iata_error_description">Stad van vertrek en aankomst handmatig invoeren</string>
-  <string name="ta_date_error_title">Geselecteerde datums zijn voorbij</string>
-  <string name="ta_date_error_description">Uw reisdata handmatig invoeren</string>
-  <string name="ta_link_error_title">Link niet herkend</string>
-  <string name="ta_link_error_description">Uw zoekparameters handmatig selecteren</string>
-  <string name="ta_loading_city">Stad van vertrek bepalen</string>
-  <string name="ta_ticket_error">We kunnen geen tickets vinden via uw link</string>
   <string name="ta_close">Sluiten</string>
   <string name="ta_flights_webview_exit_dialog_title">Terugkeren naar tickets zoeken?</string>
   <string name="ta_flights_webview_exit_dialog_cancel_button">Blijven</string>
@@ -543,7 +534,7 @@
   <string name="ta_info_item_rate_app">Beoordeel deze app</string>
   <string name="ta_info_item_share_app">Deel deze app</string>
   <string name="ta_info_item_confidential">Privacy</string>
-  <string name="ta_info_feedback_subject">App feedback</string>
+  <string name="ta_info_feedback_subject">Whitelabel feedback</string>
   <string name="ta_region_settings_subtitle">Regionale instellingen worden gebruikt om geschikte tickets en toegangsregels voor verschillende landen te tonen</string>
   <string name="ta_region_settings_item_app_language">App-taal</string>
   <string name="ta_region_settings_item_country">Land/regio</string>

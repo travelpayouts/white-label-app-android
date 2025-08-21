@@ -3,6 +3,7 @@ import com.project.starter.easylauncher.plugin.EasyLauncherConfig
 import configuration.BuildModules
 import java.io.FileInputStream
 import java.util.Properties
+import org.jetbrains.kotlin.gradle.plugin.mpp.pm20.util.archivesName
 
 plugins {
     id(configuration.BuildPlugins.ANDROID_APPLICATION)
@@ -34,23 +35,16 @@ android {
     defaultConfig {
         manifestPlaceholders["custom_app_id"] = configuration.ApplicationVersions.APPLICATION_ID
         manifestPlaceholders["intent_filter"] = prop.getProperty(PROP_HANDLING_LINK)
+        archivesName = "$applicationId-$versionName"
     }
-
-    applicationVariants.all {
-        outputs.all {
-            val output = this as com.android.build.gradle.internal.api.BaseVariantOutputImpl
-            output.outputFileName = "$applicationId-${versionName}.apk" // Or .aab for app bundles
-        }
-    }
-
 
     kotlin {
-        jvmToolchain(17)
+        jvmToolchain(11)
     }
 
     java {
         toolchain {
-            languageVersion.set(JavaLanguageVersion.of(17))
+            languageVersion.set(JavaLanguageVersion.of(11))
         }
     }
 //    disableFirebasePerfForDebug(buildTypes)
@@ -85,7 +79,7 @@ easylauncher {
 
 
 dependencies {
-    coreLibraryDesugaring(libs.desugar.jdk.libs)
+    coreLibraryDesugaring(Tools.DESUGAR_JDK_LIBS)
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 
     // Travel SDK
@@ -93,81 +87,82 @@ dependencies {
     implementation(project(BuildModules.Common.DEBUG))
 
     // AndroidX
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.fragment.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.androidx.recyclerview)
-    implementation(libs.androidx.constraintlayout)
+    implementation(AndroidX.CORE)
+    implementation(AndroidX.FRAGMENT)
+    implementation(AndroidX.APPCOMPAT)
+    implementation(AndroidX.RECYCLER_VIEW)
+    implementation(AndroidX.CONSTRAINT_LAYOUT)
 
-    implementation(libs.lifecycle.extensions)
+    implementation(LifeCycle.LIFECYCLE_EXTENSIONS)
 
     // Navigation
-    implementation(libs.navigation.ui)
-    implementation(libs.navigation.fragment)
+    implementation(Navigation.UI)
+    implementation(Navigation.FRAGMENT)
 
     // Maps
-    implementation(libs.maps.services)
-    implementation(libs.maps.utils)
-    implementation(libs.maps.utils.ktx)
-    implementation(libs.play.services.maps)
-    implementation(libs.play.services.location)
+    implementation(Google.MAPS_SERVICES)
+    implementation(Google.MAPS_UTILS)
+    implementation(Google.MAPS_UTILS_KTX)
+    implementation(Google.PLAY_SERVICES_MAPS)
+    implementation(Google.PLAY_SERVICES_LOCATION)
 
     // Retrofit
-    implementation(platform(libs.okhttp.bom))
-    implementation(libs.okhttp)
-    implementation(libs.loggin.interceptor)
-    implementation(libs.retrofit)
-    implementation(libs.retrofit.converter.gson)
-    implementation(libs.retrofit.converter.scalars)
+    implementation(platform(OkHttp.BOM))
+    implementation(OkHttp.LIBRARY)
+    implementation(OkHttp.LOGGING_INTERCEPTOR)
+    implementation(Retrofit.LIBRARY)
+    implementation(Retrofit.GSON_CONVERTER)
+    implementation(Retrofit.SCALAR_CONVERTER)
 
     // UI
-    implementation(libs.material.components)
-    implementation(libs.viewbinding.property.delegate)
-    implementation(libs.crunchycalendar)
-    implementation(libs.skeleton)
-    implementation(libs.lottie)
-    implementation(libs.adapterdelegate.core)
-    implementation(libs.adapterdelegate.dsl)
-    implementation(libs.adapterdelegate.layout.container)
-    implementation(libs.adapterdelegate.view.binding)
+    implementation(MaterialComponents.LIBRARY)
+    implementation(UI.VIEWBINDING_PROPERTY_DELEGATE)
+    implementation(Tools.CRUNCHY_CALENDAR)
+    implementation(Skeleton.LIBRARY)
+    implementation(Lottie.LIBRARY)
+    implementation(AdapterDelegate.CORE)
+    implementation(AdapterDelegate.DSL)
+    implementation(AdapterDelegate.LAYOUT_CONTAINER)
+    implementation(AdapterDelegate.VIEW_BINDING)
 
     //Flow binding
-    implementation(libs.flowbinding.core)
-    implementation(libs.flowbinding.material)
-    implementation(libs.flowbinding.platform)
-    implementation(libs.flowbinding.appcompat)
-    implementation(libs.flowbinding.viewpager)
-    implementation(libs.flowbinding.recyclerview)
+    implementation(FlowBinding.CORE)
+    implementation(FlowBinding.MATERIAL)
+    implementation(FlowBinding.PLATFORM)
+    implementation(FlowBinding.APPCOMPAT)
+    implementation(FlowBinding.VIEWPAGER)
+    implementation(FlowBinding.RECYCLERVIEW)
+
 
     //Coil
-    implementation(libs.coil.base)
-    implementation(libs.coil)
+    implementation(Coil.BASE)
+    implementation(Coil.LIBRARY)
 
     // FIrebase
-    implementation(platform(libs.firebase.bom))
-    implementation(libs.firebase.analytics)
-    implementation(libs.firebase.crashlytics)
-    implementation(libs.firebase.messaging)
+    implementation(platform(Firebase.BOM))
+    implementation(Firebase.ANALYTICS)
+    implementation(Firebase.CRASHLYTICS)
+    implementation(Firebase.CLOUD_MESSAGING)
 
     // Dagger
-    implementation(libs.dagger)
-    kapt(libs.dagger.compiler)
-    compileOnly(libs.dagger.annotation)
+    implementation(Dagger2.LIBRARY)
+    kapt(Dagger2.COMPILER)
+    compileOnly(Dagger2.ANNOTATIONS)
 
     //Tools
-    implementation(libs.timberkt)
-    implementation(libs.insetter)
-    implementation(libs.gson)
-    implementation(libs.seismic)
+    implementation(Tools.TIMBER)
+    implementation(Tools.INSETTER)
+    implementation(Tools.GSON)
+    implementation(Tools.SEISMIC)
 
-    implementation(libs.appodeal) { exclude("com.android.billingclient", "billing") }
+    implementation(Tools.APPODEAL) { exclude("com.android.billingclient", "billing") }
 
     // AppsFlyer
-    implementation(libs.appsflyer)
+    implementation(AppsFlyer.LIBRARY)
 
     //InAppReview
-    implementation(libs.app.review)
-    implementation(libs.app.review.ktx)
+    implementation(Tools.IN_APP_REVIEW)
+    implementation(Tools.IN_APP_REVIEW_KTX)
 
 }
 
@@ -193,23 +188,23 @@ fun EasyLauncherConfig.configure(icons: List<String>, ribbonColor: String) {
 }
 
 private fun DependencyHandlerScope.appodealNetworkWithoutAdmob() {
-    implementation(libs.appodeal.amazon)
-    implementation(libs.appodeal.applovin)
-    implementation(libs.appodeal.applovin.max)
-    implementation(libs.appodeal.bidmachine)
-    implementation(libs.appodeal.bidon)
-    implementation(libs.appodeal.bigo.ads)
-    implementation(libs.appodeal.dt.exchange)
-    implementation(libs.appodeal.iab)
-    implementation(libs.appodeal.inmobi)
-    implementation(libs.appodeal.ironsource)
-    implementation(libs.appodeal.meta)
-    implementation(libs.appodeal.mintegral)
-    implementation(libs.appodeal.my.target) {
+    implementation(Tools.APPODEAL_AMAZON)
+    implementation(Tools.APPODEAL_APPLOVIN)
+    implementation(Tools.APPODEAL_APPLOVIN_MAX)
+    implementation(Tools.APPODEAL_BIDMACHINE)
+    implementation(Tools.APPODEAL_BIDON)
+    implementation(Tools.APPODEAL_BIGO_ADS)
+    implementation(Tools.APPODEAL_DT_EXCHANGE)
+    implementation(Tools.APPODEAL_IAB)
+    implementation(Tools.APPODEAL_INMOBI)
+    implementation(Tools.APPODEAL_IRONSOURCE)
+    implementation(Tools.APPODEAL_META)
+    implementation(Tools.APPODEAL_MINTEGRAL)
+    implementation(Tools.APPODEAL_MY_TARGET) {
         exclude("com.android.billingclient", "billing")
     }
-    implementation(libs.appodeal.pangle)
-    implementation(libs.appodeal.unity.ads)
-    implementation(libs.appodeal.vungle)
-    implementation(libs.appodeal.yandex)
+    implementation(Tools.APPODEAL_PANGLE)
+    implementation(Tools.APPODEAL_UNITY_ADS)
+    implementation(Tools.APPODEAL_VUNGLE)
+    implementation(Tools.APPODEAL_YANDEX)
 }

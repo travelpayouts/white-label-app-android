@@ -246,15 +246,6 @@
   <string name="ta_empty_transfer">Persinggahan di %1$s</string>
   <string name="ta_flight_time_difference">Sama harga</string>
   <string name="ta_share">Kongsi sebagai imej</string>
-  <string name="ta_share_deeplink">Kongsikan sebagai pautan</string>
-  <string name="ta_iata_error_title">Tiada bandar ditemui</string>
-  <string name="ta_iata_error_description">Masukkan bandar berlepas dan ketibaan anda secara manual</string>
-  <string name="ta_date_error_title">Tarikh pilihan telah berlalu</string>
-  <string name="ta_date_error_description">Masukkan tarikh perjalanan anda secara manual</string>
-  <string name="ta_link_error_title">Pautan tidak dikenali</string>
-  <string name="ta_link_error_description">Pilih parameter carian anda secara manual</string>
-  <string name="ta_loading_city">Menentukan bandar berlepas</string>
-  <string name="ta_ticket_error">Kami tidak menemui apa-apa tiket melalui pautan anda</string>
   <string name="ta_close">Tutup</string>
   <string name="ta_flights_webview_exit_dialog_title">Kembali ke carian tiket?</string>
   <string name="ta_flights_webview_exit_dialog_cancel_button">Kekal</string>
@@ -520,7 +511,7 @@
   <string name="ta_info_item_rate_app">Nilai aplikasi ini</string>
   <string name="ta_info_item_share_app">Kongsi aplikasi ini</string>
   <string name="ta_info_item_confidential">Privasi</string>
-  <string name="ta_info_feedback_subject">App feedback</string>
+  <string name="ta_info_feedback_subject">Maklum balas Whitelabel</string>
   <string name="ta_region_settings_subtitle">Tetapan rantau digunakan untuk memaparkan tiket yang sesuai dan peraturan masuk untuk negara yang berbeza</string>
   <string name="ta_region_settings_item_app_language">Bahasa aplikasi</string>
   <string name="ta_region_settings_item_country">Negara / Kawasan</string>

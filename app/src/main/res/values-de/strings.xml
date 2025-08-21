@@ -256,15 +256,6 @@
   <string name="ta_empty_transfer">Zwischenstopp in %1$s</string>
   <string name="ta_flight_time_difference">Gleicher Preis</string>
   <string name="ta_share">Als Bild teilen</string>
-  <string name="ta_share_deeplink">Als Link teilen</string>
-  <string name="ta_iata_error_title">Keine Orte gefunden</string>
-  <string name="ta_iata_error_description">Geben Sie Ihre Abflugs- und Ankunftsstädte manuell ein</string>
-  <string name="ta_date_error_title">Ausgewählte Daten sind bereits verstrichen</string>
-  <string name="ta_date_error_description">Geben Sie Ihre Reisedaten manuell ein</string>
-  <string name="ta_link_error_title">Link nicht erkannt</string>
-  <string name="ta_link_error_description">Wählen Sie Ihre Suchkriterien manuell aus</string>
-  <string name="ta_loading_city">Abflugort wird ermittelt</string>
-  <string name="ta_ticket_error">Über Ihren Link wurden keine Tickets gefunden</string>
   <string name="ta_close">Schließen</string>
   <string name="ta_flights_webview_exit_dialog_title">Zurück zur Ticketsuche?</string>
   <string name="ta_flights_webview_exit_dialog_cancel_button">Bleiben</string>
@@ -543,7 +534,7 @@
   <string name="ta_info_item_rate_app">Diese App bewerten</string>
   <string name="ta_info_item_share_app">Diese App teilen</string>
   <string name="ta_info_item_confidential">Datenschutz</string>
-  <string name="ta_info_feedback_subject">App feedback</string>
+  <string name="ta_info_feedback_subject">Feedback zur Whitelabel</string>
   <string name="ta_region_settings_subtitle">Regionale Einstellungen werden verwendet, um geeignete Tickets und Einreiseregeln für verschiedene Länder anzuzeigen</string>
   <string name="ta_region_settings_item_app_language">App-Sprache</string>
   <string name="ta_region_settings_item_country">Land / Region</string>

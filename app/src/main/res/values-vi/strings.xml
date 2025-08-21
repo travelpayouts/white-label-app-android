@@ -246,15 +246,6 @@
   <string name="ta_empty_transfer">Quá cảnh ở %1$s</string>
   <string name="ta_flight_time_difference">Đồng giá</string>
   <string name="ta_share">Chia sẻ dưới dạng hình ảnh</string>
-  <string name="ta_share_deeplink">Chia sẻ dưới dạng liên kết</string>
-  <string name="ta_iata_error_title">Không tìm thấy thành phố</string>
-  <string name="ta_iata_error_description">Nhập thành phố đi và đến của bạn theo cách thủ công</string>
-  <string name="ta_date_error_title">Ngày được chọn đã qua</string>
-  <string name="ta_date_error_description">Nhập các ngày di chuyển của bạn theo cách thủ công</string>
-  <string name="ta_link_error_title">Không nhận dạng được liên kết</string>
-  <string name="ta_link_error_description">Chọn các tham số tìm kiếm của bạn theo cách thủ công</string>
-  <string name="ta_loading_city">Đang xác định thành phố khởi hành</string>
-  <string name="ta_ticket_error">Chúng tôi không thể tìm thấy bất kỳ vé nào qua liên kết của bạn</string>
   <string name="ta_close">Đóng</string>
   <string name="ta_flights_webview_exit_dialog_title">Quay lại tìm kiếm vé?</string>
   <string name="ta_flights_webview_exit_dialog_cancel_button">Ở lại</string>
@@ -520,7 +511,7 @@
   <string name="ta_info_item_rate_app">Đánh giá ứng dụng này</string>
   <string name="ta_info_item_share_app">Chia sẻ ứng dụng này</string>
   <string name="ta_info_item_confidential">Quyền riêng tư</string>
-  <string name="ta_info_feedback_subject">App feedback</string>
+  <string name="ta_info_feedback_subject">Phản hồi Whitelabel</string>
   <string name="ta_region_settings_subtitle">Cài đặt vùng được sử dụng để hiển thị vé và quy tắc nhập cảnh phù hợp cho các quốc gia khác nhau</string>
   <string name="ta_region_settings_item_app_language">Ngôn ngữ ứng dụng</string>
   <string name="ta_region_settings_item_country">Quốc gia / Khu vực</string>

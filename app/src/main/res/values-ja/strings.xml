@@ -246,15 +246,6 @@
   <string name="ta_empty_transfer">%1$sで乗り継ぎ</string>
   <string name="ta_flight_time_difference">同価格</string>
   <string name="ta_share">画像で共有</string>
-  <string name="ta_share_deeplink">リンクで共有する</string>
-  <string name="ta_iata_error_title">都市が見つかりません</string>
-  <string name="ta_iata_error_description">出発地と到着地を手動で入力してください</string>
-  <string name="ta_date_error_title">選択した日付は過ぎています</string>
-  <string name="ta_date_error_description">旅行日を手動で入力してください</string>
-  <string name="ta_link_error_title">リンクが認識されません</string>
-  <string name="ta_link_error_description">検索パラメータを手動で選択してください</string>
-  <string name="ta_loading_city">出発地の決定</string>
-  <string name="ta_ticket_error">リンク経由でチケットが見つかりませんでした</string>
   <string name="ta_close">閉じる</string>
   <string name="ta_flights_webview_exit_dialog_title">航空券検索に戻りますか？</string>
   <string name="ta_flights_webview_exit_dialog_cancel_button">留まる</string>
@@ -520,7 +511,7 @@
   <string name="ta_info_item_rate_app">このアプリを評価する</string>
   <string name="ta_info_item_share_app">このアプリを共有する</string>
   <string name="ta_info_item_confidential">プライバシー</string>
-  <string name="ta_info_feedback_subject">App feedback</string>
+  <string name="ta_info_feedback_subject">Whitelabelのフィードバック</string>
   <string name="ta_region_settings_subtitle">地域設定は、さまざまな国に適したチケットと入国に関する規則を表示するために使われます</string>
   <string name="ta_region_settings_item_app_language">アプリの言語</string>
   <string name="ta_region_settings_item_country">国/地域</string>

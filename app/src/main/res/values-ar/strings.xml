@@ -296,15 +296,6 @@
   <string name="ta_empty_transfer">توقف قصير في %1$s</string>
   <string name="ta_flight_time_difference">السعر نفسه</string>
   <string name="ta_share">شارك كصورة</string>
-  <string name="ta_share_deeplink">شارك كرابط</string>
-  <string name="ta_iata_error_title">لم نعثر على مدن</string>
-  <string name="ta_iata_error_description">أدخل مدينتي المغادرة والوصول يدوياً</string>
-  <string name="ta_date_error_title">لقد ولّت التواريخ المحددة</string>
-  <string name="ta_date_error_description">أدخل تواريخ سفرك يدوياً</string>
-  <string name="ta_link_error_title">لم نتعرّف على الرابط</string>
-  <string name="ta_link_error_description">حدد معلمات بحثك يدوياً</string>
-  <string name="ta_loading_city">جارٍ تحديد مدينة المغادرة</string>
-  <string name="ta_ticket_error">لم نتمكن من العثور على أي تذاكر عبر رابطك</string>
   <string name="ta_close">إغلاق</string>
   <string name="ta_flights_webview_exit_dialog_title">هل تود العودة إلى البحث عن التذاكر؟</string>
   <string name="ta_flights_webview_exit_dialog_cancel_button">ابق</string>
@@ -635,7 +626,7 @@
   <string name="ta_info_item_rate_app">تقييم هذا التطبيق</string>
   <string name="ta_info_item_share_app">شارك هذا التطبيق</string>
   <string name="ta_info_item_confidential">الخصوصية</string>
-  <string name="ta_info_feedback_subject">App feedback</string>
+  <string name="ta_info_feedback_subject">تعليقات حول Whitelabel</string>
   <string name="ta_region_settings_subtitle">تُستخدم الإعدادات الإقليمية لعرض تذاكر وقواعد دخول مناسبة لدول مختلفة</string>
   <string name="ta_region_settings_item_app_language">لغة التطبيق</string>
   <string name="ta_region_settings_item_country">البلد / المنطقة</string>

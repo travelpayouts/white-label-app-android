@@ -246,15 +246,6 @@
   <string name="ta_empty_transfer">在%1$s停留</string>
   <string name="ta_flight_time_difference">相同价格</string>
   <string name="ta_share">以图片形式分享</string>
-  <string name="ta_share_deeplink">分享为链接</string>
-  <string name="ta_iata_error_title">未找到城市</string>
-  <string name="ta_iata_error_description">手动输入您的出发和到达城市</string>
-  <string name="ta_date_error_title">选择的日期已过去</string>
-  <string name="ta_date_error_description">手动输入您的旅行日期</string>
-  <string name="ta_link_error_title">链接无法识别</string>
-  <string name="ta_link_error_description">请手动选择您的搜索参数</string>
-  <string name="ta_loading_city">确定出发城市</string>
-  <string name="ta_ticket_error">我们无法通过您的链接找到任何票</string>
   <string name="ta_close">关闭</string>
   <string name="ta_flights_webview_exit_dialog_title">返回机票搜索？</string>
   <string name="ta_flights_webview_exit_dialog_cancel_button">保持</string>
@@ -520,7 +511,7 @@
   <string name="ta_info_item_rate_app">对本应用进行评价</string>
   <string name="ta_info_item_share_app">分享此应用程序</string>
   <string name="ta_info_item_confidential">隐私</string>
-  <string name="ta_info_feedback_subject">App feedback</string>
+  <string name="ta_info_feedback_subject">Whitelabel 反馈</string>
   <string name="ta_region_settings_subtitle">区域设置用于为不同国家的用户显示合适的机票和入境规则</string>
   <string name="ta_region_settings_item_app_language">应用程序语言</string>
   <string name="ta_region_settings_item_country">国家/地区</string>

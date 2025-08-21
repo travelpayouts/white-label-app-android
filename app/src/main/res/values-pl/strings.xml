@@ -276,15 +276,6 @@
   <string name="ta_empty_transfer">Przesiadka w %1$s</string>
   <string name="ta_flight_time_difference">Taka sama cena</string>
   <string name="ta_share">Udostępnij jako obraz</string>
-  <string name="ta_share_deeplink">Udostępnij jako link</string>
-  <string name="ta_iata_error_title">Nie znaleziono żadnych miast</string>
-  <string name="ta_iata_error_description">Wprowadź miasta odlotu i przylotu ręcznie</string>
-  <string name="ta_date_error_title">Wybrane daty minęły</string>
-  <string name="ta_date_error_description">Wprowadź daty podróży ręcznie</string>
-  <string name="ta_link_error_title">Nie rozpoznano linku</string>
-  <string name="ta_link_error_description">Wybierz parametry wyszukiwania ręcznie</string>
-  <string name="ta_loading_city">Określanie miasta odlotu</string>
-  <string name="ta_ticket_error">Nie znaleźliśmy żadnych biletów pod linkiem</string>
   <string name="ta_close">Zamknij</string>
   <string name="ta_flights_webview_exit_dialog_title">Czy powrócić do wyszukiwania biletów?</string>
   <string name="ta_flights_webview_exit_dialog_cancel_button">Pozostań</string>
@@ -589,7 +580,7 @@
   <string name="ta_info_item_rate_app">Oceń tę aplikację</string>
   <string name="ta_info_item_share_app">Udostępnij tę aplikację</string>
   <string name="ta_info_item_confidential">Prywatność</string>
-  <string name="ta_info_feedback_subject">App feedback</string>
+  <string name="ta_info_feedback_subject">Opinie o Whitelabel</string>
   <string name="ta_region_settings_subtitle">Ustawienia regionalne są używane do wyświetlania odpowiednich biletów i zasad wjazdu dla różnych krajów</string>
   <string name="ta_region_settings_item_app_language">Język aplikacji</string>
   <string name="ta_region_settings_item_country">Kraj / rejon</string>

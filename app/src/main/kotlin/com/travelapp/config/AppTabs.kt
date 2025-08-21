@@ -8,6 +8,7 @@ object AppTabsList {
     fun get(): List<AppTabs> {
         return listOf<AppTabs>(
 AppTabs.Flights,
+AppTabs.Hotels,
 
                                 AppTabs.Other(
                                     idRes = R.id.ta_other1,
