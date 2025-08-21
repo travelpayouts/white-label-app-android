@@ -10,31 +10,31 @@ import com.travelapp.sdk.config.IconsType
 */
 object WhiteLabelConf {
     
-    const val apiKey: String = ""
+    const val apiKey: String = "1357a67c2ab973dc8604f34481e7c51f"
 
     const val email: String = "test@test.com"
 
     const val feedbackTheme: String = ""
 
-    const val appVerison: String = "1.4.0"
+    const val appVerison: String = "1.5.0"
 
-    const val appId: String = ""
+    const val appId: String = "com.travelapp"
 
     val reviewRequestFrequency: Int = 0
 
-    val marker: Int = 0
+    val marker: Int = 418761
     
-    val clientDeviceHost: String = ""
+    val clientDeviceHost: String = "iphone.apartments"
 
     val flightsTabEnabled: Boolean = true
-    
-    val hotelsTabEnabled: Boolean = true
 
-    const val sharingLink: String = ""
+    const val sharingLink: String = "https://travelapp.whitelabel.org"
 
-    const val handlingLink: String = ""
+    const val handlingLink: String = "https://travelapp.whitelabel.org"
 
     const val appsflyerDevKey: String = ""
+
+    const val appStoreLink: String = ""
 
     object Style {
         val cornerType: CornerType = CornerType.getByName("round")
@@ -48,17 +48,12 @@ object WhiteLabelConf {
     }
 
     object Advertising {
-        const val appodealApiKey: String = ""
+        const val appodealApiKey: String = "e17770bc804233f23f7a8fdfd5e8c7f2d0053be8630313a8"
 
         object Placements {
-            const val airTicketPlacementInterstitial: String = ""
+            const val airTicketPlacementInterstitial: String = "air_ticket_placement_interstitial"
 
-            const val airTicketPlacementBanner: String = ""
-
-            const val hotelsPlacementInterstitial: String = ""
-
-            const val hotelsPlacementBanner: String = ""
-
+            const val airTicketPlacementBanner: String = "air_ticket_placement_banner"
         }
     }
 

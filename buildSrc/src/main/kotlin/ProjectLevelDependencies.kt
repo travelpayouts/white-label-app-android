@@ -10,7 +10,7 @@ internal object GradlePluginsVersions {
     const val KOTLIN_PLUGIN = "1.8.20"
     const val FIREBASE_PERF_PLUGIN = "1.4.2"
     const val FIREBASE_CRASHLYTICS_PLUGIN = "2.9.4"
-    const val GOOGLE_SERVICES_PLUGIN = "4.3.15"
+    const val GOOGLE_SERVICES_PLUGIN = "4.4.3"
     const val NAV_VERSION = "2.5.3"
 }
 

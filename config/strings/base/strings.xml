@@ -568,4 +568,6 @@
   <string name="ta_confidentiality">Privacy</string>
   <string name="ta_about_app_subtitle">App version %s</string>
   <string name="ta_about_app_button_text">Visit website</string>
+
+  <string name="app_not_found">App not found</string>
 </resources>

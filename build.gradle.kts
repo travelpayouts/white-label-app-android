@@ -23,7 +23,7 @@ buildscript {
         gradlePluginPortal()
     }
     dependencies {
-        classpath(Google.GMS_SERVICES)
+        classpath(GradlePlugins.GOOGLE_SERVICES)
     }
 }
 

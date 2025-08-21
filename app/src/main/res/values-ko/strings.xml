@@ -100,8 +100,8 @@
   <string name="ta_ticket_card_selected">선택됨</string>
   <string name="ta_ticket_card_same_price">동일 가격</string>
   <string name="ta_ticket_card_not_available">이용 불가</string>
-  <string name="ta_ticket_card_not_available_dialog_title">%s로 가는 다른 항공편을 선택하겠습니다.</string>
-  <string name="ta_ticket_card_not_available_dialog_subtitle">이 항공편 조합은 사용할 수 없습니다. %s로 가는 다른 항공편을 찾아보세요.</string>
+  <string name="ta_ticket_card_not_available_dialog_title">%s로 가는 다른 항공편을 선택하겠습니다</string>
+  <string name="ta_ticket_card_not_available_dialog_subtitle">이 항공편 조합은 사용할 수 없습니다. %s로 가는 다른 항공편을 찾아보세요</string>
   <string name="ta_ticket_card_not_available_dialog_positive">알겠습니다</string>
   <string name="ta_ticket_card_not_available_dialog_negative">닫기</string>
   <string name="ta_filters_title">필터</string>
@@ -246,6 +246,15 @@
   <string name="ta_empty_transfer">%1$s런던에서 경유</string>
   <string name="ta_flight_time_difference">동일 가격</string>
   <string name="ta_share">이미지로 공유하기</string>
+  <string name="ta_share_deeplink">링크로 공유</string>
+  <string name="ta_iata_error_title">도시를 찾을 수 없습니다</string>
+  <string name="ta_iata_error_description">출발지와 도착지를 수동으로 입력하세요</string>
+  <string name="ta_date_error_title">선택한 날짜가 지났습니다</string>
+  <string name="ta_date_error_description">여행 날짜를 수동으로 입력하세요</string>
+  <string name="ta_link_error_title">링크를 인식할 수 없습니다</string>
+  <string name="ta_link_error_description">검색 매개변수를 직접 선택하세요</string>
+  <string name="ta_loading_city">출발 도시 결정 중</string>
+  <string name="ta_ticket_error">링크로 항공권을 찾지 못했습니다</string>
   <string name="ta_close">닫기</string>
   <string name="ta_flights_webview_exit_dialog_title">항공권 검색으로 돌아갈까요?</string>
   <string name="ta_flights_webview_exit_dialog_cancel_button">유지하기</string>
@@ -511,7 +520,7 @@
   <string name="ta_info_item_rate_app">앱 평가하기</string>
   <string name="ta_info_item_share_app">이 앱 공유하기</string>
   <string name="ta_info_item_confidential">개인정보</string>
-  <string name="ta_info_feedback_subject">Whitelabel 피드백</string>
+  <string name="ta_info_feedback_subject">App feedback</string>
   <string name="ta_region_settings_subtitle">국가별 설정은 적합한 항공권 및 국가마다 다른 입국 규칙을 표시하는데 사용됩니다</string>
   <string name="ta_region_settings_item_app_language">앱 언어</string>
   <string name="ta_region_settings_item_country">국가 / 지역</string>
