@@ -22,13 +22,21 @@ object GoogleAdMobAppIdHandler {
     """
 
     private const val ADMOB_FULL_INFO =
-        """    <meta-data
+        """    <property
+            android:name="android.adservices.AD_SERVICES_CONFIG"
+            android:resource="@xml/gma_ad_services_config"
+            tools:replace="android:resource" />
+        <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="@string/google_admob_app_id" />
     </application>"""
 
     private val ADMOB_FULL_INFO_REGEX =
-        """[ ]*<meta-data[ ]*
+        """[ ]*<property[ ]*
+            [ ]*android:name="android.adservices.AD_SERVICES_CONFIG"[ ]*
+            [ ]*android:resource="@xml/gma_ad_services_config"[ ]*
+            [ ]*tools:replace="android:resource" />[ ]*
+        [ ]*<meta-data[ ]*
             [ ]*android:name="com.google.android.gms.ads.APPLICATION_ID"[ ]*
             [ ]*android:value="@string/google_admob_app_id" />[ ]*""".trimIndent().toRegex()
 

@@ -246,15 +246,6 @@
   <string name="ta_empty_transfer">在 %1$s 轉機</string>
   <string name="ta_flight_time_difference">相同價格</string>
   <string name="ta_share">以圖像分享</string>
-  <string name="ta_share_deeplink">分享為連結</string>
-  <string name="ta_iata_error_title">找不到城市</string>
-  <string name="ta_iata_error_description">手動輸入您的出發地和目的地城市</string>
-  <string name="ta_date_error_title">所選擇的日期已經過去</string>
-  <string name="ta_date_error_description">手動輸入您的出行日期</string>
-  <string name="ta_link_error_title">連結無法辨識</string>
-  <string name="ta_link_error_description">手動選取搜尋參數</string>
-  <string name="ta_loading_city">確定出發城市</string>
-  <string name="ta_ticket_error">無法透過您的連結找到任何票券</string>
   <string name="ta_close">關閉</string>
   <string name="ta_flights_webview_exit_dialog_title">要回到機票搜尋嗎？</string>
   <string name="ta_flights_webview_exit_dialog_cancel_button">留在本頁</string>
@@ -520,7 +511,7 @@
   <string name="ta_info_item_rate_app">為本應用程式評分</string>
   <string name="ta_info_item_share_app">分享應用程式</string>
   <string name="ta_info_item_confidential">隱私</string>
-  <string name="ta_info_feedback_subject">App feedback</string>
+  <string name="ta_info_feedback_subject">Whitelabel 意見回饋</string>
   <string name="ta_region_settings_subtitle">區域設定是用來顯示不同國家的合適票券與入境規則</string>
   <string name="ta_region_settings_item_app_language">應用程式語言</string>
   <string name="ta_region_settings_item_country">國家/地區</string>

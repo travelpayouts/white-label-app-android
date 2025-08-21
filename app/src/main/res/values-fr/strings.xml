@@ -256,15 +256,6 @@
   <string name="ta_empty_transfer">Escale à %1$s</string>
   <string name="ta_flight_time_difference">Même prix</string>
   <string name="ta_share">Partager en tant qu\'image</string>
-  <string name="ta_share_deeplink">Partager en tant que lien</string>
-  <string name="ta_iata_error_title">Aucune ville trouvée</string>
-  <string name="ta_iata_error_description">Saisissez manuellement vos villes de départ et d\'arrivée</string>
-  <string name="ta_date_error_title">Les dates sélectionnées sont passées</string>
-  <string name="ta_date_error_description">Saisissez vos dates de voyage manuellement</string>
-  <string name="ta_link_error_title">Lien non reconnu</string>
-  <string name="ta_link_error_description">Sélectionnez manuellement vos paramètres de recherche</string>
-  <string name="ta_loading_city">Déterminer la ville de départ</string>
-  <string name="ta_ticket_error">Nous n\'avons trouvé aucun billet via votre lien</string>
   <string name="ta_close">Fermer</string>
   <string name="ta_flights_webview_exit_dialog_title">Revenir à la recherche de billets ?</string>
   <string name="ta_flights_webview_exit_dialog_cancel_button">Rester</string>
@@ -543,7 +534,7 @@
   <string name="ta_info_item_rate_app">Notez cette application</string>
   <string name="ta_info_item_share_app">Partager cette application</string>
   <string name="ta_info_item_confidential">Confidentialité</string>
-  <string name="ta_info_feedback_subject">App feedback</string>
+  <string name="ta_info_feedback_subject">Commentaires sur Whitelabel</string>
   <string name="ta_region_settings_subtitle">Les paramètres régionaux sont utilisés pour afficher les billets appropriés et les règles d\'entrée pour différents pays</string>
   <string name="ta_region_settings_item_app_language">Langue de l\'application</string>
   <string name="ta_region_settings_item_country">Pays / Région</string>

@@ -256,15 +256,6 @@
   <string name="ta_empty_transfer">Mellanlandning i %1$s</string>
   <string name="ta_flight_time_difference">Samma pris</string>
   <string name="ta_share">Dela som bild</string>
-  <string name="ta_share_deeplink">Dela som länk</string>
-  <string name="ta_iata_error_title">Inga städer hittades</string>
-  <string name="ta_iata_error_description">Ange dina avgångs- och ankomststäder manuellt</string>
-  <string name="ta_date_error_title">Valda datum har passerat</string>
-  <string name="ta_date_error_description">Ange dina resedatum manuellt</string>
-  <string name="ta_link_error_title">Länken känns inte igen</string>
-  <string name="ta_link_error_description">Välj dina sökparametrar manuellt</string>
-  <string name="ta_loading_city">Fastställer avreseort</string>
-  <string name="ta_ticket_error">Vi kunde inte hitta några biljetter via din länk</string>
   <string name="ta_close">Stäng</string>
   <string name="ta_flights_webview_exit_dialog_title">Tillbaka till biljettsökning?</string>
   <string name="ta_flights_webview_exit_dialog_cancel_button">Stanna</string>
@@ -543,7 +534,7 @@
   <string name="ta_info_item_rate_app">Betygsätt denna app</string>
   <string name="ta_info_item_share_app">Sprid appen</string>
   <string name="ta_info_item_confidential">Integritet</string>
-  <string name="ta_info_feedback_subject">App feedback</string>
+  <string name="ta_info_feedback_subject">Whitelabel återkoppling</string>
   <string name="ta_region_settings_subtitle">Regionala inställningar används för att visa lämpliga biljetter och inreseregler för olika länder</string>
   <string name="ta_region_settings_item_app_language">Språk i appen</string>
   <string name="ta_region_settings_item_country">Land/region</string>

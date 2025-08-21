@@ -28,6 +28,9 @@ object AppTabsParser {
                     "flights" -> {
                         append("AppTabs.Flights,\n")
                     }
+                    "hotels" -> {
+                        append("AppTabs.Hotels,\n")
+                    }
                     "other" -> {
                         otherTabCount++
                         val id = "other$otherTabCount"

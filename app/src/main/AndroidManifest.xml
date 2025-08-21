@@ -14,7 +14,7 @@
         android:networkSecurityConfig="@xml/network_security_config"
         android:supportsRtl="true"
         android:theme="@style/TaTheme"
-        tools:replace="android:allowBackup, android:dataExtractionRules">
+        tools:replace="android:allowBackup">
 
         <activity
             android:name="${custom_app_id}.StartActivity"
@@ -22,7 +22,6 @@
             android:noHistory="true"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize"
-            android:launchMode="singleInstancePerTask"
             tools:ignore="LockedOrientationActivity">
 
             <intent-filter>
@@ -67,7 +66,10 @@
             android:name="com.google.firebase.messaging.default_notification_icon"
             android:resource="@drawable/ic_16_push_notification" />
 
-
+        <property
+            android:name="android.adservices.AD_SERVICES_CONFIG"
+            android:resource="@xml/gma_ad_services_config"
+            tools:replace="android:resource" />
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="@string/google_admob_app_id" />

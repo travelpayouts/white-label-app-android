@@ -266,15 +266,6 @@
   <string name="ta_empty_transfer">Escală în: %1$s</string>
   <string name="ta_flight_time_difference">Același preț</string>
   <string name="ta_share">Distribuie ca imagine</string>
-  <string name="ta_share_deeplink">Partajează ca link</string>
-  <string name="ta_iata_error_title">Nu s-au găsit orașe</string>
-  <string name="ta_iata_error_description">Introduceți manual orașul de plecare și cel de sosire</string>
-  <string name="ta_date_error_title">Datele selectate sunt în trecut</string>
-  <string name="ta_date_error_description">Introduceți manual datele de călătorie</string>
-  <string name="ta_link_error_title">Link nerecunoscut</string>
-  <string name="ta_link_error_description">Selectează-ți manual parametrii de căutare</string>
-  <string name="ta_loading_city">Determinarea orașului de plecare</string>
-  <string name="ta_ticket_error">Nu am putut găsi niciun bilet prin intermediul link-ului tău</string>
   <string name="ta_close">Închide</string>
   <string name="ta_flights_webview_exit_dialog_title">Înapoi la căutarea de bilete?</string>
   <string name="ta_flights_webview_exit_dialog_cancel_button">Rămâi</string>
@@ -566,7 +557,7 @@
   <string name="ta_info_item_rate_app">Evaluează această aplicație</string>
   <string name="ta_info_item_share_app">Partajați această aplicație</string>
   <string name="ta_info_item_confidential">Confidențialitate</string>
-  <string name="ta_info_feedback_subject">App feedback</string>
+  <string name="ta_info_feedback_subject">Feedback Whitelabel</string>
   <string name="ta_region_settings_subtitle">Configurările regionale sunt utilizate pentru a afișa bilete și reguli de intrare corespunzătoare diferitelor țări</string>
   <string name="ta_region_settings_item_app_language">Limba aplicației</string>
   <string name="ta_region_settings_item_country">Țara / Regiunea</string>
