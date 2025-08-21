@@ -131,14 +131,11 @@
     <methods>;
  }
 
- -keep class com.travelapp.sdk.hotels.utils.FoundHotel {
-    *;
- }
-
  -keepnames class * extends com.travelapp.sdk.internal.ui.base.BaseFragment
  -keepnames class * extends com.travelapp.sdk.internal.ui.base.BaseBottomSheetDialogFragment
 
  -keep class com.travelapp.sdk.config.** { *; }
+ -keep class com.travelapp.common.debug.** { *; }
 
 -keep interface com.travelapp.sdk.internal.ui.utils.BottomBarVisibilityHandler {
     public <fields>;

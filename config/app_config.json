@@ -4,7 +4,7 @@
       "android": {
         "id": "",
         "versionCode": 1,
-        "versionName": "1.4.0"
+        "versionName": "1.5.0"
       },
       "apple": {
         "id": "",
@@ -31,6 +31,7 @@
     "feedback_theme": null,
     "google_maps_api_key": "",
     "appstore_id": "",
+    "app_store_link": "",
     "marker": 0,
     "client_device_host": "",
     "api_key": "",
