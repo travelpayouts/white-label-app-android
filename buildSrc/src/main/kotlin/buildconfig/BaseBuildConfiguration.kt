@@ -1,18 +1,14 @@
 package buildconfig
 
-import com.android.build.api.dsl.CommonExtension
-import org.gradle.api.Project
 import com.android.build.gradle.BaseExtension
 import com.android.build.gradle.internal.dsl.BuildType
-import com.android.build.gradle.internal.dsl.JavaCompileOptions
 import com.android.build.gradle.internal.dsl.ProductFlavor
 import com.android.build.gradle.internal.dsl.SigningConfig
 import configuration.Config
 import model.ProguardFiles
-import org.gradle.api.Action
 import org.gradle.api.JavaVersion
 import org.gradle.api.NamedDomainObjectContainer
-import org.jetbrains.kotlin.gradle.dsl.KotlinJvmOptions
+import org.gradle.api.Project
 import java.io.File
 
 /**
@@ -22,7 +18,7 @@ import java.io.File
  */
 abstract class BaseBuildConfiguration(
     private val project: Project,
-    private val baseExtension: BaseExtension
+    private val baseExtension: BaseExtension,
 ) {
 
     abstract val manifestPlaceholders: Map<String, Any>?
@@ -52,12 +48,10 @@ abstract class BaseBuildConfiguration(
             }
 
             compileOptions {
+                sourceCompatibility = JavaVersion.VERSION_17
+                targetCompatibility = JavaVersion.VERSION_17
                 isCoreLibraryDesugaringEnabled = true
             }
-
-            (this as org.gradle.api.plugins.ExtensionAware).extensions.configure("kotlinOptions", Action<KotlinJvmOptions> {
-                jvmTarget = "11"
-            })
 
             viewBinding.isEnabled = true
 
@@ -73,7 +67,7 @@ abstract class BaseBuildConfiguration(
 
     abstract fun configureSigningConfigs(signingConfigs: NamedDomainObjectContainer<SigningConfig>)
 
-    abstract fun configureBuildTypes(buildTypes: NamedDomainObjectContainer<BuildType>)
+    abstract fun configureBuildTypes(buildTypes: NamedDomainObjectContainer<out BuildType>)
 
     protected fun buildProguardFiles(): ProguardFiles {
         val rulesFile = File("proguard-rules.pro")
@@ -89,8 +83,8 @@ abstract class BaseBuildConfiguration(
     }
 
     abstract fun configureProductFlavors(
-        productFlavors: NamedDomainObjectContainer<ProductFlavor>,
-        buildTypes: NamedDomainObjectContainer<BuildType>
+        productFlavors: NamedDomainObjectContainer<out ProductFlavor>,
+        buildTypes: NamedDomainObjectContainer<out BuildType> ,
     )
 }
 

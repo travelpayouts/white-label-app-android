@@ -9,12 +9,12 @@ repositories {
 }
 
 object PluginsVersions {
-    const val GRADLE_PLUGIN = "8.3.0"
-    const val KOTLIN_PLUGIN = "1.9.23"
+    const val GRADLE_PLUGIN = "8.11.1"
+    const val KOTLIN_PLUGIN = "2.2.0"
     const val FIREBASE_PERF_PLUGIN = "1.4.2"
-    const val FIREBASE_CRASHLYTICS_PLUGIN = "2.9.9"
-    const val GOOGLE_SERVICES_PLUGIN = "4.4.1"
-    const val NAV_VERSION = "2.7.7"
+    const val FIREBASE_CRASHLYTICS_PLUGIN = "3.0.4"
+    const val GOOGLE_SERVICES_PLUGIN = "4.4.3"
+    const val NAV_VERSION = "2.9.2"
     const val KTOR_VERSION = "2.3.4"
 }
 
@@ -28,8 +28,8 @@ dependencies {
     implementation("androidx.navigation:navigation-safe-args-gradle-plugin:${PluginsVersions.NAV_VERSION}")
 //    implementation("com.travelapp.gradle:colorsgenerator:1.0.0")
 
-    
-    implementation("com.google.code.gson:gson:2.10.1")
-    implementation("com.android.tools:sdk-common:31.3.2")
-    implementation("com.github.ajalt.colormath:colormath:3.2.0")
+
+    implementation("com.google.code.gson:gson:2.13.1")
+    implementation("com.android.tools:sdk-common:31.11.1")
+    implementation("com.github.ajalt.colormath:colormath:3.6.1")
 }

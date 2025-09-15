@@ -24,7 +24,7 @@ class LibraryModuleBuildConfiguration(
     override fun configureSigningConfigs(signingConfigs: NamedDomainObjectContainer<SigningConfig>) =
         Unit
 
-    override fun configureBuildTypes(buildTypes: NamedDomainObjectContainer<BuildType>) {
+    override fun configureBuildTypes(buildTypes: NamedDomainObjectContainer<out BuildType>) {
         val projectProguardFiles = buildProguardFiles().asArray
 
         buildTypes.apply {
@@ -50,8 +50,8 @@ class LibraryModuleBuildConfiguration(
     }
 
     override fun configureProductFlavors(
-        productFlavors: NamedDomainObjectContainer<ProductFlavor>,
-        buildTypes: NamedDomainObjectContainer<BuildType>
+        productFlavors: NamedDomainObjectContainer<out ProductFlavor>,
+        buildTypes: NamedDomainObjectContainer<out BuildType>
     ) {
         productFlavors.apply {
             maybeCreate(ProductFlavors.BASIC).apply {

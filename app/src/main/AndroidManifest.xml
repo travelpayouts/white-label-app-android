@@ -14,7 +14,7 @@
         android:networkSecurityConfig="@xml/network_security_config"
         android:supportsRtl="true"
         android:theme="@style/TaTheme"
-        tools:replace="android:allowBackup">
+        tools:replace="android:allowBackup, android:dataExtractionRules">
 
         <activity
             android:name="${custom_app_id}.StartActivity"
@@ -66,10 +66,7 @@
             android:name="com.google.firebase.messaging.default_notification_icon"
             android:resource="@drawable/ic_16_push_notification" />
 
-        <property
-            android:name="android.adservices.AD_SERVICES_CONFIG"
-            android:resource="@xml/gma_ad_services_config"
-            tools:replace="android:resource" />
+
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="@string/google_admob_app_id" />

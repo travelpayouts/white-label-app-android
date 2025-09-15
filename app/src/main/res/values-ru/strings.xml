@@ -146,6 +146,12 @@
     <!-- TicketCard -->
     <string name="ta_ticket_card_more">Подробнее</string>
     <string name="ta_ticket_card_selected">Выбран</string>
+    <string name="ta_ticket_card_same_price">Та же цена</string>
+    <string name="ta_ticket_card_not_available">Недоступна</string>
+    <string name="ta_ticket_card_not_available_dialog_title">Мы выберем другой рейс в %s</string>
+    <string name="ta_ticket_card_not_available_dialog_subtitle">Текущее сочетание рейсов недоступно. Проверьте, подойдет ли вам новый рейс в %s</string>
+    <string name="ta_ticket_card_not_available_dialog_positive">Хорошо</string>
+    <string name="ta_ticket_card_not_available_dialog_negative">Закрыть</string>
     <!-- FiltersFragment -->
     <string name="ta_filters_title">Фильтры</string>
     <string name="ta_filters_reset">Сбросить</string>
@@ -208,7 +214,7 @@
     <string name="ta_search_results_airport_change">смена аэропорта</string>
     <string name="ta_search_results_short_layover">короткая пересадка</string>
     <string name="ta_search_results_loading_text">Ищем авиабилеты…</string>
-    <plurals name="ta_transfer_count">
+    <plurals name="ta_transfer_count_0">
         <item quantity="one">%s пересадка</item>
         <item quantity="few">%s пересадки</item>
         <item quantity="many">%s пересадок</item>
@@ -464,6 +470,7 @@
     <string name="ta_hotels_search_results_refundable">Бесплатная отмена</string>
     <string name="ta_hotels_search_results_not_refundable">Без отмены</string>
     <string name="ta_hotels_search_results_no_rooms">Нет номеров</string>
+    <string name="ta_hotels_search_results_loading_prices">Загружаем цены</string>
     <string name="ta_hotels_search_results_loading_text">Ищем отели…</string>
     <!--  HotelsFavoritesFragment  -->
     <string name="ta_dates_string">%1$s %2$s</string>
@@ -501,7 +508,6 @@
         <item quantity="other">На основе %1$s оценок</item>
     </plurals>
     <string name="ta_hotel_book_button">Забронировать</string>
-    <string name="ta_hotel_book_empty_button"></string>
     <string name="ta_hotel_show_on_map_button">Показать на карте</string>
     <string name="ta_hotels_distance_km">%1$s км</string>
     <string name="ta_hotels_distance_m">%1$s м</string>
