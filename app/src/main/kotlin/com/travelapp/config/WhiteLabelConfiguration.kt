@@ -16,7 +16,7 @@ object WhiteLabelConf {
 
     const val feedbackTheme: String = ""
 
-    const val appVerison: String = "1.4.0"
+    const val appVerison: String = "1.5.0"
 
     const val appId: String = ""
 
@@ -27,14 +27,14 @@ object WhiteLabelConf {
     val clientDeviceHost: String = ""
 
     val flightsTabEnabled: Boolean = true
-    
-    val hotelsTabEnabled: Boolean = true
 
     const val sharingLink: String = ""
 
     const val handlingLink: String = ""
 
     const val appsflyerDevKey: String = ""
+
+    const val appStoreLink: String = ""
 
     object Style {
         val cornerType: CornerType = CornerType.getByName("round")
@@ -54,11 +54,6 @@ object WhiteLabelConf {
             const val airTicketPlacementInterstitial: String = ""
 
             const val airTicketPlacementBanner: String = ""
-
-            const val hotelsPlacementInterstitial: String = ""
-
-            const val hotelsPlacementBanner: String = ""
-
         }
     }
 

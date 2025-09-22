@@ -70,12 +70,6 @@ class Placements(
 
     @SerializedName("air_ticket_placement_banner")
     val airTicketPlacementBanner: String,
-
-    @SerializedName("hotels_placement_interstitial")
-    val hotelsPlacementInterstitial: String,
-
-    @SerializedName("hotels_placement_banner")
-    val hotelsPlacementBanner: String,
 )
 
 // endregion
@@ -94,6 +88,9 @@ class Constants(
 
     @SerializedName("google_maps_api_key")
     val googleMapsApiKey: String,
+
+    @SerializedName("app_store_link")
+    val appStoreLink: String?,
 
     @SerializedName("marker")
     val marker: Int,

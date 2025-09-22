@@ -85,14 +85,14 @@ class AppConfigClassTemplate(
             val clientDeviceHost: String = "${whiteLabelConfig.constants.clientDeviceHost}"
     
             val flightsTabEnabled: Boolean = ${whiteLabelConfig.whiteLabelConfig.screensToDisplay.any { it.type == "flights" }}
-            
-            val hotelsTabEnabled: Boolean = ${whiteLabelConfig.whiteLabelConfig.screensToDisplay.any { it.type == "hotels" }}
 
             const val sharingLink: String = "${whiteLabelConfig.constants.sharingData?.sharingLink.orEmpty()}"
 
             const val handlingLink: String = "${whiteLabelConfig.constants.sharingData?.handlingLink.orEmpty()}"
 
             const val appsflyerDevKey: String = "${whiteLabelConfig.constants.appsflyerDevKey.orEmpty()}"
+
+            const val appStoreLink: String = "${whiteLabelConfig.constants.appStoreLink.orEmpty()}"
 
             object Style {
                 val cornerType: CornerType = CornerType.getByName("${whiteLabelConfig.style.cornersType}")
@@ -112,11 +112,6 @@ class AppConfigClassTemplate(
                     const val airTicketPlacementInterstitial: String = "${whiteLabelConfig.advertising?.placements?.airTicketPlacementInterstitial.orEmpty()}"
 
                     const val airTicketPlacementBanner: String = "${whiteLabelConfig.advertising?.placements?.airTicketPlacementBanner.orEmpty()}"
-
-                    const val hotelsPlacementInterstitial: String = "${whiteLabelConfig.advertising?.placements?.hotelsPlacementInterstitial.orEmpty()}"
-
-                    const val hotelsPlacementBanner: String = "${whiteLabelConfig.advertising?.placements?.hotelsPlacementBanner.orEmpty()}"
-
                 }
             }
 
