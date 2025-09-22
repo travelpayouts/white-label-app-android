@@ -1,5 +1,7 @@
 [versions]
 coroutines = "1.10.2"
+gradle = "8.11.1"
+gradlePlugin = "2.2.0"
 perfPlugin = "1.4.2"
 dagger = "2.56.2"
 retrofit = "3.0.0"
@@ -16,6 +18,9 @@ lottie = "6.6.7"
 
 [libraries]
 # KotlinLibs
+gradle = { module = "com.android.tools.build:gradle", version.ref = "gradle" }
+kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "gradlePlugin" }
+kotlin-serialization = { module = "org.jetbrains.kotlin:kotlin-serialization", version.ref = "gradlePlugin" }
 kotlinx-coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutines" }
 kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "coroutines" }
 
@@ -98,6 +103,8 @@ coil = { group = "io.coil-kt", name = "coil", version.ref = "coil" }
 coil-base = { group = "io.coil-kt", name = "coil-base", version.ref = "coil" }
 
 # UI
+sdk-common = { module = "com.android.tools:sdk-common", version = "31.11.1" }
+colormath = { module = "com.github.ajalt.colormath:colormath", version = "3.6.1" }
 viewbinding_property_delegate = { group = "com.github.kirich1409", name = "viewbindingpropertydelegate-noreflection", version = "1.5.9" }
 
 # Skeleton
