@@ -123,7 +123,7 @@ appodeal = { group = "com.appodeal.ads", name = "sdk", version.ref = "appodeal" 
 appodeal-core = { group = "com.appodeal.ads.sdk", name = "core", version = "3.7.0" }
 appodeal-amazon = { group = "com.appodeal.ads.sdk.networks", name = "amazon", version.ref = "appodeal" }
 appodeal-applovin = { group = "com.appodeal.ads.sdk.networks", name = "applovin", version.ref = "appodeal" }
-appodeal-applovin-max = { group = "com.appodeal.ads.sdk.networks", name = "applovin-max", version.ref = "appodeal" }
+appodeal-applovin-max = { group = "com.appodeal.ads.sdk.networks", name = "applovin_max", version.ref = "appodeal" }
 appodeal-bidmachine = { group = "com.appodeal.ads.sdk.networks", name = "bidmachine", version.ref = "appodeal" }
 appodeal-bidon = { group = "com.appodeal.ads.sdk.networks", name = "bidon", version.ref = "appodeal" }
 appodeal-bigo-ads = { group = "com.appodeal.ads.sdk.networks", name = "bigo_ads", version.ref = "appodeal" }
