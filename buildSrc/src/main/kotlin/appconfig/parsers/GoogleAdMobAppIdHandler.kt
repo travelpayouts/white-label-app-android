@@ -12,12 +12,12 @@ object GoogleAdMobAppIdHandler {
     private const val MANIFEST_PATH = "src/main/AndroidManifest.xml"
 
     private const val APPODEAL_WITH_ADMOB =
-        "implementation(Tools.APPODEAL) { exclude(\"com.android.billingclient\", \"billing\") }"
+        "implementation(libs.appodeal) { exclude(\"com.android.billingclient\", \"billing\") }"
 
-    private const val APPODEAL_CORE = "implementation(Tools.APPODEAL_CORE)"
+    private const val APPODEAL_CORE = "implementation(libs.appodeal.core)"
 
     private const val APPODEAL_WITHOUT_ADMOB = """
-    implementation(Tools.APPODEAL_CORE)
+    implementation(libs.appodeal.core)
     appodealNetworkWithoutAdmob()
     """
 
