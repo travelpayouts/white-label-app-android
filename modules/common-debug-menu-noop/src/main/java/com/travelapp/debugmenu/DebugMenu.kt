@@ -1,9 +1,11 @@
 package com.travelapp.debugmenu
 
 import android.content.Context
+import androidx.annotation.Keep
 import androidx.fragment.app.FragmentManager
 
 @Suppress("UNUSED_PARAMETER")
+@Keep
 object DebugMenu {
 
     const val SHAPE_KEY = "shape"
