@@ -11,6 +11,7 @@ import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.travelapp.debugmenu.DebugMenu
 import timber.log.Timber
+import com.travelapp.StartActivity
 import kotlin.random.Random
 
 class TravelAppMessagingService : FirebaseMessagingService() {

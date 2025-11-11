@@ -6,6 +6,7 @@ object AppVersionHandler {
 
     private const val FILE_NAME = "app_version.properties"
     private const val START_ACTIVITY_FILE_NAME = "app/src/main/kotlin/whitelabel/StartActivity.kt"
+    private const val TRAVEL_MESSAGING_SERVICE_FILE_NAME = "app/src/main/kotlin/com/travelapp/TravelAppMessagingService.kt"
     private const val APPLICATION_ID = "applicationId="
     private const val VERSION = "version="
     private const val VERSION_CODE = "versionCode="
@@ -47,11 +48,19 @@ object AppVersionHandler {
         customProject: Project,
         applicationId: String,
     ) {
-        val file = customProject.file(START_ACTIVITY_FILE_NAME)
-        val regex = "package [0-9A-Za-z.]*".toRegex()
-        val text = file.readText()
-        val editedText = text
+        var file = customProject.file(START_ACTIVITY_FILE_NAME)
+        var regex = "package [0-9A-Za-z.]*".toRegex()
+        var text = file.readText()
+        var editedText = text
             .replace(regex, PACKAGE + applicationId)
+
+        file.writeText(editedText)
+
+        file = customProject.file(TRAVEL_MESSAGING_SERVICE_FILE_NAME)
+        regex = "import [0-9A-Za-z.]*.StartActivity".toRegex()
+        text = file.readText()
+        editedText = text
+            .replace(regex, "import $applicationId.StartActivity")
 
         file.writeText(editedText)
     }
