@@ -68,6 +68,8 @@
             android:resource="@drawable/ic_16_push_notification" />
 
 
+
+
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="@string/google_admob_app_id" />
