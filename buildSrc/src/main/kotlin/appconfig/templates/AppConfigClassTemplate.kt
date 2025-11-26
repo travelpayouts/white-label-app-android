@@ -70,7 +70,7 @@ class AppConfigClassTemplate(
             
             const val apiKey: String = "${whiteLabelConfig.constants.apiKey.orEmpty()}"
         
-            const val email: String = "${whiteLabelConfig.constants.feedbackEmail}"
+            const val email: String = "${whiteLabelConfig.constants.feedbackEmail.orEmpty()}"
 
             const val feedbackTheme: String = "${whiteLabelConfig.constants.feedbackTheme.orEmpty()}"
 
@@ -80,7 +80,7 @@ class AppConfigClassTemplate(
 
             val reviewRequestFrequency: Int = ${whiteLabelConfig.baseConfiguration.reviewRequestFrequency ?: 0}
 
-            val marker: Int = ${whiteLabelConfig.constants.marker}
+            val marker: String = "${whiteLabelConfig.constants.marker}"
             
             val clientDeviceHost: String = "${whiteLabelConfig.constants.clientDeviceHost}"
     

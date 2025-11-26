@@ -16,13 +16,13 @@ object WhiteLabelConf {
 
     const val feedbackTheme: String = ""
 
-    const val appVerison: String = "1.5.3"
+    const val appVerison: String = "1.6.0"
 
     const val appId: String = ""
 
     val reviewRequestFrequency: Int = 0
 
-    val marker: Int = 0
+    val marker: String = "0"
     
     val clientDeviceHost: String = ""
 
