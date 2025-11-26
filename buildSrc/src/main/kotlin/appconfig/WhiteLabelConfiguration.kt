@@ -93,7 +93,7 @@ class Constants(
     val appStoreLink: String?,
 
     @SerializedName("marker")
-    val marker: Int,
+    val marker: String,
 
     @SerializedName("client_device_host")
     val clientDeviceHost: String,
