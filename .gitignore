@@ -35,3 +35,7 @@ app/package-dictionary.txt
 app/obfuscation-dictionary.txt
 mirakle_build_file_stub
 .kotlin
+# Signing keys — never commit these
+signing.properties
+*.keystore
+*.jks

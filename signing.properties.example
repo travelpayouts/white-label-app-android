@@ -1,0 +1,32 @@
+# Copy this file to signing.properties in the project root and fill in your
+# own values. Without it the build fails with:
+#   java.io.FileNotFoundException: <project root>/signing.properties
+#
+# KEYSTORE_FILE_* paths are relative to the project root. The debug entries are
+# required even if you only ship release builds — every debug build is signed
+# with them. Pointing both sections at the same keystore is fine.
+#
+# Neither your filled-in signing.properties nor the keystore files are
+# committed to git.
+#
+# To create the two keystores:
+#
+#   keytool -genkeypair -v -keystore debug.keystore -alias debug-key \
+#     -keyalg RSA -keysize 2048 -validity 10000
+#   keytool -genkeypair -v -keystore release.keystore -alias release-key \
+#     -keyalg RSA -keysize 2048 -validity 10000
+#
+# If you prefer a single keystore for both, create only the first one and copy
+# all four DEBUG values into the RELEASE section — file, alias and both
+# passwords. Changing only KEYSTORE_FILE_RELEASE leaves KEY_ALIAS_RELEASE
+# pointing at an alias that does not exist.
+
+KEYSTORE_FILE_DEBUG=debug.keystore
+KEYSTORE_FILE_PASSWORD_DEBUG=your-keystore-password
+KEY_ALIAS_DEBUG=debug-key
+KEY_PASSWORD_DEBUG=your-key-password
+
+KEYSTORE_FILE_RELEASE=release.keystore
+KEYSTORE_FILE_PASSWORD_RELEASE=your-keystore-password
+KEY_ALIAS_RELEASE=release-key
+KEY_PASSWORD_RELEASE=your-key-password
