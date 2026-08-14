@@ -18,7 +18,11 @@ object Config {
 
     val targetSdk: Int = 35
 
-    val compileSdk = targetSdk
+    // Since 1.7.0 travel-sdk is built against Android 16 and requires the app to
+    // compile against API 36. That is the only requirement: targetSdk stays at 35
+    // so runtime behavior on devices is unchanged. Hence compileSdk is declared
+    // separately instead of following targetSdk.
+    val compileSdk: Int = 36
 
     const val SUPPORT_LIBRARY_VECTOR_DRAWABLES = true
 
