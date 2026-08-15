@@ -12,8 +12,9 @@ Learn more: [What is Travelpayouts?](https://support.travelpayouts.com/hc/en-us/
 - Android Studio with **Android SDK Platform 36** installed
 - JDK 17
 
-The project compiles against Android 16 (API 36) — the bundled `travel-sdk`
-requires it. The app itself still targets API 35 and installs on Android 8.0
+The project compiles against and targets Android 16 (API 36) — the bundled
+`travel-sdk` requires the former, and Google Play requires the latter for new
+apps and updates from 31 August 2026. The app still installs on Android 8.0
 (API 26) and newer.
 
 ## Signing
