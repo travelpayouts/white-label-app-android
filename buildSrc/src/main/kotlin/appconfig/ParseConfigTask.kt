@@ -19,9 +19,141 @@ import appconfig.parsers.StringsHandler
 import com.google.gson.Gson
 import java.io.FileInputStream
 import org.gradle.api.DefaultTask
+import org.gradle.api.GradleException
 import org.gradle.api.tasks.TaskAction
 
 abstract class ParseConfigTask : DefaultTask() {
+
+    /**
+     * Checks everything that would otherwise fail late, or silently produce a
+     * wrong build. Runs before any parser touches the project: a partial
+     * regeneration is harder to recover from than a refusal to start.
+     *
+     * Values are read as nullable on purpose. Gson builds the model without
+     * calling Kotlin constructors, so a key missing from the JSON leaves a
+     * declared non-null field null, and a plain check would throw a bare NPE —
+     * exactly the opaque failure this function exists to replace.
+     */
+    private fun validateConfig(config: WhiteLabelConfiguration) {
+        val android = config.baseConfiguration.identifier.android
+        val applicationId: String? = android.applicationId
+
+        if (applicationId.isNullOrBlank()) {
+            throw GradleException(
+                "identifier.android.id is empty in config/app_config.json. " +
+                    "Set your application id, for example com.mycompany.travel."
+            )
+        }
+        if (applicationId != applicationId.trim()) {
+            throw GradleException(
+                "identifier.android.id in config/app_config.json has leading or " +
+                    "trailing spaces: '$applicationId'."
+            )
+        }
+        // The generators substitute this value with a [0-9A-Za-z.] regex, so an
+        // underscore or a dash would corrupt app_version.properties and the
+        // generated Kotlin on the next run. Keep the accepted set in sync with
+        // AppVersionHandler.
+        val applicationIdFormat = Regex("[a-zA-Z][a-zA-Z0-9]*(\\.[a-zA-Z][a-zA-Z0-9]*)+")
+        if (!applicationIdFormat.matches(applicationId)) {
+            throw GradleException(
+                "identifier.android.id in config/app_config.json is not usable as an " +
+                    "application id here: '$applicationId'. Expected at least two " +
+                    "segments separated by dots, each starting with a letter and " +
+                    "containing only letters and digits, for example com.mycompany.travel."
+            )
+        }
+
+        val versionName: String? = android.versionName
+        if (versionName.isNullOrBlank()) {
+            throw GradleException(
+                "identifier.android.versionName is empty in config/app_config.json, " +
+                    "for example \"1.0.0\"."
+            )
+        }
+        if (android.versionCode <= 0) {
+            throw GradleException(
+                "identifier.android.versionCode in config/app_config.json must be a " +
+                    "positive number — Google Play rejects 0."
+            )
+        }
+
+        validateGoogleServices(applicationId)
+
+        val constants = config.constants
+        val marker: String? = constants.marker
+        if (marker.isNullOrBlank() || marker == "0") {
+            logger.warn(
+                "WARNING: constants.marker is not set in config/app_config.json. " +
+                    "The app will build, but no commission will be credited to you."
+            )
+        }
+        if (constants.apiKey.isNullOrBlank()) {
+            logger.warn(
+                "WARNING: constants.api_key is not set in config/app_config.json. " +
+                    "Flight search will not work."
+            )
+        }
+        if (constants.clientDeviceHost.isNullOrBlank()) {
+            logger.warn(
+                "WARNING: constants.client_device_host is not set in " +
+                    "config/app_config.json. The SDK will identify your app with an " +
+                    "empty host in its requests."
+            )
+        }
+        if (constants.googleMapsApiKey.isNullOrBlank()) {
+            logger.warn(
+                "WARNING: constants.google_maps_api_key is not set in " +
+                    "config/app_config.json. Map screens will render blank."
+            )
+        }
+    }
+
+    /**
+     * The Firebase config must list both the application id and its debug
+     * variant, otherwise the build fails much later with an opaque
+     * "No matching client found for package name".
+     */
+    private fun validateGoogleServices(applicationId: String) {
+        val file = project.file(GoogleServicesHandler.GOOGLE_SERVICES_JSON_PATH)
+        if (!file.exists()) {
+            throw GradleException(
+                "${GoogleServicesHandler.GOOGLE_SERVICES_JSON_PATH} not found. Put your " +
+                    "own file from the Firebase Console there."
+            )
+        }
+
+        val packageNames: List<String> = try {
+            val root = Gson().fromJson(file.readText(), com.google.gson.JsonObject::class.java)
+            val clients = root?.getAsJsonArray("client")
+                ?: throw IllegalStateException("no \"client\" array")
+            clients.mapNotNull { client ->
+                client.asJsonObject
+                    ?.getAsJsonObject("client_info")
+                    ?.getAsJsonObject("android_client_info")
+                    ?.get("package_name")
+                    ?.takeIf { it.isJsonPrimitive }
+                    ?.asString
+            }
+        } catch (e: Exception) {
+            throw GradleException(
+                "${GoogleServicesHandler.GOOGLE_SERVICES_JSON_PATH} is not a usable " +
+                    "google-services.json (${e.message ?: e.javaClass.simpleName}). " +
+                    "Download it again for your Android app from the Firebase Console."
+            )
+        }
+
+        val missing = listOf(applicationId, "$applicationId.debug").filterNot { it in packageNames }
+        if (missing.isNotEmpty()) {
+            throw GradleException(
+                "${GoogleServicesHandler.GOOGLE_SERVICES_JSON_PATH} has no client for " +
+                    "${missing.joinToString(" and ")}. Add the app to your Firebase " +
+                    "project with that package name (debug builds use the .debug suffix) " +
+                    "and download the file again. Found: " +
+                    packageNames.joinToString(", ").ifEmpty { "none" } + "."
+            )
+        }
+    }
 
     companion object {
         const val BASE_COLOR_PROP_NAME = "baseColor"
@@ -39,7 +171,7 @@ abstract class ParseConfigTask : DefaultTask() {
         val appModule =
             project.childProjects["app"] ?: throw IllegalStateException("App module not found!")
 
-        val fis = FileInputStream("$CONFIG_DIR/$JSON_FILE_NAME")
+        val fis = FileInputStream(project.file("$CONFIG_DIR/$JSON_FILE_NAME"))
 
         val jsonString = fis
             .bufferedReader()
@@ -48,13 +180,15 @@ abstract class ParseConfigTask : DefaultTask() {
 
         val buildSrcAppConfig = Gson().fromJson(jsonString, WhiteLabelConfiguration::class.java)
 
+        validateConfig(buildSrcAppConfig)
+
         // region Parsers
 
         AppConfigJsonParser.parse(buildSrcAppConfig, appModule)
 
         GoogleAdMobAppIdHandler.handleAdmobConfig(
             appModule = appModule,
-            googleAdmobAppId = buildSrcAppConfig.advertising?.googleAdmobAppId.orEmpty(),
+            googleAdmobAppId = buildSrcAppConfig.advertising?.googleAdmobAppId?.trim().orEmpty(),
             isAppodealKeyEmpty = buildSrcAppConfig.advertising?.appodealApiKey.isNullOrBlank()
         )
 

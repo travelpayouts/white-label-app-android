@@ -5,12 +5,19 @@ import org.gradle.api.Project
 
 object GoogleServicesHandler {
 
-    private const val GOOGLE_SERVICES_JSON_PATH = "config/google-services.json"
+    const val GOOGLE_SERVICES_JSON_PATH = "config/google-services.json"
 
-    private const val TARGET_PATH = "src/release/google-services.json"
-
-
-    private const val QA_TARGET_PATH = "src/qa/google-services.json"
+    /**
+     * Every build variant that keeps its own copy of google-services.json.
+     * All of them must be refreshed: leaving a stale copy in any one variant
+     * makes that variant fail with "No matching client found for package name".
+     */
+    private val TARGET_PATHS = listOf(
+        "src/release/google-services.json",
+        "src/qa/google-services.json",
+        "src/debug/google-services.json",
+        "src/rc/google-services.json",
+    )
 
     /**
      * Copy 'google-services.json' to project
@@ -19,13 +26,13 @@ object GoogleServicesHandler {
         print("Copying 'google-services.json'...    ")
         val appModule = project.childProjects["app"] ?: throw GradleException("app module not found!")
 
+        // Наличие и содержимое файла проверяет ParseConfigTask до запуска
+        // парсеров, поэтому здесь только копирование.
         val srcFile = project.file(GOOGLE_SERVICES_JSON_PATH)
 
-        val dstFile = appModule.file(TARGET_PATH)
-        val dstQaFile = appModule.file(QA_TARGET_PATH)
-
-        srcFile.copyTo(dstFile, true, 1024)
-        srcFile.copyTo(dstQaFile, true, 1024)
+        TARGET_PATHS.forEach { path ->
+            srcFile.copyTo(appModule.file(path), true, 1024)
+        }
         println("✅ ")
     }
 
