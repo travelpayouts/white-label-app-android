@@ -1,5 +1,12 @@
 # Travelpayouts White Label App for Android
 
+> **Template version:** 2026.08.16 · **Bundled SDK:** 1.7.2
+>
+> This is the version of the template itself, not of your app. Your app's
+> version is what you set in `config/app_config.json`. Compare the template
+> version with the one in your copy to see whether it is worth pulling the
+> changes below.
+
 A ready-to-build Android travel app (flight search) that you make your own —
 name, icon, colors, tabs — and publish under your own account.
 
@@ -95,6 +102,26 @@ Advertising is off by default: `advertising.appodeal_api_key` and
 without them. Fill them in only if you monetize with ads.
 
 Questions about configuration — support@travelpayouts.com.
+
+## What changed
+
+### 2026.08.16 (bundled SDK 1.7.2)
+- **Requires action before 31 August 2026.** The app now targets Android 16
+  (API 36), which Google Play requires for new apps and updates from that date.
+  Pull this change, rebuild and ship an update in time. A side effect: on
+  tablets and foldables the app now fills the screen instead of running in a
+  narrow window with black bars.
+- The template builds again. Since the SDK 1.7.0 handoff the build stopped
+  with a compatibility error.
+- An app built from the untouched template starts. It used to crash on launch
+  because advertising was wired up while the ad keys in the config are empty.
+  Advertising is now off by default and turns on when you fill the keys in.
+- Configuring your own app works and is documented: fill in the config,
+  replace the Firebase file, run `./gradlew parseConfig`, build. The task now
+  refuses to run on an incomplete config and says what is missing, instead of
+  quietly producing an app with our identifiers.
+- Added `signing.properties.example` and a build guide; signing keys can no
+  longer be committed by accident.
 
 ## Support
 
