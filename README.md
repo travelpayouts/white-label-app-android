@@ -2,10 +2,11 @@
 
 > **Template version:** 2026.08.16 · **Bundled SDK:** 1.7.2
 >
-> This is the version of the template itself, not of your app. Your app's
-> version is what you set in `config/app_config.json`. Compare the template
-> version with the one in your copy to see whether it is worth pulling the
-> changes below.
+> This is the version of the template itself, not of your app — your app's
+> version is what you set in `config/app_config.json`. If the header in your
+> copy shows an older date than the one here on GitHub, the changes listed
+> below are what you are missing. Each handover is also tagged, so you can
+> diff against a known state: `template-2026.08.16`.
 
 A ready-to-build Android travel app (flight search) that you make your own —
 name, icon, colors, tabs — and publish under your own account.
@@ -101,28 +102,67 @@ Advertising is off by default: `advertising.appodeal_api_key` and
 `advertising.google_admob_app_id` are empty, and the app builds and runs
 without them. Fill them in only if you monetize with ads.
 
-Questions about configuration — support@travelpayouts.com.
-
 ## What changed
 
 ### 2026.08.16 (bundled SDK 1.7.2)
-- **Requires action before 31 August 2026.** The app now targets Android 16
-  (API 36), which Google Play requires for new apps and updates from that date.
-  Pull this change, rebuild and ship an update in time. A side effect: on
-  tablets and foldables the app now fills the screen instead of running in a
-  narrow window with black bars.
-- The template builds again. Since the SDK 1.7.0 handoff the build stopped
-  with a compatibility error.
-- An app built from the untouched template starts. It used to crash on launch
-  because advertising was wired up while the ad keys in the config are empty.
-  Advertising is now off by default and turns on when you fill the keys in.
-- Configuring your own app works and is documented: fill in the config,
-  replace the Firebase file, run `./gradlew parseConfig`, build. The task now
-  refuses to run on an incomplete config and says what is missing, instead of
-  quietly producing an app with our identifiers.
-- Added `signing.properties.example` and a build guide; signing keys can no
-  longer be committed by accident.
+
+**Google Play deadline.** From 31 August 2026 Google Play requires API 36 for
+new apps and for any update you submit. An app already published against API 35
+remains available, including to new users — but you cannot submit an update
+after that date until it targets API 36. You can request an extension to
+1 November 2026.
+
+The template now targets API 36, so take this update before your next release
+rather than in a rush afterwards. When an API 36 build runs on Android 16 or
+newer, two behavior changes are worth testing:
+
+- On displays 600dp and wider — tablets and unfolded foldables — the portrait
+  lock is ignored, so the app can rotate and fills the screen. Check your tabs,
+  background image and any screens you added in landscape, and check that
+  rotation does not lose state.
+- `onBackPressed()` and `KEYCODE_BACK` are no longer delivered. The SDK's own
+  screens use `OnBackPressedDispatcher` and are unaffected. If you added an
+  Activity that overrides `onBackPressed()`, or any code handling
+  `KEYCODE_BACK` — including fragment back handling routed through the host
+  activity — migrate it to `OnBackPressedDispatcher`, or back navigation will
+  silently stop working there.
+
+**The template builds again.** After SDK 1.7.0 was bundled, the build stopped
+with a compatibility error.
+
+**An app built from the untouched template starts.** It used to close
+immediately on launch because advertising was wired up while the ad keys in the
+config are empty. Advertising is off by default now; to enable it, fill in
+`advertising.*` in the config **and run `./gradlew parseConfig`** — the keys
+alone change nothing.
+
+**Configuring your own app works and is documented** — fill in the config,
+replace the Firebase file, run `parseConfig`, build. The task now stops with a
+readable message when the application id, the app version or a matching Firebase
+client is missing, and warns when `marker`, `api_key`, `client_device_host` or
+`google_maps_api_key` are empty. Before, a missing application id produced an
+empty one and the build failed later on google-services with an opaque error.
+
+**Signing.** Added `signing.properties.example`, and `.gitignore` now covers
+`signing.properties`, `*.keystore` and `*.jks`. It cannot cover every case: a
+keystore you already committed stays tracked, and other extensions (`.p12`,
+`.bks`) are not matched. Run `git ls-files | grep -i -E 'keystore|signing|\.(jks|p12|bks)$'` in your copy
+to check.
+
+**Bundled SDK.** The `.aar` in this template is 1.7.2. If your copy predates
+2026.08.16, it may carry 1.7.0, which means you also get two SDK fixes with this
+update: the device identifier in the `Client-Device-Info` header is now an md5
+hash rather than the raw value (1.7.1), and affiliate links from a specific
+departure airport are built correctly (1.7.2). For the full release history ask
+Travelpayouts support.
+
+### Earlier
+
+No version header means your copy predates 2026.08.16 — before that the template
+carried no version at all. To see what you are missing, compare your copy with
+the tag `template-2026.08.16` in this repository.
 
 ## Support
 
-Questions? Write to support@travelpayouts.com.
+Questions about configuration, the build or this update —
+support@travelpayouts.com.
