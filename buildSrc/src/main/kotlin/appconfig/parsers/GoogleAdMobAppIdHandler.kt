@@ -52,13 +52,13 @@ object GoogleAdMobAppIdHandler {
 
         handleAppodealGradleDeps(
             module = appModule,
-            googleAdmobIsEmpty = googleAdmobAppId.isEmpty(),
+            googleAdmobIsEmpty = googleAdmobAppId.isBlank(),
             isAppodealKeyEmpty = isAppodealKeyEmpty
         )
 
         handleManifest(
             module = appModule,
-            googleAdmobIsEmpty = googleAdmobAppId.isEmpty(),
+            googleAdmobIsEmpty = googleAdmobAppId.isBlank(),
             isAppodealKeyEmpty = isAppodealKeyEmpty
         )
 
@@ -81,28 +81,34 @@ object GoogleAdMobAppIdHandler {
         isAppodealKeyEmpty: Boolean
     ) {
         val gradleFile = module.file(GRADLE_PATH)
-        val gradleFileText = gradleFile.readText()
+
+        // Сначала приводим объявление к общему виду и только потом применяем
+        // нужное. Без этого второй запуск задачи раздувает файл: блок
+        // APPODEAL_WITHOUT_ADMOB содержит внутри себя строку APPODEAL_CORE,
+        // и замена срабатывает по уже вставленному тексту.
+        val normalized = normalizeAppodealDeps(gradleFile.readText())
 
         val editedGradleText = when {
-            isAppodealKeyEmpty -> {
-                gradleFileText
-                    .replace(APPODEAL_WITHOUT_ADMOB, APPODEAL_CORE)
-                    .replace(APPODEAL_WITH_ADMOB, APPODEAL_CORE)
-            }
-            googleAdmobIsEmpty -> {
-                gradleFileText
-                    .replace(APPODEAL_CORE, APPODEAL_WITHOUT_ADMOB)
-                    .replace(APPODEAL_WITH_ADMOB, APPODEAL_WITHOUT_ADMOB)
-            }
-            else -> {
-                gradleFileText
-                    .replace(APPODEAL_WITHOUT_ADMOB, APPODEAL_WITH_ADMOB)
-                    .replace(APPODEAL_CORE, APPODEAL_WITH_ADMOB)
-            }
+            isAppodealKeyEmpty -> normalized
+            googleAdmobIsEmpty -> normalized.replace(APPODEAL_CORE, APPODEAL_WITHOUT_ADMOB)
+            else -> normalized.replace(APPODEAL_CORE, APPODEAL_WITH_ADMOB)
         }
 
         gradleFile.writeText(editedGradleText)
     }
+
+    /**
+     * Возвращает объявление зависимостей Appodeal к базовому виду
+     * (одна строка APPODEAL_CORE), сколько бы раз задача ни отрабатывала до
+     * этого.
+     */
+    private fun normalizeAppodealDeps(text: String): String = text
+        .replace(APPODEAL_WITH_ADMOB, APPODEAL_CORE)
+        .replace(Regex("""\n[ \t]*appodealNetworkWithoutAdmob\(\)"""), "")
+        .replace(
+            Regex("""(\n[ \t]*implementation\(libs\.appodeal\.core\))+"""),
+            "\n    " + APPODEAL_CORE
+        )
 
     private fun handleManifest(
         module: Project,

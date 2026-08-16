@@ -16,6 +16,14 @@ object StringsHandler {
 
         val stringsDir = project.layout.projectDirectory.file(stringsDirPath)
 
+        // Каталог необязательный: если партнёру хватает встроенных переводов,
+        // его может не быть. Без этой проверки задача падала здесь с голым
+        // NoSuchFileException, уже переписав половину проекта.
+        if (!stringsDir.asFile.exists()) {
+            println("нет $stringsDirPath, пропускаем")
+            return
+        }
+
         val dirs = stringsDir.asFile.toPath().listDirectoryEntries()
         dirs
             .filter { !it.name.startsWith(".") } // Filter hidden dirs

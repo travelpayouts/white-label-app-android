@@ -160,7 +160,7 @@ dependencies {
     implementation(libs.gson)
     implementation(libs.seismic)
 
-    implementation(libs.appodeal) { exclude("com.android.billingclient", "billing") }
+    implementation(libs.appodeal.core)
 
     // AppsFlyer
     implementation(libs.appsflyer)

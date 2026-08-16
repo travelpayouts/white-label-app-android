@@ -42,14 +42,59 @@ variant selected.
 
 ## Configuring your own app
 
-Customization — application id, name, marker, colors, icons and tabs — is
-driven by `config/app_config.json` and applied by a separate `./gradlew
-parseConfig` step, which also requires your own Firebase configuration.
+Everything you customize — application id, app name, marker, colors, icons,
+tabs — lives in `config/app_config.json` and is applied by a separate step.
+The order matters:
 
-We are reworking that part of the setup, and the guide will be published here.
-Until then, please write to support@travelpayouts.com before customizing the
-template — the steps have to be done in a specific order and we would rather
-walk you through it than let you hit a wall.
+**1. Fill in `config/app_config.json`.** At minimum:
+
+```jsonc
+"base_configuration": {
+  "identifier": {
+    "android": {
+      "id": "com.mycompany.travel",   // your application id
+      "versionName": "1.0.0",
+      "versionCode": 1
+    }
+  }
+},
+"constants": {
+  "marker": "123456",              // your Travelpayouts marker — commissions are credited to it
+  "api_key": "...",                // your Travelpayouts API key — flight search needs it
+  "client_device_host": "...",     // identifies your app in the SDK's requests
+  "google_maps_api_key": "..."     // without it map screens render blank
+}
+```
+
+`parseConfig` refuses to run without the first three and warns about the rest,
+so you find out before building, not after.
+
+**2. Replace `config/google-services.json`** with your own file from the
+Firebase Console. It must contain a client for your application id *and* one
+for the debug variant (`<your id>.debug`), otherwise debug builds fail with
+"No matching client found for package name".
+
+**3. Apply the configuration:**
+
+```bash
+./gradlew parseConfig
+```
+
+This regenerates the app id, names, colors, icons and tabs, and copies your
+Firebase file into every build variant. If something required is missing, the
+task stops and says what to fill in.
+
+**4. Build** as described above.
+
+Optional, alongside `app_config.json`: `config/icons/` (launcher and tab
+icons), `config/images/` (background), `config/strings/<lang>/strings.xml`
+(your own wording).
+
+Advertising is off by default: `advertising.appodeal_api_key` and
+`advertising.google_admob_app_id` are empty, and the app builds and runs
+without them. Fill them in only if you monetize with ads.
+
+Questions about configuration — support@travelpayouts.com.
 
 ## Support
 
