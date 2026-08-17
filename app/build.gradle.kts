@@ -105,13 +105,6 @@ dependencies {
     implementation(libs.navigation.ui)
     implementation(libs.navigation.fragment)
 
-    // Maps
-    implementation(libs.maps.services)
-    implementation(libs.maps.utils)
-    implementation(libs.maps.utils.ktx)
-    implementation(libs.play.services.maps)
-    implementation(libs.play.services.location)
-
     // Retrofit
     implementation(platform(libs.okhttp.bom))
     implementation(libs.okhttp)
