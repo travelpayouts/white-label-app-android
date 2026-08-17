@@ -7,7 +7,6 @@ import appconfig.parsers.AppTabsParser
 import appconfig.parsers.AppVersionHandler
 import appconfig.parsers.BgImageParser
 import appconfig.parsers.GoogleAdMobAppIdHandler
-import appconfig.parsers.GoogleMapsApiKeyHandler
 import appconfig.parsers.GoogleServicesHandler
 import appconfig.parsers.HandlingLinkHandler
 import appconfig.parsers.HsvColorsHandler
@@ -99,12 +98,6 @@ abstract class ParseConfigTask : DefaultTask() {
                 "WARNING: constants.client_device_host is not set in " +
                     "config/app_config.json. The SDK will identify your app with an " +
                     "empty host in its requests."
-            )
-        }
-        if (constants.googleMapsApiKey.isNullOrBlank()) {
-            logger.warn(
-                "WARNING: constants.google_maps_api_key is not set in " +
-                    "config/app_config.json. Map screens will render blank."
             )
         }
     }
@@ -223,7 +216,6 @@ abstract class ParseConfigTask : DefaultTask() {
             buildSrcAppConfig.infoScreenConfig.aboutAppInfo.partnerUrl
         )
 
-        GoogleMapsApiKeyHandler.generateXml(appModule, buildSrcAppConfig.constants.googleMapsApiKey)
 
         PolicyUrlHandler.generatePolicyUrlXml(appModule, buildSrcAppConfig.constants.policyUrl)
 
