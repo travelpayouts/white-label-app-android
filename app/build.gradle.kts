@@ -36,6 +36,16 @@ android {
         manifestPlaceholders["intent_filter"] = prop.getProperty(PROP_HANDLING_LINK)
     }
 
+    packaging {
+        resources {
+            // okhttp 5.3.2 brings org.jspecify:jspecify, and both jars carry
+            // this file. Without the exclude the build fails on
+            // mergeJavaResource. The same conflict is documented for
+            // integrators in the SDK integration guide.
+            excludes += "/META-INF/versions/9/OSGI-INF/MANIFEST.MF"
+        }
+    }
+
     applicationVariants.all {
         outputs.all {
             val output = this as com.android.build.gradle.internal.api.BaseVariantOutputImpl
@@ -85,84 +95,30 @@ easylauncher {
 
 
 dependencies {
+    // Required by the SDK: it is compiled with core library desugaring, so the
+    // app that embeds it has to enable it too.
     coreLibraryDesugaring(libs.desugar.jdk.libs)
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 
-    // Travel SDK
+    // Travel SDK. The :travel-sdk module declares every dependency the SDK
+    // needs and exports them, so they are not repeated here. Versions come
+    // from there and match the SDK build — before, this module listed them
+    // again and they drifted: okhttp 5.1.0 against 5.3.2, firebase-bom 33.16.0
+    // against 34.9.0, dagger 2.56.2 against 2.59.1 and a dozen more.
     implementation(project(BuildModules.SDK))
     implementation(project(BuildModules.Common.DEBUG))
 
-    // AndroidX
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.fragment.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.androidx.recyclerview)
-    implementation(libs.androidx.constraintlayout)
-
-    implementation(libs.lifecycle.extensions)
-
-    // Navigation
-    implementation(libs.navigation.ui)
-    implementation(libs.navigation.fragment)
-
-    // Retrofit
-    implementation(platform(libs.okhttp.bom))
-    implementation(libs.okhttp)
-    implementation(libs.loggin.interceptor)
-    implementation(libs.retrofit)
-    implementation(libs.retrofit.converter.gson)
-    implementation(libs.retrofit.converter.scalars)
-
-    // UI
-    implementation(libs.material.components)
-    implementation(libs.viewbinding.property.delegate)
-    implementation(libs.crunchycalendar)
-    implementation(libs.skeleton)
-    implementation(libs.lottie)
-    implementation(libs.adapterdelegate.core)
-    implementation(libs.adapterdelegate.dsl)
-    implementation(libs.adapterdelegate.layout.container)
-    implementation(libs.adapterdelegate.view.binding)
-
-    //Flow binding
-    implementation(libs.flowbinding.core)
-    implementation(libs.flowbinding.material)
-    implementation(libs.flowbinding.platform)
-    implementation(libs.flowbinding.appcompat)
-    implementation(libs.flowbinding.viewpager)
-    implementation(libs.flowbinding.recyclerview)
-
-    //Coil
-    implementation(libs.coil.base)
-    implementation(libs.coil)
-
-    // FIrebase
-    implementation(platform(libs.firebase.bom))
-    implementation(libs.firebase.analytics)
-    implementation(libs.firebase.crashlytics)
+    // Used by this app itself, not by the SDK
     implementation(libs.firebase.messaging)
-
-    // Dagger
-    implementation(libs.dagger)
-    kapt(libs.dagger.compiler)
-    compileOnly(libs.dagger.annotation)
-
-    //Tools
-    implementation(libs.timberkt)
-    implementation(libs.insetter)
-    implementation(libs.gson)
+    implementation(libs.flowbinding.viewpager)
     implementation(libs.seismic)
 
-    implementation(libs.appodeal.core)
-
-    // AppsFlyer
-    implementation(libs.appsflyer)
-
-    //InAppReview
-    implementation(libs.app.review)
-    implementation(libs.app.review.ktx)
-
+    // Dagger: the app has its own graph, so it needs the compiler. The runtime
+    // library comes with the SDK.
+    kapt(libs.dagger.compiler)
+    compileOnly(libs.dagger.annotation)
 }
+
 
 //evaluationDependsOn(BuildModules.Config.LIBRARY)
 
