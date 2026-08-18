@@ -1,79 +1,45 @@
 {
   "project_info": {
-    "project_number": "155726775133",
-    "project_id": "travelapprelease-app",
-    "storage_bucket": "travelapprelease-app.appspot.com"
+    "project_number": "000000000000",
+    "project_id": "replace-with-your-firebase-project",
+    "storage_bucket": "replace-with-your-firebase-project.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:155726775133:android:fc32986ed20fd2c74f5eb4",
+        "mobilesdk_app_id": "1:000000000000:android:0000000000000000000001",
         "android_client_info": {
-          "package_name": "com.travelapp"
+          "package_name": "com.example.travel"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "155726775133-6uhfv4ut0ar9eheh1vqcitl2tkau52a3.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBb6LIGFxb3ocaABOIuPNc8ouOyriLP4mE"
+          "current_key": "REPLACE_WITH_YOUR_FIREBASE_API_KEY"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "155726775133-6uhfv4ut0ar9eheh1vqcitl2tkau52a3.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "155726775133-pofdteqbkauadssss8elc10prlo13un8.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.travelapp"
-              }
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:733484587469:android:3fed66a9ac64f4a1064c84",
+        "mobilesdk_app_id": "1:000000000000:android:0000000000000000000002",
         "android_client_info": {
-          "package_name": "com.travelapp.debug"
+          "package_name": "com.example.travel.debug"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "733484587469-ellh9ba7c7r67nsq0mrd30qpn2soaia0.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyAhn1zLFKtTJeg0Y5BnjUdPU1syzdoUa7I"
+          "current_key": "REPLACE_WITH_YOUR_FIREBASE_API_KEY"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "733484587469-ellh9ba7c7r67nsq0mrd30qpn2soaia0.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "733484587469-i5mts2se8s04aef15n1v0odctrqcva7q.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.travelapp.debug"
-              }
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }

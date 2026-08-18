@@ -82,6 +82,13 @@ Firebase Console. It must contain a client for your application id *and* one
 for the debug variant (`<your id>.debug`), otherwise debug builds fail with
 "No matching client found for package name".
 
+The file in this repository is a placeholder — `replace-with-your-firebase-project`,
+package `com.example.travel`, zeroed ids. It is deliberately not a working
+configuration: a template that shipped somebody else's Firebase project would
+either send your app's data to that project or fail on you later with a less
+obvious error. Same for `app/src/*/google-services.json`, which `parseConfig`
+overwrites from your file anyway.
+
 **3. Apply the configuration:**
 
 ```bash
@@ -130,6 +137,12 @@ the hotel ad placements, `about_app_info.developer`, the `hotels` tab and the
 `id` parameter of `other` tabs. None of them were read; they only suggested
 settings that do not exist. If your own config still has them, nothing breaks —
 they are ignored exactly as before.
+
+**The bundled Firebase files are placeholders.** `config/google-services.json`
+and the per-variant copies used to carry our own Firebase projects. They are now
+stubs with obvious values, so nothing of ours travels to you and there is no
+chance of a build quietly reporting into a project you do not own. You replace
+them with your own file exactly as before — step 2 above.
 
 **No more Google Maps key.** The configuration no longer asks for
 `google_maps_api_key`, and the README no longer tells you to fill it in. The
