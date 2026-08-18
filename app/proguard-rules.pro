@@ -82,76 +82,45 @@
 
 -keep class * extends android.app.Activity { *; }
 
--keep,allowobfuscation,allowshrinking class com.travelapp.sdk.internal.network.utils.NetworkResponse
--keep,allowobfuscation,allowshrinking class com.travelapp.sdk.internal.network.utils.GenericErrorResponseBody
+# The SDK's own R8 rules now travel inside the AAR (proguard.txt), so this file
+# no longer repeats them. They were removed for a reason, not just for tidiness:
+# the central rule was `-keep class com.travelapp.** { *; }`, and the SDK inside
+# the AAR is already obfuscated — 376 of its 2100 classes sit in packages named
+# `a`, `t`, `h`, so the pattern never reached them. It read as "the SDK is
+# protected" while covering four fifths of it, and being a blocking keep, it
+# also stopped R8 from removing SDK code your app does not use (worth 262 KB in
+# our own build).
+#
+# Behaviour change to be aware of: SDK code is now shrunk like any other
+# dependency. If your own code reaches into the SDK by reflection, add rules for
+# exactly what you touch.
 
-# region Travel SDK rules
+# The rules below are NOT about the SDK — they protect your own code, so they
+# stay. Remove them only if you know your app does not need them.
 
-
--keep class com.travelapp.** { *; }
-
-
+# R8 turns missing classes into build errors; these are referenced from
+# libraries but never present at runtime.
 -dontwarn java.lang.invoke.StringConcatFactory
 -dontwarn androidx.navigation.ui.R$anim
 -dontwarn com.google.android.material.R$attr
 -dontwarn com.google.android.material.R$id
 
+# @Parcelize classes of your app
 -keep @kotlinx.parcelize.Parcelize public class * {
     *;
 }
 
+# Android looks CREATOR up by name through reflection
 -keepclassmembers class * implements android.os.Parcelable {
   public static final android.os.Parcelable$Creator CREATOR;
 }
 
 -keep class * implements android.os.Parcelable$Creator { *; }
 
+# Enum constants of your app travel by name — in JSON, in preferences, in
+# intents. The SDK ships the same rule scoped to its own packages.
 -keep class * extends java.lang.Enum {
     <fields>;
     public static **[] values();
     public static ** valueOf(java.lang.String);
 }
-
-# Prevent proguard from stripping interface information from TypeAdapter, TypeAdapterFactory,
-# JsonSerializer, JsonDeserializer instances (so they can be used in @JsonAdapter)
--keep class * extends com.google.gson.TypeAdapter
--keep class com.google.gson.reflect.TypeToken { *; }
--keep class * extends com.google.gson.reflect.TypeToken
--keep class * implements com.google.gson.TypeAdapterFactory
--keep class * implements com.google.gson.JsonSerializer
--keep class * implements com.google.gson.JsonDeserializer
-
-# Prevent R8 from leaving Data object members always null
--keepclassmembers,allowobfuscation class * {
-  @com.google.gson.annotations.SerializedName <fields>;
-}
-
--keep class com.travelapp.sdk.internal.ui.base.** {
-    <fields>;
-    <methods>;
- }
-
- -keepnames class * extends com.travelapp.sdk.internal.ui.base.BaseFragment
- -keepnames class * extends com.travelapp.sdk.internal.ui.base.BaseBottomSheetDialogFragment
-
- -keep class com.travelapp.sdk.config.** { *; }
- -keep class com.travelapp.common.debug.** { *; }
-
--keep interface com.travelapp.sdk.internal.ui.utils.BottomBarVisibilityHandler {
-    public <fields>;
-    public <methods>;
-}
--keep interface com.travelapp.sdk.internal.ui.utils.TabSelector {
-    public <methods>;
-}
--keep class com.travelapp.sdk.internal.ui.utils.NavigationExtensionsKt {
-    *;
-}
--keep class com.travelapp.sdk.internal.ui.utils.CommonExtensionsKt {
-    *;
-}
--keep class com.travelapp.sdk.internal.ui.utils.KeyboardVisibilityListener {
-    public <methods>;
-}
-
-# endregion
