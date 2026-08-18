@@ -69,13 +69,13 @@ The order matters:
 "constants": {
   "marker": "123456",              // your Travelpayouts marker — commissions are credited to it
   "api_key": "...",                // your Travelpayouts API key — flight search needs it
-  "client_device_host": "...",     // identifies your app in the SDK's requests
-  "google_maps_api_key": "..."     // without it map screens render blank
+  "client_device_host": "..."      // identifies your app in the SDK's requests
 }
 ```
 
-`parseConfig` refuses to run without the first three and warns about the rest,
-so you find out before building, not after.
+`parseConfig` refuses to run without the application id and the version, and
+warns when the three values above are empty — so you find out before building,
+not after.
 
 **2. Replace `config/google-services.json`** with your own file from the
 Firebase Console. It must contain a client for your application id *and* one
@@ -98,11 +98,43 @@ Optional, alongside `app_config.json`: `config/icons/` (launcher and tab
 icons), `config/images/` (background), `config/strings/<lang>/strings.xml`
 (your own wording).
 
+**Every field, in detail** — including the keys that look configurable but have
+no effect, and the limit of two `other` tabs:
+[Configuration guide (English)](Docs/CONFIGURATION.en.md) ·
+[Инструкция по настройке (на русском)](Docs/CONFIGURATION.ru.md).
+
 Advertising is off by default: `advertising.appodeal_api_key` and
 `advertising.google_admob_app_id` are empty, and the app builds and runs
 without them. Fill them in only if you monetize with ads.
 
 ## What changed
+
+### Unreleased
+
+**A full configuration guide.** [Docs/CONFIGURATION.en.md](Docs/CONFIGURATION.en.md)
+and [Docs/CONFIGURATION.ru.md](Docs/CONFIGURATION.ru.md) describe every field of
+`app_config.json` as the code actually reads it, plus the icon, image and string
+directories next to it. There is a section for keys that look configurable but
+do nothing — `appstore_id`, `about_app_info.developer`, `parameters.id` and
+`parameters.icon` of an `other` tab — so you don't spend an evening on them.
+
+Two limits are now written down rather than discovered: **an app can have at
+most two `other` tabs** (the SDK ships the `ta_other<N>` resources for exactly
+two, so a third one does not compile), and **`favorites` on the Info screen
+needs the `flights` tab** — without it the item stays hidden however you
+configure it.
+
+**The config template no longer carries dead keys.** Removed from
+`config/app_config.json`: `constants.appstore_id`, the `identifier.apple` block,
+the hotel ad placements, `about_app_info.developer`, the `hotels` tab and the
+`id` parameter of `other` tabs. None of them were read; they only suggested
+settings that do not exist. If your own config still has them, nothing breaks —
+they are ignored exactly as before.
+
+**No more Google Maps key.** The configuration no longer asks for
+`google_maps_api_key`, and the README no longer tells you to fill it in. The
+maps dependency went out with the hotel screens that used it, so obtaining a key
+from Google is no longer part of setting up this template.
 
 ### 2026.08.16 (bundled SDK 1.7.2)
 
