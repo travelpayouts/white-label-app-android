@@ -144,6 +144,16 @@ stubs with obvious values, so nothing of ours travels to you and there is no
 chance of a build quietly reporting into a project you do not own. You replace
 them with your own file exactly as before — step 2 above.
 
+**Release builds now shrink the SDK.** This template used to carry a
+hand-written `-keep class com.travelapp.** { *; }` and a set of companion rules.
+They are gone: the SDK ships its own R8 rules inside the AAR, so repeating them
+here only widened what R8 had to keep. Read this before you update if your code
+touches the SDK by reflection, or through anything that resolves classes by
+name, such as a serialization library working off class names: those paths were
+covered by the blanket keep and are not covered now. Add your own keep rules for
+them in `app/proguard-rules.pro`, and test a release build, not just a debug one
+- the difference only shows after shrinking.
+
 **No more Google Maps key.** The configuration no longer asks for
 `google_maps_api_key`, and the README no longer tells you to fill it in. The
 maps dependency went out with the hotel screens that used it, so obtaining a key
@@ -184,8 +194,7 @@ alone change nothing.
 **Configuring your own app works and is documented** — fill in the config,
 replace the Firebase file, run `parseConfig`, build. The task now stops with a
 readable message when the application id, the app version or a matching Firebase
-client is missing, and warns when `marker`, `api_key`, `client_device_host` or
-`google_maps_api_key` are empty. Before, a missing application id produced an
+client is missing, and warns when `marker`, `api_key` or `client_device_host` are empty. Before, a missing application id produced an
 empty one and the build failed later on google-services with an opaque error.
 
 **Signing.** Added `signing.properties.example`, and `.gitignore` now covers

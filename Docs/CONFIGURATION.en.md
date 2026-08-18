@@ -56,7 +56,7 @@ language, `localized` holds the translations:
 | `feedback_theme` | Subject line of that email. Empty means `App Feedback` |
 | `app_store_link` | Link used by "Share app". Empty means the Google Play address built from your application id |
 | `sharing_data.sharing_link` | Base address of shared ticket links. The SDK appends `/?flightSearch=...` to it, so give a full address with the scheme (`https://example.com`), not a bare host |
-| `sharing_data.handling_link` | Reaches the SDK but is not read by it, see [Keys with no effect](#keys-with-no-effect) |
+| `sharing_data.handling_link` | Host the app intercepts links for. `parseConfig` writes it without `https://` into `handling_link.properties`, and from there it becomes the `android:host` of the deep link filter in the manifest. Leave it empty and link interception will not work. Running `parseConfig` after editing it is required |
 | `appsflyer_dev_key` | AppsFlyer key. Leave empty if you do not use AppsFlyer |
 
 ## `advertising`
@@ -163,8 +163,11 @@ the step is skipped and the template's icon stays.
 
 **Background of the search screen** — put one image into `config/images/`. A
 vector `.xml` wins if present; otherwise a `.png` or `.jpg` is used and scaled
-to 1440×3216 for the standard densities. With an empty directory the SDK's own
-background is used.
+to 1440×3216. If you do not need your own background, `config/images/` must not
+exist at all: the step is then skipped and the SDK's background stays. A
+directory created empty, or holding a file of another format, makes
+`parseConfig` fail - a known defect of the template, not a mistake on your
+side.
 
 **Texts** — `config/strings/<lang>/strings.xml` overrides the SDK's wording.
 The directory named `base` becomes the default `values/strings.xml`, any other
@@ -185,7 +188,6 @@ nothing. They are listed so you do not spend time on them.
 | Key | What actually happens |
 |---|---|
 | `constants.appstore_id` | Not part of the configuration model at all — silently dropped when the file is read. The store link is `app_store_link` |
-| `constants.sharing_data.handling_link` | Reaches the SDK, but the SDK never reads it. Intercepting links into the app is set up in the manifest, not here |
 | `info_screen_config.about_app_info.developer` | Part of the model, read by nothing. The About screen does not show it |
 | `screens_to_display[].parameters.id` | Ignored. Tab ids are assigned by position: the first `other` tab becomes `other1`, the second `other2` |
 | `screens_to_display[].parameters.icon` | Ignored. The icon comes from `config/icons/ic_other_N.xml`, see above |
@@ -206,8 +208,8 @@ requires it.
 ### Signing key
 
 Before the first build create `signing.properties` in the project root, or the
-build stops with "No signing config provided!". Use `signing.properties.example`
-as the template:
+build stops with a `FileNotFoundException` on that file. Use
+`signing.properties.example` as the template:
 
 ```
 KEYSTORE_FILE_DEBUG=debug.keystore
