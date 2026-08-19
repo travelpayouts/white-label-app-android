@@ -6,6 +6,13 @@
 // not need to repeat any of it in your own build file.
 //
 // Versions match SDK 1.7.2. Replace this file together with the .aar.
+//
+// This file is the source of truth for the Appodeal core version. The ad network
+// adapters live in gradle/libs.versions.toml and have to match it: on the 3.x line
+// Appodeal versions adapters together with the core, so core 3.12.0 goes with
+// adapters 3.12.0.0. When you replace this file, bump `appodeal` and
+// `appodeal-core` in the catalog in the same change - a mismatch does not fail the
+// build, it silently stops the adapters from registering.
 configurations.maybeCreate("default")
 artifacts.add("default", file("travel-sdk-release.aar"))
 

@@ -205,31 +205,6 @@ object Tools {
 
     const val IN_APP_REVIEW = "com.google.android.play:review:2.0.2"
     const val IN_APP_REVIEW_KTX = "com.google.android.play:review-ktx:2.0.2"
-
-    //need to update library version synchronously
-    private const val APPODEAL_VERSION = "3.3.1.0"
-
-    const val APPODEAL = "com.appodeal.ads:sdk:$APPODEAL_VERSION"
-    const val APPODEAL_CORE = "com.appodeal.ads.sdk:core:3.3.1"
-
-    const val APPODEAL_ADMOB = "com.appodeal.ads.sdk.networks:admob:$APPODEAL_VERSION"
-    const val APPODEAL_AMAZON = "com.appodeal.ads.sdk.networks:amazon:$APPODEAL_VERSION"
-    const val APPODEAL_APPLOVIN = "com.appodeal.ads.sdk.networks:applovin:$APPODEAL_VERSION"
-    const val APPODEAL_APPLOVIN_MAX = "com.appodeal.ads.sdk.networks:applovin_max:$APPODEAL_VERSION"
-    const val APPODEAL_BIDMACHINE = "com.appodeal.ads.sdk.networks:bidmachine:$APPODEAL_VERSION"
-    const val APPODEAL_BIDON = "com.appodeal.ads.sdk.networks:bidon:$APPODEAL_VERSION"
-    const val APPODEAL_BIGO_ADS = "com.appodeal.ads.sdk.networks:bigo_ads:$APPODEAL_VERSION"
-    const val APPODEAL_DT_EXCHANGE = "com.appodeal.ads.sdk.networks:dt_exchange:$APPODEAL_VERSION"
-    const val APPODEAL_IAB = "com.appodeal.ads.sdk.networks:iab:$APPODEAL_VERSION"
-    const val APPODEAL_INMOBI = "com.appodeal.ads.sdk.networks:inmobi:$APPODEAL_VERSION"
-    const val APPODEAL_IRONSOURCE = "com.appodeal.ads.sdk.networks:ironsource:$APPODEAL_VERSION"
-    const val APPODEAL_META = "com.appodeal.ads.sdk.networks:meta:$APPODEAL_VERSION"
-    const val APPODEAL_MINTEGRAL = "com.appodeal.ads.sdk.networks:mintegral:$APPODEAL_VERSION"
-    const val APPODEAL_MY_TARGET = "com.appodeal.ads.sdk.networks:my_target:$APPODEAL_VERSION"
-    const val APPODEAL_PANGLE = "com.appodeal.ads.sdk.networks:pangle:$APPODEAL_VERSION"
-    const val APPODEAL_UNITY_ADS = "com.appodeal.ads.sdk.networks:unity_ads:$APPODEAL_VERSION"
-    const val APPODEAL_VUNGLE = "com.appodeal.ads.sdk.networks:vungle:$APPODEAL_VERSION"
-    const val APPODEAL_YANDEX = "com.appodeal.ads.sdk.networks:yandex:$APPODEAL_VERSION"
 }
 
 object Lottie {
