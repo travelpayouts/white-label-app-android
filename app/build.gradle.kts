@@ -27,6 +27,10 @@ private val prop: Properties = Properties().apply {
 }
 
 
+// Проверка, что рекламные адаптеры реально доехали в сборку.
+// Запуск: ./gradlew verifyAdvertisingWiring -PadsMode=appodeal_admob
+verification.AdvertisingWiring.register(project)
+
 android {
     namespace = "com.travelapp"
     AppModuleBuildConfiguration(project, appExtension = this).configure()
