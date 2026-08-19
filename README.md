@@ -144,6 +144,24 @@ stubs with obvious values, so nothing of ours travels to you and there is no
 chance of a build quietly reporting into a project you do not own. You replace
 them with your own file exactly as before — step 2 above.
 
+**Advertising is wired up by data, not by text substitution.** `parseConfig`
+used to configure ads by finding a line in `app/build.gradle.kts` and replacing
+it. When the SDK dependencies moved into the `travel-sdk` module that line went
+away, the replacement quietly matched nothing, and filling in your Appodeal key
+stopped adding the ad adapters to the build - no error, no warning, no ads. It
+now writes the mode into `advertising.properties` and the dependency list lives
+in `app/build.gradle.kts` under a `when`, where there is nothing to search for.
+
+Two consequences for you. After editing the `advertising` block, running
+`./gradlew parseConfig` is required - the build stops and says so if you forget,
+instead of quietly building without ads. And you can check the result rather
+than trust it: `./gradlew verifyAdvertisingWiring -PadsMode=appodeal_admob`
+resolves the dependency graph and fails if the adapters are not in it.
+
+Appodeal adapter versions are now paired with the core the SDK ships (3.12.0).
+They had drifted to 3.7.0.0, which would not have registered the ad networks
+even once the wiring was fixed.
+
 **Release builds now shrink the SDK.** This template used to carry a
 hand-written `-keep class com.travelapp.** { *; }` and a set of companion rules.
 They are gone: the SDK ships its own R8 rules inside the AAR, so repeating them

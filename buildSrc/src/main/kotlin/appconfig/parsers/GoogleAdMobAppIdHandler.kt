@@ -1,5 +1,6 @@
 package appconfig.parsers
 
+import appconfig.AdvertisingMode
 import appconfig.GRADLE_TASK_NAME
 import org.gradle.api.Project
 
@@ -10,16 +11,6 @@ object GoogleAdMobAppIdHandler {
     private const val GRADLE_PATH = "build.gradle.kts"
 
     private const val MANIFEST_PATH = "src/main/AndroidManifest.xml"
-
-    private const val APPODEAL_WITH_ADMOB =
-        "implementation(libs.appodeal) { exclude(\"com.android.billingclient\", \"billing\") }"
-
-    private const val APPODEAL_CORE = "implementation(libs.appodeal.core)"
-
-    private const val APPODEAL_WITHOUT_ADMOB = """
-    implementation(libs.appodeal.core)
-    appodealNetworkWithoutAdmob()
-    """
 
     private const val ADMOB_FULL_INFO =
         """    <meta-data
@@ -44,17 +35,22 @@ object GoogleAdMobAppIdHandler {
     """.trimIndent()
 
     fun handleAdmobConfig(
+        project: Project,
         appModule: Project,
+        advertising: com.google.gson.JsonObject?,
         googleAdmobAppId: String,
         isAppodealKeyEmpty: Boolean
     ) {
         print("Generating advertising config strings.xml... ")
 
-        handleAppodealGradleDeps(
-            module = appModule,
-            googleAdmobIsEmpty = googleAdmobAppId.isBlank(),
+        writeAdvertisingProperties(
+            project = project,
+            advertising = advertising,
+            googleAdmobAppId = googleAdmobAppId,
             isAppodealKeyEmpty = isAppodealKeyEmpty
         )
+
+        migrateOldSubstitution(appModule)
 
         handleManifest(
             module = appModule,
@@ -75,40 +71,46 @@ object GoogleAdMobAppIdHandler {
         println("✅ ")
     }
 
-    private fun handleAppodealGradleDeps(
-        module: Project,
-        googleAdmobIsEmpty: Boolean,
+    /**
+     * Записывает режим рекламы в advertising.properties. Ничего в исходниках не
+     * ищет и не подменяет: список зависимостей живёт в app/build.gradle.kts под
+     * when, а сюда попадает только решение, какой из вариантов взять.
+     */
+    private fun writeAdvertisingProperties(
+        project: Project,
+        advertising: com.google.gson.JsonObject?,
+        googleAdmobAppId: String,
         isAppodealKeyEmpty: Boolean
     ) {
-        val gradleFile = module.file(GRADLE_PATH)
-
-        // Сначала приводим объявление к общему виду и только потом применяем
-        // нужное. Без этого второй запуск задачи раздувает файл: блок
-        // APPODEAL_WITHOUT_ADMOB содержит внутри себя строку APPODEAL_CORE,
-        // и замена срабатывает по уже вставленному тексту.
-        val normalized = normalizeAppodealDeps(gradleFile.readText())
-
-        val editedGradleText = when {
-            isAppodealKeyEmpty -> normalized
-            googleAdmobIsEmpty -> normalized.replace(APPODEAL_CORE, APPODEAL_WITHOUT_ADMOB)
-            else -> normalized.replace(APPODEAL_CORE, APPODEAL_WITH_ADMOB)
-        }
-
-        gradleFile.writeText(editedGradleText)
+        val mode = AdvertisingMode.modeOf(
+            appodealApiKey = if (isAppodealKeyEmpty) null else "set",
+            googleAdmobAppId = googleAdmobAppId.ifBlank { null }
+        )
+        project.rootProject.file(AdvertisingMode.FILE_NAME)
+            .writeText(AdvertisingMode.fileContent(mode, AdvertisingMode.hashOf(advertising)))
     }
 
     /**
-     * Возвращает объявление зависимостей Appodeal к базовому виду
-     * (одна строка APPODEAL_CORE), сколько бы раз задача ни отрабатывала до
-     * этого.
+     * Одноразовая миграция. У партнёра, собиравшего приложение на прежней
+     * заготовке, в app/build.gradle.kts лежит результат старой подстановки:
+     * строка implementation(libs.appodeal.core), либо блок с AdMob, либо вызов
+     * appodealNetworkWithoutAdmob(). Теперь зависимости объявляются через when,
+     * и эти остатки надо убрать, иначе они задублируют объявление.
+     *
+     * Удалить в релизе после того, как все партнёры обновятся.
      */
-    private fun normalizeAppodealDeps(text: String): String = text
-        .replace(APPODEAL_WITH_ADMOB, APPODEAL_CORE)
-        .replace(Regex("""\n[ \t]*appodealNetworkWithoutAdmob\(\)"""), "")
-        .replace(
-            Regex("""(\n[ \t]*implementation\(libs\.appodeal\.core\))+"""),
-            "\n    " + APPODEAL_CORE
-        )
+    private fun migrateOldSubstitution(module: Project) {
+        val gradleFile = module.file(GRADLE_PATH)
+        val text = gradleFile.readText()
+        val cleaned = text
+            .replace(Regex("""\n[ \t]*implementation\(libs\.appodeal\)[^\n]*"""), "")
+            .replace(Regex("""\n[ \t]*implementation\(libs\.appodeal\.core\)"""), "")
+            .replace(Regex("""\n[ \t]*appodealNetworkWithoutAdmob\(\)"""), "")
+        if (cleaned != text) {
+            gradleFile.writeText(cleaned)
+            println("  убраны остатки прежней подстановки зависимостей Appodeal")
+        }
+    }
 
     private fun handleManifest(
         module: Project,

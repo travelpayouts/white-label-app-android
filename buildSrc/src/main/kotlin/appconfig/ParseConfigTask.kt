@@ -180,7 +180,11 @@ abstract class ParseConfigTask : DefaultTask() {
         AppConfigJsonParser.parse(buildSrcAppConfig, appModule)
 
         GoogleAdMobAppIdHandler.handleAdmobConfig(
+            project = project,
             appModule = appModule,
+            advertising = com.google.gson.Gson()
+                .fromJson(project.rootProject.file("config/app_config.json").readText(), com.google.gson.JsonObject::class.java)
+                ?.getAsJsonObject("advertising"),
             googleAdmobAppId = buildSrcAppConfig.advertising?.googleAdmobAppId?.trim().orEmpty(),
             isAppodealKeyEmpty = buildSrcAppConfig.advertising?.appodealApiKey.isNullOrBlank()
         )

@@ -64,10 +64,25 @@ language, `localized` holds the translations:
 The whole block is optional — with an empty `appodeal_api_key` no ads are
 initialised and the app builds and runs without them.
 
+**After editing this block, running `./gradlew parseConfig` is required.** The
+task writes the resulting mode into `advertising.properties`, and that is what
+decides which ad libraries end up in the build. Edit the config without running
+the task and the build now stops and says so — it used to build quietly without
+ads instead.
+
+To confirm the ads are actually wired in, check the dependency graph rather than
+the fact that the task finished without errors:
+
+```bash
+./gradlew verifyAdvertisingWiring -PadsMode=appodeal_admob
+```
+
+Modes: `none`, `appodeal`, `appodeal_admob`.
+
 | Field | Purpose |
 |---|---|
-| `appodeal_api_key` | Appodeal key |
-| `google_admob_app_id` | AdMob application id, written into the manifest |
+| `appodeal_api_key` | Appodeal key. Leave it empty and no ad library enters the build at all |
+| `google_admob_app_id` | AdMob application id. It only works together with a filled `appodeal_api_key`: without one AdMob is not wired up, because all ads go through Appodeal |
 | `placements.air_ticket_placement_interstitial` | Interstitial placement for the flight search |
 | `placements.air_ticket_placement_banner` | Banner placement for the flight search |
 

@@ -20,6 +20,10 @@ plugins {
 private val FILE_NAME = "handling_link.properties"
 private val PROP_HANDLING_LINK = "handlingLink"
 
+// Режим рекламы из advertising.properties. Чтение проверяет, что файл на месте
+// и не разошёлся с config/app_config.json, иначе останавливает сборку.
+private val adsMode: String = appconfig.AdvertisingMode.read(project)
+
 private val prop: Properties = Properties().apply {
     val fis = FileInputStream(FILE_NAME)
     load(fis)
@@ -121,6 +125,18 @@ dependencies {
     // library comes with the SDK.
     kapt(libs.dagger.compiler)
     compileOnly(libs.dagger.annotation)
+
+    // Реклама. Что подключать, решает блок advertising в config/app_config.json:
+    // задача parseConfig записывает режим в advertising.properties, а список
+    // зависимостей лежит здесь и генератором не правится.
+    when (adsMode) {
+        appconfig.AdvertisingMode.NONE -> Unit
+        appconfig.AdvertisingMode.APPODEAL -> appodealNetworks()
+        appconfig.AdvertisingMode.APPODEAL_ADMOB -> {
+            appodealNetworks()
+            implementation(libs.appodeal.admob)
+        }
+    }
 }
 
 
@@ -145,7 +161,9 @@ fun EasyLauncherConfig.configure(icons: List<String>, ribbonColor: String) {
     )
 }
 
-private fun DependencyHandlerScope.appodealNetworkWithoutAdmob() {
+// Набор рекламных сетей Appodeal. Ядро приезжает из модуля travel-sdk, здесь
+// объявляются только адаптеры. Версии — из каталога, парные ядру.
+private fun DependencyHandlerScope.appodealNetworks() {
     implementation(libs.appodeal.amazon)
     implementation(libs.appodeal.applovin)
     implementation(libs.appodeal.applovin.max)
