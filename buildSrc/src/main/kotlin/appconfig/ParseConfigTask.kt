@@ -191,12 +191,14 @@ abstract class ParseConfigTask : DefaultTask() {
 
         AppConfigJsonParser.parse(buildSrcAppConfig, appModule)
 
+        val advertisingSnapshot = com.google.gson.Gson()
+            .fromJson(project.rootProject.file("config/app_config.json").readText(), com.google.gson.JsonObject::class.java)
+            ?.getAsJsonObject("advertising")
+
         GoogleAdMobAppIdHandler.handleAdmobConfig(
             project = project,
             appModule = appModule,
-            advertising = com.google.gson.Gson()
-                .fromJson(project.rootProject.file("config/app_config.json").readText(), com.google.gson.JsonObject::class.java)
-                ?.getAsJsonObject("advertising"),
+            advertising = advertisingSnapshot,
             googleAdmobAppId = buildSrcAppConfig.advertising?.googleAdmobAppId?.trim().orEmpty(),
             isAppodealKeyEmpty = buildSrcAppConfig.advertising?.appodealApiKey.isNullOrBlank()
         )
@@ -270,11 +272,13 @@ abstract class ParseConfigTask : DefaultTask() {
         // Иначе авария в середине задачи оставляет свежий отпечаток конфига при
         // старых сгенерированных файлах — ровно то состояние, которое отпечаток
         // и должен ловить: следующая сборка молча сочтёт всё согласованным.
+        // Отпечаток считаем по ТОМУ ЖЕ тексту, из которого сгенерированы ресурсы.
+        // Раньше файл читался заново, и правка конфига во время работы задачи
+        // (она идёт около семи секунд) давала ресурсы по одному снимку и хеш по
+        // другому — следующая сборка считала состояние согласованным.
         GoogleAdMobAppIdHandler.writeAdvertisingProperties(
             project = project,
-            advertising = com.google.gson.Gson()
-                .fromJson(project.rootProject.file("config/app_config.json").readText(), com.google.gson.JsonObject::class.java)
-                ?.getAsJsonObject("advertising"),
+            advertising = advertisingSnapshot,
             googleAdmobAppId = buildSrcAppConfig.advertising?.googleAdmobAppId?.trim().orEmpty(),
             isAppodealKeyEmpty = buildSrcAppConfig.advertising?.appodealApiKey.isNullOrBlank()
         )

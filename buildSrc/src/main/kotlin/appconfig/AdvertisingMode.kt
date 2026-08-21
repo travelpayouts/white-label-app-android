@@ -142,6 +142,29 @@ object AdvertisingMode {
                         }
                     }
 
+                    // Сгенерированные ресурсы устарели? Проверяем здесь, а не на
+                    // конфигурации: только в графе видно, будет ли выполнен
+                    // parseConfig. Прежняя догадка «упоминался ли он в команде»
+                    // принимала любую подпоследовательность букв, и ./gradlew aR
+                    // (штатное сокращение assembleRelease) отключал сверку.
+                    if (GRADLE_TASK_NAME !in names) {
+                        val configFile = project.rootProject.file(CONFIG_PATH)
+                        if (configFile.exists()) {
+                            val props = readProps(project)
+                            val advertising = Gson()
+                                .fromJson(configFile.readText(), JsonObject::class.java)
+                                ?.getAsJsonObject("advertising")
+                            if (props[KEY_HASH] != hashOf(advertising)) {
+                                throw GradleException(
+                                    "Блок advertising в $CONFIG_PATH изменился после последнего " +
+                                        "$GRADLE_TASK_NAME, поэтому сгенерированные ресурсы рекламы " +
+                                        "устарели: в манифесте и appodeal_config.xml остались прежние " +
+                                        "значения. Запустите ./gradlew $GRADLE_TASK_NAME"
+                                )
+                            }
+                        }
+                    }
+
                     if (GRADLE_TASK_NAME in names && names.size > 1) {
                         throw GradleException(
                             "$GRADLE_TASK_NAME нельзя выполнять вместе с другими задачами: " +
@@ -156,39 +179,44 @@ object AdvertisingMode {
         )
     }
 
+    /**
+     * Строковое поле конфига. Gson молча приводит число и boolean к строке, и
+     * `"appodeal_api_key": 1` включал рекламу с заведомо неверным ключом — все
+     * проверки при этом зелёные. Тип проверяем явно.
+     */
+    private fun stringField(obj: JsonObject?, name: String): String? {
+        val el = obj?.get(name) ?: return null
+        if (el.isJsonNull) return null
+        if (!el.isJsonPrimitive || !el.asJsonPrimitive.isString) {
+            throw GradleException(
+                "В $CONFIG_PATH поле advertising.$name должно быть строкой, а не ${el}. " +
+                    "Ключи рекламы задаются строками, в кавычках."
+            )
+        }
+        return el.asString
+    }
+
+    private fun readProps(project: Project): Map<String, String> {
+        val file = project.rootProject.file(FILE_NAME)
+        if (!file.exists()) return emptyMap()
+        return file.readLines()
+            .filterNot { it.isBlank() || it.trimStart().startsWith("#") }
+            .mapNotNull { line -> line.split("=", limit = 2).takeIf { it.size == 2 } }
+            .associate { it[0].trim() to it[1].trim() }
+    }
+
     fun read(project: Project): String {
-        // Переопределение с командной строки имеет приоритет над файлом и
-        // отключает сверку с конфигом: режим задан явно и намеренно
+        // Переопределение с командной строки имеет приоритет над конфигом.
+        // Разрешено только для задачи проверки — это следит сторож на графе задач
         override(project)?.let {
             project.logger.lifecycle(
                 "ВНИМАНИЕ: режим рекламы переопределён параметром -PadsMode=$it, " +
-                    "файл $FILE_NAME игнорируется. Это режим проверки, не для релизной сборки."
+                    "конфигурация игнорируется. Это режим проверки, не для релизной сборки."
             )
             return it
         }
 
-        // parseConfig этот файл и создаёт, поэтому во время его запуска отсутствие
-        // файла — нормальное состояние загрузки, а не ошибка. Иначе на чистом
-        // клоне не запустить ни сборку, ни задачу, которая её чинит.
-        // На конфигурации ещё не известно, что попадёт в граф, поэтому здесь
-        // только мягкий признак: пользователь упомянул задачу в команде.
-        // Строгие проверки — в registerGuards, по фактическому графу.
-        val parseConfigMentioned = project.gradle.startParameter.taskNames.any { requested ->
-            val name = requested.substringAfterLast(':')
-            // Сокращения Gradle тоже считаем упоминанием: ./gradlew pC запускает
-            // parseConfig, и раньше он получал совет запустить parseConfig
-            name.equals(GRADLE_TASK_NAME, ignoreCase = true) || run {
-                if (name.isEmpty()) return@run false
-                var i = 0
-                name.all { ch ->
-                    i = GRADLE_TASK_NAME.indexOf(ch, i, ignoreCase = true)
-                    if (i < 0) false else { i++; true }
-                }
-            }
-        }
-
-        // Проверяем конфиг ДО файла режима: если нет обоих, совет «запустите
-        // parseConfig» бесполезен — задача упадёт на отсутствующем конфиге
+        // Конфиг — единственный источник режима, без него собирать нечего
         val configFile = project.rootProject.file(CONFIG_PATH)
         if (!configFile.exists()) {
             throw GradleException(
@@ -197,19 +225,6 @@ object AdvertisingMode {
                     "Восстановите файл из поставки."
             )
         }
-
-        val file = project.rootProject.file(FILE_NAME)
-        if (!file.exists()) {
-            if (parseConfigMentioned) return NONE
-            throw GradleException(
-                "$FILE_NAME не найден в корне проекта. Запустите ./gradlew $GRADLE_TASK_NAME"
-            )
-        }
-
-        val props = file.readLines()
-            .filterNot { it.isBlank() || it.trimStart().startsWith("#") }
-            .mapNotNull { line -> line.split("=", limit = 2).takeIf { it.size == 2 } }
-            .associate { it[0].trim() to it[1].trim() }
 
         // Режим ВЫВОДИТСЯ из конфига, а не читается из файла.
         //
@@ -228,21 +243,9 @@ object AdvertisingMode {
             .fromJson(configFile.readText(), JsonObject::class.java)
             ?.getAsJsonObject("advertising")
         val mode = modeOf(
-            appodealApiKey = advertising?.get("appodeal_api_key")?.takeIf { !it.isJsonNull }?.asString,
-            googleAdmobAppId = advertising?.get("google_admob_app_id")?.takeIf { !it.isJsonNull }?.asString
+            appodealApiKey = stringField(advertising, "appodeal_api_key"),
+            googleAdmobAppId = stringField(advertising, "google_admob_app_id")
         )
-
-        // Сверка отпечатка: если конфиг правили и не запускали parseConfig,
-        // манифест и appodeal_config.xml остались от прежней конфигурации
-        val stored = props[KEY_HASH]
-        if (!parseConfigMentioned && stored != hashOf(advertising)) {
-            throw GradleException(
-                "Блок advertising в $CONFIG_PATH изменился после последнего $GRADLE_TASK_NAME, " +
-                    "поэтому сгенерированные ресурсы рекламы устарели: в манифесте и " +
-                    "appodeal_config.xml остались прежние значения. " +
-                    "Запустите ./gradlew $GRADLE_TASK_NAME"
-            )
-        }
 
         return mode
     }
