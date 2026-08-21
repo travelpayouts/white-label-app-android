@@ -1,12 +1,12 @@
 # Travelpayouts White Label App for Android
 
-> **Template version:** 2026.08.16 · **Bundled SDK:** 1.7.2
+> **Template version:** 2026.08.21 · **Bundled SDK:** 1.7.2
 >
 > This is the version of the template itself, not of your app — your app's
 > version is what you set in `config/app_config.json`. If the header in your
 > copy shows an older date than the one here on GitHub, the changes listed
 > below are what you are missing. Each handover is also tagged, so you can
-> diff against a known state: `template-2026.08.16`.
+> diff against a known state: `template-2026.08.21`.
 
 A ready-to-build Android travel app (flight search) that you make your own —
 name, icon, colors, tabs — and publish under your own account.
@@ -143,6 +143,13 @@ and the per-variant copies used to carry our own Firebase projects. They are now
 stubs with obvious values, so nothing of ours travels to you and there is no
 chance of a build quietly reporting into a project you do not own. You replace
 them with your own file exactly as before — step 2 above.
+
+**`parseConfig` can no longer share a command with a build.** If your CI ran
+`./gradlew parseConfig assembleRelease` in one line, split it in two - the
+combined form now stops with an explanation. It had been quietly wrong all
+along: the ad dependencies are chosen while Gradle configures the project, and
+the task writes the mode while it executes, so the build in that same command
+always used the previous value.
 
 **Advertising is wired up by data, not by text substitution.** `parseConfig`
 used to configure ads by finding a line in `app/build.gradle.kts` and replacing

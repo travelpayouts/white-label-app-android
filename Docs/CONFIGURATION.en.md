@@ -70,6 +70,11 @@ decides which ad libraries end up in the build. Edit the config without running
 the task and the build now stops and says so — it used to build quietly without
 ads instead.
 
+**`parseConfig` cannot share a command with a build.** The mode is chosen before
+the task gets a chance to write it, so such a command would use the previous
+value. The build stops if you try. If your CI ran something like
+`./gradlew parseConfig assembleRelease`, split it into two commands.
+
 To confirm the ads are actually wired in, check the dependency graph rather than
 the fact that the task finished without errors:
 

@@ -107,7 +107,52 @@ object AdvertisingMode {
         return value
     }
 
+    /**
+     * Просил ли пользователь задачу parseConfig. Gradle разрешает сокращать имя
+     * задачи по заглавным буквам, поэтому точного сравнения мало: ./gradlew pC
+     * запускает parseConfig, а в taskNames лежит буквально набранная строка.
+     */
+    private fun isParseConfigRequested(project: Project): Boolean =
+        project.gradle.startParameter.taskNames.any { matchesParseConfig(it) }
+
+    private fun matchesParseConfig(requested: String): Boolean {
+        val name = requested.substringAfterLast(':')
+        if (name.equals(GRADLE_TASK_NAME, ignoreCase = true)) return true
+        // сокращение Gradle: буквы имени по порядку, начиная с первой, где
+        // каждая заглавная в сокращении соответствует заглавной в имени
+        if (name.isEmpty() || !GRADLE_TASK_NAME.startsWith(name.first(), ignoreCase = true)) return false
+        var i = 0
+        for (ch in name) {
+            i = GRADLE_TASK_NAME.indexOf(ch, i, ignoreCase = true)
+            if (i < 0) return false
+            i++
+        }
+        return true
+    }
+
+    /**
+     * parseConfig пишет файл на фазе выполнения, а зависимости выбираются на
+     * фазе конфигурации — то есть РАНЬШЕ. В одной команде сборка успеет
+     * прочитать старый режим. Тот же класс ошибки, что copyBasicSdk вместе с
+     * assemble: молча уезжает не то, что ожидали.
+     */
+    private fun guardCombinedInvocation(project: Project) {
+        val requested = project.gradle.startParameter.taskNames
+        if (requested.any { matchesParseConfig(it) } && requested.size > 1) {
+            throw GradleException(
+                "$GRADLE_TASK_NAME нельзя запускать в одной команде с другими задачами: " +
+                    "режим рекламы выбирается до того, как задача успеет его записать, и " +
+                    "сборка возьмёт старый. Запустите ./gradlew $GRADLE_TASK_NAME отдельно, " +
+                    "затем остальное."
+            )
+        }
+    }
+
     fun read(project: Project): String {
+        // Запрет совмещать parseConfig со сборкой проверяем ДО переопределения:
+        // иначе -PadsMode открывал бы обходной путь к той же ошибке
+        guardCombinedInvocation(project)
+
         // Переопределение с командной строки имеет приоритет над файлом и
         // отключает сверку с конфигом: режим задан явно и намеренно
         override(project)?.let {
@@ -121,22 +166,7 @@ object AdvertisingMode {
         // parseConfig этот файл и создаёт, поэтому во время его запуска отсутствие
         // файла — нормальное состояние загрузки, а не ошибка. Иначе на чистом
         // клоне не запустить ни сборку, ни задачу, которая её чинит.
-        // parseConfig пишет файл на фазе выполнения, а зависимости выбираются на
-        // фазе конфигурации — то есть РАНЬШЕ. В одной команде сборка успеет
-        // прочитать старый режим. Тот же класс ошибки, что copyBasicSdk вместе
-        // с assemble: молча уезжает не то, что ожидали.
-        val requested = project.gradle.startParameter.taskNames
-        val parseConfigRequested = requested.any {
-            it.substringAfterLast(':').equals(GRADLE_TASK_NAME, ignoreCase = true)
-        }
-        if (parseConfigRequested && requested.size > 1) {
-            throw GradleException(
-                "$GRADLE_TASK_NAME нельзя запускать в одной команде с другими задачами: " +
-                    "режим рекламы выбирается до того, как задача успеет его записать, и " +
-                    "сборка возьмёт старый. Запустите ./gradlew $GRADLE_TASK_NAME отдельно, " +
-                    "затем остальное."
-            )
-        }
+        val parseConfigRequested = isParseConfigRequested(project)
 
         val file = project.rootProject.file(FILE_NAME)
         if (!file.exists()) {
