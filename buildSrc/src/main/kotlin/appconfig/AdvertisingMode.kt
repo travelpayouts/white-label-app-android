@@ -114,6 +114,13 @@ object AdvertisingMode {
      * Поэтому спрашиваем сам Gradle: граф задач содержит то, что будет
      * выполнено, уже после разбора сокращений, опций и зависимостей.
      */
+    /** Первые пять имён и счётчик: в графе бывает под четыреста задач. */
+    private fun summarize(names: Set<String>): String {
+        val head = names.sorted().take(5)
+        val rest = names.size - head.size
+        return head.joinToString(", ") + if (rest > 0) " и ещё $rest" else ""
+    }
+
     fun registerGuards(project: Project) {
         val overridden = project.providers.gradleProperty("adsMode").orNull != null
         project.gradle.taskGraph.whenReady(
@@ -127,7 +134,7 @@ object AdvertisingMode {
                             throw GradleException(
                                 "-PadsMode можно использовать только с задачей " +
                                     "$VERIFY_TASK_NAME. В графе задач есть ещё: " +
-                                    other.sorted().joinToString(", ") + ". Это режим " +
+                                    summarize(other) + ". Это режим " +
                                     "проверки: он подменяет режим рекламы, не трогая " +
                                     "$CONFIG_PATH, поэтому собранный так артефакт не " +
                                     "соответствует конфигурации."
@@ -140,8 +147,7 @@ object AdvertisingMode {
                             "$GRADLE_TASK_NAME нельзя выполнять вместе с другими задачами: " +
                                 "режим рекламы выбирается на конфигурации, до того как " +
                                 "задача успеет его записать, поэтому сборка возьмёт старый. " +
-                                "В графе: " + (names - GRADLE_TASK_NAME).sorted()
-                                .joinToString(", ") + ". Запустите ./gradlew " +
+                                "В графе: " + summarize(names - GRADLE_TASK_NAME) + ". Запустите ./gradlew " +
                                 "$GRADLE_TASK_NAME отдельно, затем остальное."
                         )
                     }
@@ -167,8 +173,19 @@ object AdvertisingMode {
         // На конфигурации ещё не известно, что попадёт в граф, поэтому здесь
         // только мягкий признак: пользователь упомянул задачу в команде.
         // Строгие проверки — в registerGuards, по фактическому графу.
-        val parseConfigMentioned = project.gradle.startParameter.taskNames
-            .any { it.substringAfterLast(':').equals(GRADLE_TASK_NAME, ignoreCase = true) }
+        val parseConfigMentioned = project.gradle.startParameter.taskNames.any { requested ->
+            val name = requested.substringAfterLast(':')
+            // Сокращения Gradle тоже считаем упоминанием: ./gradlew pC запускает
+            // parseConfig, и раньше он получал совет запустить parseConfig
+            name.equals(GRADLE_TASK_NAME, ignoreCase = true) || run {
+                if (name.isEmpty()) return@run false
+                var i = 0
+                name.all { ch ->
+                    i = GRADLE_TASK_NAME.indexOf(ch, i, ignoreCase = true)
+                    if (i < 0) false else { i++; true }
+                }
+            }
+        }
 
         // Проверяем конфиг ДО файла режима: если нет обоих, совет «запустите
         // parseConfig» бесполезен — задача упадёт на отсутствующем конфиге
@@ -194,32 +211,37 @@ object AdvertisingMode {
             .mapNotNull { line -> line.split("=", limit = 2).takeIf { it.size == 2 } }
             .associate { it[0].trim() to it[1].trim() }
 
-        val mode = props[KEY_MODE]
-        if (mode == null || mode !in listOf(NONE, APPODEAL, APPODEAL_ADMOB)) {
-            // Во время parseConfig испорченный файл — не тупик: задача его перезапишет.
-            // Иначе совет «запустите parseConfig» вёл бы к той же ошибке.
-            if (parseConfigMentioned) return NONE
-            throw GradleException(
-                "В $FILE_NAME ${if (mode == null) "нет ключа $KEY_MODE" else "неизвестный $KEY_MODE=$mode"}. " +
-                    "Запустите ./gradlew $GRADLE_TASK_NAME — задача перезапишет файл."
-            )
-        }
+        // Режим ВЫВОДИТСЯ из конфига, а не читается из файла.
+        //
+        // Раньше он читался из advertising.properties, и это был второй источник
+        // истины: configHash отвечал на вопрос «менялся ли конфиг после
+        // parseConfig», но не на вопрос «соответствует ли режим этому конфигу».
+        // Правки одной строки в файле хватало, чтобы получить 18 рекламных
+        // адаптеров при пустых ключах — и verifyAdvertisingWiring отвечал «в
+        // порядке», потому что читал режим оттуда же. То есть исходный дефект
+        // воспроизводился редактированием файла в корне поставки.
+        //
+        // Теперь источник один — config/app_config.json. Файл остаётся только
+        // признаком того, что сгенерированные ресурсы (манифест,
+        // appodeal_config.xml) отвечают текущему конфигу.
+        val advertising = Gson()
+            .fromJson(configFile.readText(), JsonObject::class.java)
+            ?.getAsJsonObject("advertising")
+        val mode = modeOf(
+            appodealApiKey = advertising?.get("appodeal_api_key")?.takeIf { !it.isJsonNull }?.asString,
+            googleAdmobAppId = advertising?.get("google_admob_app_id")?.takeIf { !it.isJsonNull }?.asString
+        )
 
-        // Сверка с конфигом: если партнёр правил advertising и не перезапустил
-        // parseConfig, режим устарел и реклама соберётся не так, как он ожидает
-        run {
-            val advertising = Gson()
-                .fromJson(configFile.readText(), JsonObject::class.java)
-                ?.getAsJsonObject("advertising")
-            val actual = hashOf(advertising)
-            val stored = props[KEY_HASH]
-            if (!parseConfigMentioned && stored != actual) {
-                throw GradleException(
-                    "Блок advertising в $CONFIG_PATH изменился после последнего parseConfig, " +
-                        "поэтому $FILE_NAME устарел и реклама соберётся не так, как настроено. " +
-                        "Запустите ./gradlew parseConfig"
-                )
-            }
+        // Сверка отпечатка: если конфиг правили и не запускали parseConfig,
+        // манифест и appodeal_config.xml остались от прежней конфигурации
+        val stored = props[KEY_HASH]
+        if (!parseConfigMentioned && stored != hashOf(advertising)) {
+            throw GradleException(
+                "Блок advertising в $CONFIG_PATH изменился после последнего $GRADLE_TASK_NAME, " +
+                    "поэтому сгенерированные ресурсы рекламы устарели: в манифесте и " +
+                    "appodeal_config.xml остались прежние значения. " +
+                    "Запустите ./gradlew $GRADLE_TASK_NAME"
+            )
         }
 
         return mode

@@ -84,6 +84,10 @@ object GoogleAdMobAppIdHandler {
         )
         project.rootProject.file(AdvertisingMode.FILE_NAME)
             .writeText(AdvertisingMode.fileContent(mode, AdvertisingMode.hashOf(advertising)))
+        // Говорим вслух, что получилось: заполненный google_admob_app_id без
+        // appodeal_api_key даёт none, и без этой строки партнёр узнаёт об этом
+        // только по отсутствию рекламы
+        println("  режим рекламы: $mode")
     }
 
     /**

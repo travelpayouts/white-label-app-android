@@ -95,6 +95,48 @@ else
     fail "config/app_config.json отсутствует — проверять нечего, но передавать шаблон без него нельзя"
 fi
 
+echo "== Режим рекламы"
+if [ -f advertising.properties ]; then
+    # Файл уезжает партнёру закоммиченным. Если в нём остался режим или
+    # отпечаток от другой версии конфига, шаблон встретит партнёра отказом
+    # собираться на первой же команде.
+    if ! ADS=$(python3 - <<'PY2'
+import json, hashlib, re
+
+def canon(v):
+    if isinstance(v, dict):
+        return "{" + ",".join(f'"{k}":{canon(v[k])}' for k in sorted(v)) + "}"
+    if isinstance(v, list):
+        return "[" + ",".join(canon(x) for x in v) + "]"
+    return json.dumps(v, ensure_ascii=False)
+
+cfg = json.load(open("config/app_config.json"))
+adv = cfg.get("advertising") or {}
+want = hashlib.sha256(canon(adv).encode()).hexdigest()
+props = dict(
+    line.split("=", 1)
+    for line in open("advertising.properties").read().splitlines()
+    if "=" in line and not line.lstrip().startswith("#")
+)
+bad = []
+if props.get("adsMode", "").strip() != "none":
+    bad.append(f"adsMode = {props.get('adsMode', '').strip()!r}, а в отгружаемом шаблоне ждём none")
+if props.get("configHash", "").strip() != want:
+    bad.append("configHash не совпадает с блоком advertising в конфиге")
+print("\n".join(bad))
+PY2
+    ); then
+        fail "advertising.properties не разобрался"
+    elif [ -n "$ADS" ]; then
+        fail "advertising.properties не соответствует поставке:"
+        echo "$ADS" | sed 's/^/      /'
+    else
+        ok "режим рекламы none, отпечаток сходится"
+    fi
+else
+    fail "advertising.properties отсутствует — без него шаблон не соберётся"
+fi
+
 echo
 if [ "$FAILED" -eq 0 ]; then
     echo "ИТОГ: перечисленные выше проверки пройдены."
