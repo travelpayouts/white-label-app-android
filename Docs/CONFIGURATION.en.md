@@ -81,7 +81,7 @@ Modes: `none`, `appodeal`, `appodeal_admob`.
 
 | Field | Purpose |
 |---|---|
-| `appodeal_api_key` | Appodeal key. Leave it empty and no ad library enters the build at all |
+| `appodeal_api_key` | Appodeal key. Leave it empty and no ad network adapters enter the build. The Appodeal core itself always ships with the SDK, but without a key nothing is initialised |
 | `google_admob_app_id` | AdMob application id. It only works together with a filled `appodeal_api_key`: without one AdMob is not wired up, because all ads go through Appodeal |
 | `placements.air_ticket_placement_interstitial` | Interstitial placement for the flight search |
 | `placements.air_ticket_placement_banner` | Banner placement for the flight search |

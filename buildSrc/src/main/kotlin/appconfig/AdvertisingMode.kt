@@ -1,6 +1,7 @@
 package appconfig
 
 import com.google.gson.Gson
+import com.google.gson.JsonElement
 import com.google.gson.JsonObject
 import org.gradle.api.GradleException
 import org.gradle.api.Project
@@ -44,14 +45,25 @@ object AdvertisingMode {
     }
 
     /**
-     * Отпечаток блока advertising. Считается по канонической сериализации, а не
-     * по сырому тексту, чтобы переформатирование конфига не считалось
-     * изменением.
+     * Отпечаток блока advertising по канонической форме: ключи на всех уровнях
+     * отсортированы, поэтому переформатирование конфига или перестановка полей
+     * редактором не считаются изменением. Gson сам порядок не нормализует — он
+     * сохраняет порядок вставки, поэтому сортируем до сериализации.
      */
     fun hashOf(advertising: JsonObject?): String {
-        val canonical = Gson().toJson(advertising ?: JsonObject())
+        val canonical = canonicalize(advertising ?: JsonObject())
         val digest = MessageDigest.getInstance("SHA-256").digest(canonical.toByteArray())
         return digest.joinToString("") { "%02x".format(it) }
+    }
+
+    /** Стабильное текстовое представление: ключи отсортированы рекурсивно. */
+    private fun canonicalize(element: JsonElement): String = when {
+        element.isJsonObject -> element.asJsonObject.entrySet()
+            .sortedBy { it.key }
+            .joinToString(",", "{", "}") { "\"${it.key}\":${canonicalize(it.value)}" }
+        element.isJsonArray -> element.asJsonArray
+            .joinToString(",", "[", "]") { canonicalize(it) }
+        else -> element.toString()
     }
 
     fun fileContent(mode: String, hash: String): String = """
@@ -65,16 +77,59 @@ object AdvertisingMode {
      * Читает режим для сборки приложения и останавливает её, если состояние
      * несогласованно. Вызывается из app/build.gradle.kts.
      */
+    /**
+     * Явное переопределение режима через -PadsMode. Нужно, чтобы собрать ветку
+     * с рекламой, не трогая отгружаемый config/app_config.json: в шаблоне
+     * ключи рекламы обязаны быть пустыми, этого требует check-no-secrets.sh.
+     *
+     * Переопределение действует и на выбор зависимостей, и на проверку —
+     * иначе параметр менял бы только ожидание проверки, а не то, что реально
+     * собирается.
+     */
+    fun override(project: Project): String? {
+        val value = project.providers.gradleProperty("adsMode").orNull ?: return null
+        if (value !in listOf(NONE, APPODEAL, APPODEAL_ADMOB)) {
+            throw GradleException(
+                "Неизвестный -PadsMode=$value. Допустимые: $NONE, $APPODEAL, $APPODEAL_ADMOB"
+            )
+        }
+        return value
+    }
+
     fun read(project: Project): String {
+        // Переопределение с командной строки имеет приоритет над файлом и
+        // отключает сверку с конфигом: режим задан явно и намеренно
+        override(project)?.let {
+            project.logger.lifecycle(
+                "ВНИМАНИЕ: режим рекламы переопределён параметром -PadsMode=$it, " +
+                    "файл $FILE_NAME игнорируется. Это режим проверки, не для релизной сборки."
+            )
+            return it
+        }
+
         // parseConfig этот файл и создаёт, поэтому во время его запуска отсутствие
         // файла — нормальное состояние загрузки, а не ошибка. Иначе на чистом
         // клоне не запустить ни сборку, ни задачу, которая её чинит.
-        val runningParseConfig = project.gradle.startParameter.taskNames
-            .any { it.substringAfterLast(':').equals(GRADLE_TASK_NAME, ignoreCase = true) }
+        // parseConfig пишет файл на фазе выполнения, а зависимости выбираются на
+        // фазе конфигурации — то есть РАНЬШЕ. В одной команде сборка успеет
+        // прочитать старый режим. Тот же класс ошибки, что copyBasicSdk вместе
+        // с assemble: молча уезжает не то, что ожидали.
+        val requested = project.gradle.startParameter.taskNames
+        val parseConfigRequested = requested.any {
+            it.substringAfterLast(':').equals(GRADLE_TASK_NAME, ignoreCase = true)
+        }
+        if (parseConfigRequested && requested.size > 1) {
+            throw GradleException(
+                "$GRADLE_TASK_NAME нельзя запускать в одной команде с другими задачами: " +
+                    "режим рекламы выбирается до того, как задача успеет его записать, и " +
+                    "сборка возьмёт старый. Запустите ./gradlew $GRADLE_TASK_NAME отдельно, " +
+                    "затем остальное."
+            )
+        }
 
         val file = project.rootProject.file(FILE_NAME)
         if (!file.exists()) {
-            if (runningParseConfig) return NONE
+            if (parseConfigRequested) return NONE
             throw GradleException(
                 "$FILE_NAME не найден в корне проекта. Запустите ./gradlew $GRADLE_TASK_NAME"
             )
@@ -101,7 +156,7 @@ object AdvertisingMode {
                 ?.getAsJsonObject("advertising")
             val actual = hashOf(advertising)
             val stored = props[KEY_HASH]
-            if (!runningParseConfig && stored != null && stored != actual) {
+            if (!parseConfigRequested && stored != actual) {
                 throw GradleException(
                     "Блок advertising в $CONFIG_PATH изменился после последнего parseConfig, " +
                         "поэтому $FILE_NAME устарел и реклама соберётся не так, как настроено. " +

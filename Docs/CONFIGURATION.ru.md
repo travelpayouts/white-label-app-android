@@ -67,7 +67,7 @@ config/
 
 | Поле | Что делает |
 |---|---|
-| `appodeal_api_key` | Ключ Appodeal. Пустой — рекламные библиотеки в сборку не попадают вовсе |
+| `appodeal_api_key` | Ключ Appodeal. Пустой — сетевые адаптеры в сборку не попадают. Само ядро Appodeal приезжает вместе с SDK всегда, но без ключа ничего не инициализируется |
 | `google_admob_app_id` | Идентификатор приложения AdMob. Работает только вместе с заполненным `appodeal_api_key`: без него AdMob не подключается, потому что вся реклама идёт через Appodeal |
 | `placements.air_ticket_placement_interstitial` | Полноэкранная реклама в поиске билетов |
 | `placements.air_ticket_placement_banner` | Баннер в поиске билетов |

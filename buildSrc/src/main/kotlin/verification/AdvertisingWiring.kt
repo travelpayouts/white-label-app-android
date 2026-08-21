@@ -25,6 +25,17 @@ object AdvertisingWiring {
     private const val ADMOB_MODULE = "admob"
     private const val CONFIGURATION = "basicReleaseRuntimeClasspath"
 
+    /**
+     * Набор сетей, который обязан доехать при включённой рекламе. Держать
+     * синхронным с appodealNetworks() в app/build.gradle.kts: расхождение
+     * означает, что часть сетей молча выпала из монетизации.
+     */
+    private val EXPECTED_NETWORKS = setOf(
+        "amazon", "applovin", "applovin_max", "bidmachine", "bidon", "bigo_ads",
+        "dt_exchange", "iab", "inmobi", "ironsource", "meta", "mintegral",
+        "my_target", "pangle", "unity_ads", "vungle", "yandex"
+    )
+
     // Режимы вынесены сюда, чтобы список был в одном месте с проверкой
     private const val MODE_NONE = "none"
     private const val MODE_APPODEAL = "appodeal"
@@ -36,7 +47,10 @@ object AdvertisingWiring {
             group = "verification"
             description = "Проверяет, что рекламные адаптеры Appodeal доехали в дерево зависимостей"
 
-            val mode = providers.gradleProperty("adsMode").orElse(MODE_NONE).get()
+            // Тот же источник, что и у зависимостей в app/build.gradle.kts.
+            // Раньше здесь читался свой -PadsMode, из-за чего параметр менял
+            // только ожидание проверки, а не то, что реально собирается.
+            val mode = appconfig.AdvertisingMode.read(project)
             val configuration = configurations.named(CONFIGURATION)
 
             doLast {
@@ -67,6 +81,14 @@ object AdvertisingWiring {
                         problems += "adsMode=$mode, но ни одного адаптера группы $NETWORKS_GROUP " +
                             "в $CONFIGURATION нет. Ключи заполнены, реклама показываться не будет. " +
                             "Запустите ./gradlew parseConfig"
+                    } else {
+                        // Проверять «есть хотя бы один» мало: пропажа шестнадцати
+                        // адаптеров из семнадцати прошла бы незамеченной
+                        val missing = EXPECTED_NETWORKS - adapters.map { it.name }.toSet()
+                        if (missing.isNotEmpty()) {
+                            problems += "не хватает адаптеров (${missing.size} из " +
+                                "${EXPECTED_NETWORKS.size}): ${missing.sorted().joinToString(", ")}"
+                        }
                     }
                     if (mode == MODE_APPODEAL_ADMOB && !hasAdmob) {
                         problems += "adsMode=$mode, но адаптера $NETWORKS_GROUP:$ADMOB_MODULE нет"

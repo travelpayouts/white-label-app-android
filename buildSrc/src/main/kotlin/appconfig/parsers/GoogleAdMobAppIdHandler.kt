@@ -102,10 +102,33 @@ object GoogleAdMobAppIdHandler {
     private fun migrateOldSubstitution(module: Project) {
         val gradleFile = module.file(GRADLE_PATH)
         val text = gradleFile.readText()
-        val cleaned = text
-            .replace(Regex("""\n[ \t]*implementation\(libs\.appodeal\)[^\n]*"""), "")
-            .replace(Regex("""\n[ \t]*implementation\(libs\.appodeal\.core\)"""), "")
-            .replace(Regex("""\n[ \t]*appodealNetworkWithoutAdmob\(\)"""), "")
+        // Удаляем только те формы, которые подставляла прежняя версия задачи.
+        // Всё остальное не трогаем: партнёр мог переформатировать объявление или
+        // дописать свои exclude, и слепая регулярка оставила бы висящие скобки.
+        val known = listOf(
+            "implementation(libs.appodeal) { exclude(\"com.android.billingclient\", \"billing\") }",
+            "implementation(libs.appodeal.core)",
+            "appodealNetworkWithoutAdmob()"
+        )
+        var cleaned = text
+        for (form in known) {
+            cleaned = cleaned.replace(Regex("\\n[ \\t]*" + Regex.escape(form) + "[ \\t]*(?=\\n)"), "")
+        }
+
+        // Если остались объявления Appodeal, которых мы не узнали, — не молчим:
+        // партнёр должен убрать их сам, иначе зависимости задублируются
+        val leftovers = Regex("\\n[ \\t]*(implementation\\(libs\\.appodeal|appodealNetworkWithoutAdmob)[^\\n]*")
+            .findAll(cleaned).map { it.value.trim() }.toList()
+        if (leftovers.isNotEmpty()) {
+            throw org.gradle.api.GradleException(
+                "В app/build.gradle.kts остались объявления Appodeal в незнакомом виде:\n" +
+                    leftovers.joinToString("\n") { "  $it" } +
+                    "\nЭто следы прежнего способа настройки рекламы. Удалите их вручную: " +
+                    "теперь зависимости объявляются автоматически по режиму из " +
+                    "${AdvertisingMode.FILE_NAME}, и дубли приведут к конфликту версий."
+            )
+        }
+
         if (cleaned != text) {
             gradleFile.writeText(cleaned)
             println("  убраны остатки прежней подстановки зависимостей Appodeal")
