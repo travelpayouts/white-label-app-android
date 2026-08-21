@@ -93,6 +93,17 @@ object AdvertisingMode {
                 "Неизвестный -PadsMode=$value. Допустимые: $NONE, $APPODEAL, $APPODEAL_ADMOB"
             )
         }
+        val releaseTask = project.gradle.startParameter.taskNames.firstOrNull {
+            it.contains("Release", ignoreCase = false) || it.contains("release", ignoreCase = false)
+        }
+        if (releaseTask != null) {
+            throw GradleException(
+                "-PadsMode=$value — режим проверки, им нельзя собирать релиз (задача $releaseTask). " +
+                    "Режим для сборки задаётся блоком advertising в config/app_config.json " +
+                    "и записывается задачей $GRADLE_TASK_NAME. Переопределение существует только " +
+                    "для того, чтобы прогнать проверку, не трогая отгружаемый конфиг."
+            )
+        }
         return value
     }
 

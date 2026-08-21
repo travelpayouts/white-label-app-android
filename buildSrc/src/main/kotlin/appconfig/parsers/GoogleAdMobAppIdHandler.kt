@@ -43,14 +43,16 @@ object GoogleAdMobAppIdHandler {
     ) {
         print("Generating advertising config strings.xml... ")
 
+        // Сначала миграция: она может остановить задачу, а частичная генерация
+        // восстанавливается тяжелее, чем отказ стартовать
+        migrateOldSubstitution(appModule)
+
         writeAdvertisingProperties(
             project = project,
             advertising = advertising,
             googleAdmobAppId = googleAdmobAppId,
             isAppodealKeyEmpty = isAppodealKeyEmpty
         )
-
-        migrateOldSubstitution(appModule)
 
         handleManifest(
             module = appModule,
@@ -117,8 +119,9 @@ object GoogleAdMobAppIdHandler {
 
         // Если остались объявления Appodeal, которых мы не узнали, — не молчим:
         // партнёр должен убрать их сам, иначе зависимости задублируются
-        val leftovers = Regex("\\n[ \\t]*(implementation\\(libs\\.appodeal|appodealNetworkWithoutAdmob)[^\\n]*")
-            .findAll(cleaned).map { it.value.trim() }.toList()
+        val leftovers = Regex(
+            "\\n[ \\t]*(implementation\\(libs\\.appodeal(\\.core)?\\s*[\\)\\{]|appodealNetworkWithoutAdmob\\s*\\()[^\\n]*"
+        ).findAll(cleaned).map { it.value.trim() }.toList()
         if (leftovers.isNotEmpty()) {
             throw org.gradle.api.GradleException(
                 "В app/build.gradle.kts остались объявления Appodeal в незнакомом виде:\n" +

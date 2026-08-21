@@ -84,10 +84,19 @@ object AdvertisingWiring {
                     } else {
                         // Проверять «есть хотя бы один» мало: пропажа шестнадцати
                         // адаптеров из семнадцати прошла бы незамеченной
-                        val missing = EXPECTED_NETWORKS - adapters.map { it.name }.toSet()
+                        val actual = adapters.map { it.name }.toSet() - ADMOB_MODULE
+                        val missing = EXPECTED_NETWORKS - actual
                         if (missing.isNotEmpty()) {
                             problems += "не хватает адаптеров (${missing.size} из " +
                                 "${EXPECTED_NETWORKS.size}): ${missing.sorted().joinToString(", ")}"
+                        }
+                        // Сверка симметричная: сеть, добавленная в сборку и забытая в
+                        // списке, иначе осталась бы вне контроля навсегда
+                        val unexpected = actual - EXPECTED_NETWORKS
+                        if (unexpected.isNotEmpty()) {
+                            problems += "в сборке адаптеры, которых нет в списке ожидаемых: " +
+                                "${unexpected.sorted().joinToString(", ")}. Допишите их в " +
+                                "EXPECTED_NETWORKS, иначе их пропажу никто не заметит"
                         }
                     }
                     if (mode == MODE_APPODEAL_ADMOB && !hasAdmob) {
