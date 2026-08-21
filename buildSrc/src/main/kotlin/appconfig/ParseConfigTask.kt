@@ -160,6 +160,18 @@ abstract class ParseConfigTask : DefaultTask() {
 
     @TaskAction
     fun parseConfig() {
+        // Задача обращается к project на этапе выполнения, а configuration cache
+        // это запрещает. Без явной проверки партнёр попадает в тупик: сборка
+        // требует запустить parseConfig, а parseConfig падает с «App module not
+        // found!», где про кэш нет ни слова.
+        if (project.gradle.startParameter.isConfigurationCacheRequested) {
+            throw GradleException(
+                "$GRADLE_TASK_NAME несовместим с configuration cache. Запустите " +
+                    "./gradlew $GRADLE_TASK_NAME --no-configuration-cache, а остальные " +
+                    "команды можно оставить с кэшем: обычная сборка с ним работает."
+            )
+        }
+
 
         val appModule =
             project.childProjects["app"] ?: throw IllegalStateException("App module not found!")

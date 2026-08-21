@@ -70,6 +70,12 @@ decides which ad libraries end up in the build. Edit the config without running
 the task and the build now stops and says so — it used to build quietly without
 ads instead.
 
+**`parseConfig` does not work with the configuration cache.** If you have
+`org.gradle.configuration-cache` on, run the task as
+`./gradlew parseConfig --no-configuration-cache`. Everything else is fine with
+it: an ordinary build works and is invalidated correctly when you edit the
+configuration.
+
 **`parseConfig` cannot share a command with a build.** The mode is chosen before
 the task gets a chance to write it, so such a command would use the previous
 value. The build stops if you try. If your CI ran something like
