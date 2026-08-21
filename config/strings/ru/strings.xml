@@ -2,7 +2,6 @@
 <resources>
     <!-- BASE -->
     <string name="ta_tab_flights">Билеты</string>
-    <string name="ta_tab_hotels">Отели</string>
     <string name="ta_tab_other">Другое</string>
     <string name="ta_tab_info">Информация</string>
     <string name="ta_done">Готово</string>
@@ -16,7 +15,6 @@
     <string name="ta_zero_data_survey_title">Спасибо, что прошли опрос</string>
     <string name="ta_default_zero_data_title">Ничего не найдено</string>
     <string name="ta_default_zero_data_subtitle">Попробуйте исправить поисковый запрос</string>
-    <string name="ta_hotels_search_not_available_title">Бронирование отелей\nнедоступно в вашем регионе</string>
 
     <string name="ta_price_display_flight_all">Цены за всех пассажиров</string>
     <string name="ta_price_display_flight_single">Цены за 1 пассажира</string>
@@ -31,26 +29,6 @@
     <string name="ta_first_class">Первый класс</string>
 
     <!-- Hotel type -->
-    <string name="ta_guest">Гестхаус</string>
-    <string name="ta_hotel">Отель</string>
-    <string name="ta_hostel">Хостел</string>
-    <string name="ta_apartment">Апартаменты</string>
-    <string name="ta_villa">Вилла</string>
-    <string name="ta_aparthotel">Апарт-отель</string>
-    <string name="ta_motel">Мотель</string>
-    <string name="ta_resort">Курортный отель</string>
-    <string name="ta_lodge">Лодж</string>
-    <string name="ta_bb">B\u0026B</string>
-    <string name="ta_guests">Гестхаусы</string>
-    <string name="ta_hotels">Отели</string>
-    <string name="ta_hostels">Хостелы</string>
-    <string name="ta_apartments">Апартаменты</string>
-    <string name="ta_villas">Виллы</string>
-    <string name="ta_aparthotels">Апарт-отели</string>
-    <string name="ta_motels">Мотели</string>
-    <string name="ta_resorts">Курортные отели</string>
-    <string name="ta_lodges">Лоджи</string>
-    <string name="ta_bbs">B\u0026B</string>
 
     <!--region Views-->
 
@@ -60,7 +38,6 @@
     <string name="ta_filters_button_text">Фильтры</string>
     <string name="ta_chart_button_text">График цен</string>
     <!-- HotelsAppBarView -->
-    <string name="ta_hotels_appbar_subtitle">%1$s %2$s</string>
     <string name="ta_on_map_button_text">На карте</string>
     <string name="ta_list_button_text">Списком</string>
     <!--  GuestsCountView  -->
@@ -95,14 +72,6 @@
         <item quantity="few">%s года</item>
         <item quantity="many">%s лет</item>
         <item quantity="other">%s лет</item>
-    </plurals>
-    <plurals name="ta_nights_count">
-        <item quantity="zero">(%s ночей)</item>
-        <item quantity="one">(%s ночь)</item>
-        <item quantity="two">(%s ночи)</item>
-        <item quantity="few">(%s ночи)</item>
-        <item quantity="many">(%s ночей)</item>
-        <item quantity="other">(%s ночей)</item>
     </plurals>
 
     <!--endregion-->
@@ -401,265 +370,29 @@
     <!-- region Hotels SDK -->
 
     <!--  SearchHotelsFragment  -->
-    <string name="ta_hotels_search_title">Поиск интересных отелей</string>
-    <string name="ta_hotels_search_city_or_hotel">Город или отель</string>
-    <string name="ta_hotels_search_period_dates">%1$s – %2$s</string>
-    <string name="ta_hotels_search_button">Найти</string>
     <!--  GuestsFragment  -->
-    <string name="ta_hotels_guests_title">Гости</string>
-    <string name="ta_hotels_guests_adults_title">Взрослые</string>
-    <string name="ta_hotels_guests_adults_description">18+ лет</string>
-    <string name="ta_hotels_guests_children_title">Дети</string>
-    <string name="ta_hotels_guests_children_description">От 0 до 17 лет</string>
-    <string name="ta_hotels_guests_children_1">1 ребёнок</string>
-    <string name="ta_hotels_guests_children_2">2 ребёнок</string>
-    <string name="ta_hotels_guests_children_3">3 ребёнок</string>
-    <string name="ta_hotels_guests_children_4">4 ребёнок</string>
     <!--  CalendarFragment  -->
-    <string name="ta_hotels_calendar_title">Когда</string>
-    <string name="ta_hotels_calendar_select_button_one_date">Выбрать %1$s</string>
-    <string name="ta_hotels_calendar_select_button_two_dates">Выбрать %1$s – %2$s</string>
-    <string name="ta_hotels_calendar_select_button">Выбрать</string>
-    <string name="ta_hotels_calendar_information_dialog_title">Превышение периода проживания</string>
-    <string name="ta_hotels_calendar_information_dialog_message">Извините, но максимальная продолжительность проживания в отеле — 30 ночей</string>
     <!-- SearchCityOrHotelFragment -->
-    <string name="ta_hotels_search_city_or_hotel_hint">Город или отель</string>
-    <string name="ta_hotels_search_point_on_map">Точка на карте</string>
-    <string name="ta_hotels_search_my_location">Моё местоположение</string>
-    <string name="ta_hotels_search_next_to_you">Рядом с вами</string>
-    <string name="ta_hotels_search_already_searched">Вы уже искали</string>
-    <string name="ta_hotels_search_cities_title">Города</string>
-    <string name="ta_hotels_search_hotels_title">Отели</string>
-    <string name="ta_hotels_search_airports_title">Аэропорты</string>
-    <string name="ta_hotels_search_pois_title">Достопримечательности</string>
-    <string name="ta_hotels_search_permission_title">Предоставить доступ к геопозиции?</string>
-    <string name="ta_hotels_search_permission_title_rationale">Не удалось определить местоположение</string>
-    <string name="ta_hotels_search_permission_subtitle">Разрешите приложению определять вашу геопозицию</string>
-    <string name="ta_hotels_search_permission_positve_button">Перейти в настройки</string>
-    <string name="ta_hotels_search_permission_positve_button_rationale">Разрешить</string>
-    <string name="ta_hotels_search_permission_negative_button">Закрыть</string>
-    <string name="ta_hotels_search_was_searched_title">Вы уже искали</string>
-    <plurals name="ta_hotels_search_property_types_count">
-        <item quantity="one">%1$s вариант размещения</item>
-        <item quantity="few">%1$s варианта размещения</item>
-        <item quantity="many">%1$s вариантов размещения</item>
-        <item quantity="other">%1$s вариантов размещения</item>
-    </plurals>
     <!--  DotOnMapFragment  -->
     <string name="ta_dot_on_map_title">Выберите точку</string>
     <string name="ta_done_button_text">Готово</string>
     <!--  HotelsSearchResultFragment  -->
-    <string name="ta_hotels_search_results_zero_data_title">Отели не найдены</string>
-    <string name="ta_hotels_search_results_zero_data_subtitle">Попробуйте изменить поисковый запрос\nили повторите поиск еще раз</string>
-    <string name="ta_hotels_search_results_empty_hotel">Нет номеров на эти даты</string>
-    <string name="ta_hotels_search_results_for_night">за ночь</string>
-    <plurals name="ta_nights">
-        <item quantity="one">%s ночь</item>
-        <item quantity="few">%s ночи</item>
-        <item quantity="many">%s ночей</item>
-        <item quantity="other">%s ночей</item>
-    </plurals>
-    <plurals name="ta_hotels_search_results_rating">
-        <item quantity="one">%1$s – %2$s отзыв</item>
-        <item quantity="few">%1$s – %2$s отзыва</item>
-        <item quantity="many">%1$s – %2$s отзывов</item>
-        <item quantity="other">%1$s – %2$s отзывов</item>
-    </plurals>
-    <string name="ta_hotels_search_results_distance_from_center_km">%1$s км – Центр города</string>
-    <string name="ta_hotels_search_results_distance_from_center_m">%1$s м – Центр города</string>
-    <string name="ta_hotels_search_results_refundable">Бесплатная отмена</string>
-    <string name="ta_hotels_search_results_not_refundable">Без отмены</string>
-    <string name="ta_hotels_search_results_no_rooms">Нет номеров</string>
-    <string name="ta_hotels_search_results_loading_prices">Загружаем цены</string>
-    <string name="ta_hotels_search_results_loading_text">Ищем отели…</string>
     <!--  HotelsFavoritesFragment  -->
     <string name="ta_dates_string">%1$s %2$s</string>
-    <string name="ta_guests_string">%1$s, %2$s</string>
-    <string name="ta_hotels_invalid_date_title">Даты устарели</string>
-    <string name="ta_hotels_zero_data_title">Нет избранных отелей</string>
-    <string name="ta_hotels_zero_data_subtitle">Сохраняйте понравившиеся отели,\nчтобы не потерять их</string>
-    <string name="ta_zero_data_find_hotels">Найти отели</string>
     <!--  HotelsFragment  -->
-    <string name="ta_hotel_about_hotel_block_title">Об отеле</string>
-    <string name="ta_hotel_about_hotel_year_opened">Построен в %1$s году</string>
-    <string name="ta_hotel_about_hotel_year_renovated">Обновлен в %1$s году</string>
-    <string name="ta_hotel_about_hotel_type_hotel">%1$s, %2$s</string>
-    <plurals name="ta_rooms">
-        <item quantity="one">%1$s номер</item>
-        <item quantity="few">%1$s номера</item>
-        <item quantity="many">%1$s номеров</item>
-        <item quantity="other">%1$s номеров</item>
-    </plurals>
-    <string name="ta_hotel_about_hotel_price_group">Ценовая категория %1$s</string>
-    <string name="ta_hotel_about_hotel_language_amenities">Персонал говорит на языках: %1$s</string>
-    <string name="ta_hotel_about_hotel_check_in">Заезд с %1$s</string>
-    <string name="ta_hotel_about_hotel_check_out">Выезд до %1$s</string>
-    <string name="ta_hotel_room_amenities_block_title">Удобства в номере</string>
-    <string name="ta_hotel_hotel_amenities_block_title">Удобства в отеле</string>
-    <string name="ta_hotel_rating_block_title">Рейтинг</string>
-    <string name="ta_hotel_location_block_title">Расположение</string>
-    <string name="ta_hotel_reviews_block_title">Отзывы</string>
-    <string name="ta_hotel_all_reviews_button">Все отзывы</string>
-    <string name="ta_hotel_all_proposals_button">Все номера</string>
-    <plurals name="ta_hotel_rating_based_on">
-        <item quantity="one">На основе %1$s оценки</item>
-        <item quantity="few">На основе %1$s оценок</item>
-        <item quantity="many">На основе %1$s оценок</item>
-        <item quantity="other">На основе %1$s оценок</item>
-    </plurals>
-    <string name="ta_hotel_book_button">Забронировать</string>
-    <string name="ta_hotel_show_on_map_button">Показать на карте</string>
-    <string name="ta_hotels_distance_km">%1$s км</string>
-    <string name="ta_hotels_distance_m">%1$s м</string>
-    <string name="ta_hotels_distance_to_center">Центр города (%1$s)</string>
-    <string name="ta_hotels_distance_to_center_without_name">Центр города</string>
-    <string name="ta_hotels_option_breackfast_included">Завтрак включен</string>
-    <string name="ta_hotels_option_without_breakfast">Без завтрака</string>
-    <string name="ta_hotels_option_card_required">Требуется карта</string>
-    <string name="ta_hotels_option_with_deposit">С депозитом</string>
-    <string name="ta_hotels_option_free_wifi">Бесплатный wi-fi</string>
-    <string name="ta_hotels_option_free_cancelation">Бесплатная отмена</string>
-    <string name="ta_hotels_option_without_cancelation">Без отмены</string>
-    <string name="ta_hotels_option_can_smoke">Можно курить</string>
-    <string name="ta_hotels_option_cant_smoke">Нельзя курить</string>
-    <string name="ta_hotels_option_penthouse">Пентхаус</string>
-    <string name="ta_hotels_option_all_inclusive">Всё включено</string>
-    <string name="ta_hotels_option_air_conditioner">Кондиционер</string>
-    <string name="ta_hotels_option_fan">Фен</string>
-    <string name="ta_hotels_option_balcony">Балкон</string>
-    <string name="ta_hotels_option_terrace">Терраса</string>
-    <string name="ta_hotels_option_shared_bathroom">Общая ванная</string>
-    <string name="ta_hotels_option_without_card_required">Карта не требуется</string>
-    <string name="ta_hotels_option_without_deposit">Без депозита</string>
-    <string name="ta_hotels_option_half_board">Полупансион</string>
-    <string name="ta_hotels_option_full_board">Полный пансион</string>
-    <string name="ta_hotels_option_ultra_all_inclusive">Ультра всё включено</string>
-    <string name="ta_hotels_option_pay_later">Оплата позже</string>
-    <string name="ta_hotels_option_pay_now">Оплата сейчас</string>
-    <string name="ta_hotels_option_private_pool">Свой бассейн</string>
-    <plurals name="ta_hotels_option_available">
-        <item quantity="one">Остался %1$s номер</item>
-        <item quantity="few">Осталось %1$s номера</item>
-        <item quantity="many">Осталось %1$s номеров</item>
-        <item quantity="other">Осталось %1$s номеров</item>
-    </plurals>
-    <plurals name="ta_hotels_option_bedrooms">
-        <item quantity="one">%1$s спальня</item>
-        <item quantity="few">%1$s спальни</item>
-        <item quantity="many">%1$s спален</item>
-        <item quantity="other">%1$s спален</item>
-    </plurals>
-    <string name="ta_hotels_option_beds_double">Две одноместные кровати</string>
-    <string name="ta_hotels_option_beds_twin">Двуспальная кровать</string>
-    <string name="ta_hotels_suggests_title">Похожие варианты размещения</string>
-    <string name="ta_hotels_geo_position_error">Ошибка определения местоположения</string>
     <!--    WebViewFragment-->
-    <string name="ta_hotels_webview_exit_dialog_title">Вернуться к поиску отелей?</string>
-    <string name="ta_hotels_webview_exit_dialog_ok_button">Вернуться</string>
-    <string name="ta_hotels_webview_exit_dialog_cancel_button">Остаться</string>
     <!-- HotelMapDialog -->
-    <string name="ta_hotel_map_dialog_title">Отель на карте</string>
-    <string name="ta_hotel_map_dialog_category_metro_station">Метро</string>
-    <string name="ta_hotel_map_dialog_category_sight">Обзорная площадка</string>
-    <string name="ta_hotel_map_dialog_category_train_station">Ж/д–станция</string>
-    <string name="ta_hotel_map_dialog_category_airport">Аэропорт</string>
-    <string name="ta_hotel_map_dialog_category_business">Бизнес-район</string>
-    <string name="ta_hotel_map_dialog_category_beach">Пляж</string>
-    <string name="ta_hotel_map_dialog_category_ski_lift">Подъемник</string>
-    <string name="ta_hotel_map_dialog_category_shopping">Торговый центр</string>
-    <string name="ta_hotel_map_dialog_category_city_center">Центр города</string>
-    <string name="ta_hotel_map_dialog_distance_km">%1$s км</string>
-    <string name="ta_hotel_map_dialog_distance_m">%1$s м</string>
     <!-- HotelReviewsFragment -->
-    <string name="ta_hotel_reviews_toolbar_title">Все отзывы</string>
-    <string name="ta_hotel_reviews_header_title">Главное из отзывов</string>
-    <string name="ta_hotel_reviews_header_description">Вам не нужно читать тысячи отзывов для каждого отеля – умный компьютер проанализировал их все и выбрал главное по каждой теме.</string>
     <!-- HotelRoomsDialog -->
-    <string name="ta_hotel_rooms_title">Все номера</string>
-    <string name="ta_hotel_rooms_choose_button">Выбрать номер</string>
-    <string name="ta_hotel_rooms_other_rooms">Другие номера</string>
     <!-- HotelFiltersDialog -->
-    <string name="ta_hotel_filters_toolbar_title">Фильтры</string>
-    <string name="ta_hotel_filters_reset">Сбросить</string>
-    <string name="ta_hotel_filters_sort">Сортировка</string>
-    <string name="ta_hotel_filters_recommend">Рекомендуемое</string>
-    <string name="ta_hotel_filters_cost">Стоимость</string>
-    <string name="ta_hotel_filters_rating">Рейтинг</string>
-    <string name="ta_hotel_filters_rewiews">Количество отзывов</string>
-    <string name="ta_hotel_filters_any">Любой</string>
-    <string name="ta_hotel_filters_location">Местоположение</string>
-    <string name="ta_hotel_filters_distance_to_center">Расстояние до центра</string>
-    <string name="ta_hotel_filters_distance_km">до %1$s км</string>
-    <string name="ta_hotel_filters_distance_km_max">%1$s км</string>
-    <string name="ta_hotel_filters_distance_m">до %1$s м</string>
-    <string name="ta_hotel_filters_distance_m_max">%1$s м</string>
-    <string name="ta_hotel_filters_rating_range">от %1$s</string>
-    <string name="ta_hotel_filters_payment">Питание и оплата</string>
-    <string name="ta_hotel_filters_extra_title">Дополнительно</string>
-    <plurals name="ta_hotel_filters_success_button">
-        <item quantity="one">Показать %1$s отель</item>
-        <item quantity="few">Показать %1$s отеля</item>
-        <item quantity="many">Показать %1$s отелей</item>
-        <item quantity="other">Показать %1$s отелей</item>
-    </plurals>
-    <string name="ta_hotel_filters_no_hotels">Нет подходящих отелей</string>
-    <string name="ta_hotel_filters_housing_type_title">Тип жилья</string>
-    <string name="ta_hotel_filters_hide_common_rooms">Скрыть общие номера</string>
-    <string name="ta_hotel_filters_hide_no_available_rooms">Скрыть распроданное жилье</string>
-    <string name="ta_hotel_filters_room_amenities_title">Удобства в номере</string>
-    <string name="ta_hotel_filters_hotel_amenities">Удобства в отеле</string>
-    <string name="ta_hotel_filters_hotel_popularity">Популярность</string>
-    <string name="ta_hotel_filters_stars_count">Количество звезд</string>
-    <string name="ta_hotel_filters_atmosphere">Атмосфера</string>
-    <string name="ta_hotel_filters_search_hotel">Поиск конкретного отеля</string>
-    <string name="ta_hotel_filters_search_choose_on_map">Выбрать на карте</string>
-    <string name="ta_hotel_filters_search_hotel_hint">Поиск отеля</string>
-    <string name="ta_hotel_filters_distance_to_anu_subway">Любое метро</string>
-    <string name="ta_hotel_filters_hotels_nets_title">Отельные сети</string>
-    <string name="ta_hotel_filters_hotels_nets_all">Любые</string>
-    <string name="ta_hotel_filters_districts_title">Районы</string>
-    <string name="ta_hotel_filters_districts_all">Любые</string>
-    <string name="ta_hotel_filters_agencies_title">Агентства бронирования</string>
-    <string name="ta_hotel_filters_agencies_all">Любые</string>
     <!-- HotelChainFiltersFragment -->
-    <string name="ta_filters_hotel_chain_title">Отельные сети</string>
     <!-- HotelSortDialog -->
-    <string name="ta_hotel_sort_title">Сортировка</string>
-    <string name="ta_hotel_sort_recommend">Рекомендуемое</string>
-    <string name="ta_hotel_sort_popularity">Популярность</string>
-    <string name="ta_hotel_sort_gaining_popularity">Набирающие популярность</string>
-    <string name="ta_hotel_sort_ratings">Оценка гостей</string>
-    <string name="ta_hotel_sort_distance_to">Расстояние до</string>
-    <string name="ta_hotel_sort_price">Цена</string>
 
     <!-- RoomPhotosDialog -->
-    <string name="ta_hotel_photos">Фотографии отеля</string>
-    <string name="ta_room_photos">Фотографии номера</string>
 
     <!-- HotelRoomsFiltersDialog -->
-    <string name="ta_hotel__rooms_filter_dialog_grouping_title">Группировка</string>
-    <string name="ta_hotel__rooms_filter_dialog_bed_type_title">Тип кровати</string>
-    <string name="ta_hotel__rooms_filter_dialog_button">Показать %1$s вариантов</string>
-    <string name="ta_hotel_rooms_filter_dialog_rooms">Номера</string>
-    <string name="ta_hotel_rooms_filter_dialog_agents">Агентства</string>
-    <string name="ta_hotel_rooms_filter_dialog_disable_common_filters">Отключить общие фильтры</string>
-    <string name="ta_hotel_rooms_filter_dialog_show_all_results_without_filters">Показать все предложения без учёта фильтров, выбранных в результате поиска</string>
-    <string name="ta_hotel_rooms_filter_dialog_prices">Цены</string>
-    <plurals name="ta_hotel_rooms_filter_dialog_success_button">
-        <item quantity="one">Показать %1$s вариант</item>
-        <item quantity="few">Показать %1$s варианта</item>
-        <item quantity="many">Показать %1$s вариантов</item>
-        <item quantity="other">Показать %1$s вариантов</item>
-    </plurals>
-    <string name="ta_hotel_rooms_filter_dialog_no_hotels">Нет подходящих вариантов</string>
 
     <!-- SelectHotelDistanceToDialog -->
-    <string name="ta_select_hotel_distance_to_title">Расстояние до</string>
-    <string name="ta_select_hotel_distance_to_search_point">Точка поиска</string>
-    <string name="ta_select_hotel_distance_to_map_point">Точка на карте</string>
-    <string name="ta_select_hotel_distance_to_any_subway">Любое метро</string>
-    <string name="ta_select_hotel_distance_to_airports">Аэропорты</string>
-    <string name="ta_select_hotel_distance_to_train_stations">Вокзалы</string>
 
     <!-- endregion -->
 
@@ -699,13 +432,9 @@
     <!-- PriceDisplayFragment -->
     <string name="ta_price_display_title">Отображение цен</string>
     <string name="ta_price_display_flight_title">Авиабилеты</string>
-    <string name="ta_price_display_hotel_title">Отели</string>
-    <string name="ta_price_display_hotel_all">Цены за все ночи</string>
-    <string name="ta_price_display_hotel_single">Цены за 1 ночь</string>
     <!-- FavoritesFragment -->
     <string name="ta_favorites_title">Избранное</string>
     <string name="ta_flights_tab">Авиабилеты</string>
-    <string name="ta_hotels_tab">Отели</string>
     <string name="ta_confidentiality">Конфиденциальность</string>
 
     <!-- AboutAppFragment -->
