@@ -64,13 +64,6 @@ object GoogleAdMobAppIdHandler {
             template.format(googleAdmobAppId)
         )
 
-        writeAdvertisingProperties(
-            project = project,
-            advertising = advertising,
-            googleAdmobAppId = googleAdmobAppId,
-            isAppodealKeyEmpty = isAppodealKeyEmpty
-        )
-
         println("✅ ")
     }
 
@@ -79,7 +72,7 @@ object GoogleAdMobAppIdHandler {
      * ищет и не подменяет: список зависимостей живёт в app/build.gradle.kts под
      * when, а сюда попадает только решение, какой из вариантов взять.
      */
-    private fun writeAdvertisingProperties(
+    fun writeAdvertisingProperties(
         project: Project,
         advertising: com.google.gson.JsonObject?,
         googleAdmobAppId: String,

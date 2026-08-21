@@ -24,8 +24,16 @@ private val PROP_HANDLING_LINK = "handlingLink"
 // и не разошёлся с config/app_config.json, иначе останавливает сборку.
 private val adsMode: String = appconfig.AdvertisingMode.read(project)
 
+// Строгие проверки вешаются на граф задач: командную строку разбирать нельзя,
+// её формы (сокращения, опции задач) обходят любую самодельную эвристику
+private val advertisingGuards = appconfig.AdvertisingMode.registerGuards(project)
+
 private val prop: Properties = Properties().apply {
-    val fis = FileInputStream(FILE_NAME)
+    // Путь от корня проекта, а не от рабочего каталога JVM. Относительное имя
+    // резолвится от каталога запуска и ломается вне корня. Одного этого места
+    // мало: configuration/ApplicationVersions читает app_version.properties так
+    // же, см. TAAD-1239
+    val fis = FileInputStream(rootProject.file(FILE_NAME))
     load(fis)
     fis.close()
 }

@@ -254,6 +254,19 @@ abstract class ParseConfigTask : DefaultTask() {
 
         StringsHandler.copyStringsFiles(project, appModule)
 
+        // Файл режима рекламы пишем последним, когда вся генерация уже прошла.
+        // Иначе авария в середине задачи оставляет свежий отпечаток конфига при
+        // старых сгенерированных файлах — ровно то состояние, которое отпечаток
+        // и должен ловить: следующая сборка молча сочтёт всё согласованным.
+        GoogleAdMobAppIdHandler.writeAdvertisingProperties(
+            project = project,
+            advertising = com.google.gson.Gson()
+                .fromJson(project.rootProject.file("config/app_config.json").readText(), com.google.gson.JsonObject::class.java)
+                ?.getAsJsonObject("advertising"),
+            googleAdmobAppId = buildSrcAppConfig.advertising?.googleAdmobAppId?.trim().orEmpty(),
+            isAppodealKeyEmpty = buildSrcAppConfig.advertising?.appodealApiKey.isNullOrBlank()
+        )
+
         //TODO
         //OtherTabInfoParser.parseTabs(appModule, buildSrcAppConfig.whiteLabelConfig)
 
