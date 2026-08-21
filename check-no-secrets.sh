@@ -30,7 +30,6 @@ set -uo pipefail
 #
 #   Ключи в конфигурации. marker и api_key в config/app_config.json заполняет
 #   партнёр. Наши значения там оказаться не должны.
-set -uo pipefail
 cd "$(dirname "$0")"
 FAILED=0
 
@@ -67,7 +66,7 @@ fi
 
 echo "== Конфигурация приложения"
 if [ -f config/app_config.json ]; then
-    VALUES=$(python3 - <<'PY'
+    if ! VALUES=$(python3 - <<'PY'
 import json
 c = json.load(open("config/app_config.json"))
 bad = []
@@ -83,13 +82,17 @@ for key in ("appodeal_api_key", "google_admob_app_id"):
         bad.append(f"advertising.{key} заполнен")
 print("\n".join(bad))
 PY
-)
-    if [ -n "$VALUES" ]; then
+    ); then
+        # Разбор конфига упал: раньше скрипт молча считал, что ключи пустые
+        fail "config/app_config.json не разобрался — проверить ключи не удалось"
+    elif [ -n "$VALUES" ]; then
         fail "в config/app_config.json заполнены ключи:"
         echo "$VALUES" | sed 's/^/      /'
     else
         ok "ключи в конфигурации пустые"
     fi
+else
+    fail "config/app_config.json отсутствует — проверять нечего, но передавать шаблон без него нельзя"
 fi
 
 echo

@@ -47,12 +47,6 @@ object GoogleAdMobAppIdHandler {
         // восстанавливается тяжелее, чем отказ стартовать
         migrateOldSubstitution(appModule)
 
-        writeAdvertisingProperties(
-            project = project,
-            advertising = advertising,
-            googleAdmobAppId = googleAdmobAppId,
-            isAppodealKeyEmpty = isAppodealKeyEmpty
-        )
 
         handleManifest(
             module = appModule,
@@ -68,6 +62,13 @@ object GoogleAdMobAppIdHandler {
 
         appodealConfig.writeText(
             template.format(googleAdmobAppId)
+        )
+
+        writeAdvertisingProperties(
+            project = project,
+            advertising = advertising,
+            googleAdmobAppId = googleAdmobAppId,
+            isAppodealKeyEmpty = isAppodealKeyEmpty
         )
 
         println("✅ ")

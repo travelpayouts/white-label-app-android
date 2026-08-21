@@ -33,6 +33,7 @@ object AdvertisingMode {
     const val APPODEAL_ADMOB = "appodeal_admob"
 
     const val FILE_NAME = "advertising.properties"
+    private const val VERIFY_TASK_NAME = "verifyAdvertisingWiring"
     private const val KEY_MODE = "adsMode"
     private const val KEY_HASH = "configHash"
     private const val CONFIG_PATH = "config/app_config.json"
@@ -93,15 +94,20 @@ object AdvertisingMode {
                 "Неизвестный -PadsMode=$value. Допустимые: $NONE, $APPODEAL, $APPODEAL_ADMOB"
             )
         }
-        val releaseTask = project.gradle.startParameter.taskNames.firstOrNull {
-            it.contains("Release", ignoreCase = false) || it.contains("release", ignoreCase = false)
-        }
-        if (releaseTask != null) {
+        // Белый список вместо чёрного. Переопределение существует ровно для
+        // задачи проверки, поэтому разрешаем его только когда запрошена именно
+        // она. Перечислять запрещённое бесполезно: release прячется за
+        // агрегатами (build, assemble, bundle), за сокращениями (aBRel) и за
+        // типом Rc, который тоже минифицируется и подписывается релизным ключом.
+        val requested = taskNames(project)
+        val onlyVerification = requested.isNotEmpty() &&
+            requested.all { matchesTask(it, VERIFY_TASK_NAME) }
+        if (!onlyVerification) {
             throw GradleException(
-                "-PadsMode=$value — режим проверки, им нельзя собирать релиз (задача $releaseTask). " +
-                    "Режим для сборки задаётся блоком advertising в config/app_config.json " +
-                    "и записывается задачей $GRADLE_TASK_NAME. Переопределение существует только " +
-                    "для того, чтобы прогнать проверку, не трогая отгружаемый конфиг."
+                "-PadsMode=$value можно использовать только с задачей $VERIFY_TASK_NAME, " +
+                    "и ни с какой другой. Это режим проверки: он подменяет режим рекламы, " +
+                    "не трогая config/app_config.json, поэтому собранный с ним артефакт " +
+                    "не соответствует конфигурации. Запрошено: ${requested.joinToString(" ")}"
             )
         }
         return value
@@ -112,18 +118,37 @@ object AdvertisingMode {
      * задачи по заглавным буквам, поэтому точного сравнения мало: ./gradlew pC
      * запускает parseConfig, а в taskNames лежит буквально набранная строка.
      */
-    private fun isParseConfigRequested(project: Project): Boolean =
-        project.gradle.startParameter.taskNames.any { matchesParseConfig(it) }
+    /**
+     * Имена задач, которые пользователь набрал. Аргументы опций сюда тоже
+     * попадают (например `help --task parseConfig` даёт три элемента), поэтому
+     * отбрасываем флаги и значение, идущее сразу за флагом.
+     */
+    private fun taskNames(project: Project): List<String> {
+        val raw = project.gradle.startParameter.taskNames
+        val result = mutableListOf<String>()
+        var skipNext = false
+        for (item in raw) {
+            if (skipNext) { skipNext = false; continue }
+            if (item.startsWith("-")) { skipNext = !item.contains("="); continue }
+            result += item
+        }
+        return result
+    }
 
-    private fun matchesParseConfig(requested: String): Boolean {
+    private fun isParseConfigRequested(project: Project): Boolean =
+        taskNames(project).any { matchesTask(it, GRADLE_TASK_NAME) }
+
+    /**
+     * Совпадает ли набранное имя с задачей, с учётом сокращений Gradle по
+     * заглавным буквам: ./gradlew pC запускает parseConfig.
+     */
+    private fun matchesTask(requested: String, taskName: String): Boolean {
         val name = requested.substringAfterLast(':')
-        if (name.equals(GRADLE_TASK_NAME, ignoreCase = true)) return true
-        // сокращение Gradle: буквы имени по порядку, начиная с первой, где
-        // каждая заглавная в сокращении соответствует заглавной в имени
-        if (name.isEmpty() || !GRADLE_TASK_NAME.startsWith(name.first(), ignoreCase = true)) return false
+        if (name.equals(taskName, ignoreCase = true)) return true
+        if (name.isEmpty() || !taskName.startsWith(name.first(), ignoreCase = true)) return false
         var i = 0
         for (ch in name) {
-            i = GRADLE_TASK_NAME.indexOf(ch, i, ignoreCase = true)
+            i = taskName.indexOf(ch, i, ignoreCase = true)
             if (i < 0) return false
             i++
         }
@@ -137,8 +162,8 @@ object AdvertisingMode {
      * assemble: молча уезжает не то, что ожидали.
      */
     private fun guardCombinedInvocation(project: Project) {
-        val requested = project.gradle.startParameter.taskNames
-        if (requested.any { matchesParseConfig(it) } && requested.size > 1) {
+        val requested = taskNames(project)
+        if (requested.any { matchesTask(it, GRADLE_TASK_NAME) } && requested.size > 1) {
             throw GradleException(
                 "$GRADLE_TASK_NAME нельзя запускать в одной команде с другими задачами: " +
                     "режим рекламы выбирается до того, как задача успеет его записать, и " +
@@ -182,16 +207,28 @@ object AdvertisingMode {
             .associate { it[0].trim() to it[1].trim() }
 
         val mode = props[KEY_MODE]
-            ?: throw GradleException("В $FILE_NAME нет ключа $KEY_MODE. Запустите ./gradlew $GRADLE_TASK_NAME")
-
-        if (mode !in listOf(NONE, APPODEAL, APPODEAL_ADMOB)) {
-            throw GradleException("В $FILE_NAME неизвестный $KEY_MODE=$mode. Запустите ./gradlew $GRADLE_TASK_NAME")
+        if (mode == null || mode !in listOf(NONE, APPODEAL, APPODEAL_ADMOB)) {
+            // Во время parseConfig испорченный файл — не тупик: задача его перезапишет.
+            // Иначе совет «запустите parseConfig» вёл бы к той же ошибке.
+            if (parseConfigRequested) return NONE
+            throw GradleException(
+                "В $FILE_NAME ${if (mode == null) "нет ключа $KEY_MODE" else "неизвестный $KEY_MODE=$mode"}. " +
+                    "Запустите ./gradlew $GRADLE_TASK_NAME — задача перезапишет файл."
+            )
         }
 
         // Сверка с конфигом: если партнёр правил advertising и не перезапустил
         // parseConfig, режим устарел и реклама соберётся не так, как он ожидает
         val configFile = project.rootProject.file(CONFIG_PATH)
-        if (configFile.exists()) {
+        if (!configFile.exists()) {
+            // Раньше сверка тут просто пропускалась, и сборка молча ехала по
+            // файлу режима, который никто не мог подтвердить
+            throw GradleException(
+                "$CONFIG_PATH не найден, поэтому проверить актуальность $FILE_NAME не по чему. " +
+                    "Восстановите конфигурацию: это источник всех настроек шаблона."
+            )
+        }
+        run {
             val advertising = Gson()
                 .fromJson(configFile.readText(), JsonObject::class.java)
                 ?.getAsJsonObject("advertising")

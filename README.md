@@ -140,7 +140,9 @@ they are ignored exactly as before.
 
 **The bundled Firebase files are placeholders.** `config/google-services.json`
 and the per-variant copies used to carry our own Firebase projects. They are now
-stubs with obvious values, so nothing of ours travels to you and there is no
+stubs with obvious values, so no Firebase project of ours is configured in what
+you build. Note that this replaces the files, not the history: a git repository
+carries its past, and earlier commits still contain the previous ones. There is no
 chance of a build quietly reporting into a project you do not own. You replace
 them with your own file exactly as before — step 2 above.
 

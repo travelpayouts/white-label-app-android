@@ -82,7 +82,10 @@ the fact that the task finished without errors:
 ./gradlew verifyAdvertisingWiring -PadsMode=appodeal_admob
 ```
 
-Modes: `none`, `appodeal`, `appodeal_admob`.
+Modes: `none`, `appodeal`, `appodeal_admob`. `-PadsMode` exists for this check
+alone: it substitutes the mode without touching your configuration, so anything
+built with it does not match your settings. Any command that passes `-PadsMode`
+and asks for something other than `verifyAdvertisingWiring` is refused.
 
 | Field | Purpose |
 |---|---|
