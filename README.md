@@ -146,6 +146,15 @@ carries its past, and earlier commits still contain the previous ones. There is 
 chance of a build quietly reporting into a project you do not own. You replace
 them with your own file exactly as before — step 2 above.
 
+**Turning ads on used to be impossible to notice; now it also has to compile.**
+With the wiring fixed, enabling Appodeal actually pulls the ad adapters in - and
+they raise `androidx.activity` from 1.8.1 to 1.9.2, where
+`ComponentActivity.onNewIntent` is annotated `@NonNull`. The template's own
+`StartActivity` declared the parameter nullable, so the first partner to switch
+ads on would have hit a compile error in code we shipped. The signature is
+non-null now, which compiles against both versions. If you have your own
+`Activity` overriding `onNewIntent`, check its parameter too.
+
 **`parseConfig` can no longer share a command with a build.** If your CI ran
 `./gradlew parseConfig assembleRelease` in one line, split it in two - the
 combined form now stops with an explanation. It had been quietly wrong all

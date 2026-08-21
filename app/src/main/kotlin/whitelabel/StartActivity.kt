@@ -18,7 +18,11 @@ class StartActivity : AppCompatActivity() {
         startMainActivity()
     }
 
-    override fun onNewIntent(intent: Intent?) {
+    // Параметр не-nullable намеренно: рекламные адаптеры Appodeal поднимают
+    // androidx.activity до 1.9.x, где ComponentActivity.onNewIntent объявлен с
+    // @NonNull. С Intent? сборка у партнёра, включившего рекламу, не проходит.
+    // Non-null совместим и со старой версией, где тип платформенный.
+    override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
 
         startMainActivity()
