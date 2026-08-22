@@ -147,7 +147,14 @@ object AdvertisingMode {
                     // parseConfig. Прежняя догадка «упоминался ли он в команде»
                     // принимала любую подпоследовательность букв, и ./gradlew aR
                     // (штатное сокращение assembleRelease) отключал сверку.
-                    if (GRADLE_TASK_NAME !in names) {
+                    // Сверяем только когда граф действительно собирает приложение:
+                    // именно оно потребляет сгенерированные ресурсы. Раньше условие
+                    // было «нет parseConfig», и при устаревшем конфиге отвергались
+                    // help, tasks и clean — партнёр не мог даже посмотреть список
+                    // задач, чтобы понять, что делать. Принадлежность задачи проекту
+                    // берём из графа, а не угадываем по имени.
+                    val touchesApp = graph.allTasks.any { it.project.path == ":app" }
+                    if (GRADLE_TASK_NAME !in names && touchesApp) {
                         val configFile = project.rootProject.file(CONFIG_PATH)
                         if (configFile.exists()) {
                             val props = readProps(project)

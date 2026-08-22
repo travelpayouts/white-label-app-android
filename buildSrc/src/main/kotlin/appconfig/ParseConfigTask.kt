@@ -191,8 +191,10 @@ abstract class ParseConfigTask : DefaultTask() {
 
         AppConfigJsonParser.parse(buildSrcAppConfig, appModule)
 
+        // Из ТОГО ЖЕ текста, из которого получен buildSrcAppConfig. Повторное
+        // чтение файла давало ресурсы по одному снимку и отпечаток по другому.
         val advertisingSnapshot = com.google.gson.Gson()
-            .fromJson(project.rootProject.file("config/app_config.json").readText(), com.google.gson.JsonObject::class.java)
+            .fromJson(jsonString, com.google.gson.JsonObject::class.java)
             ?.getAsJsonObject("advertising")
 
         GoogleAdMobAppIdHandler.handleAdmobConfig(
