@@ -76,11 +76,10 @@ AdMob в манифесте и `appodeal_config.xml`) и записывает о
 `advertising.properties` — сгенерированный файл, а не настройка: строка
 `adsMode` в нём справочная, её правка ни на что не влияет.
 
-**`parseConfig` несовместим с configuration cache.** Если вы включили
-`org.gradle.configuration-cache`, запускайте задачу как
-`./gradlew parseConfig --no-configuration-cache`. Остальные команды кэш не
-ломает: обычная сборка с ним работает и корректно пересчитывается при правке
-конфигурации.
+**`parseConfig` и `verifyAdvertisingWiring` несовместимы с configuration cache.**
+Если вы включили `org.gradle.configuration-cache`, запускайте любую из этих задач
+с `--no-configuration-cache`. Обычные сборки кэш не ломает: он сохраняется,
+переиспользуется и корректно пересчитывается при правке конфигурации.
 
 **`parseConfig` нельзя запускать в одной команде со сборкой.** Задача пишет
 `app_version.properties` и `handling_link.properties` во время выполнения, а

@@ -75,11 +75,10 @@ match — it used to build quietly with stale ones instead.
 `advertising.properties` is generated, not a setting: the `adsMode` line in it is
 written for reference and editing it changes nothing.
 
-**`parseConfig` does not work with the configuration cache.** If you have
-`org.gradle.configuration-cache` on, run the task as
-`./gradlew parseConfig --no-configuration-cache`. Everything else is fine with
-it: an ordinary build works and is invalidated correctly when you edit the
-configuration.
+**`parseConfig` and `verifyAdvertisingWiring` do not work with the configuration
+cache.** If you have `org.gradle.configuration-cache` on, run either of them with
+`--no-configuration-cache`. Ordinary builds are fine with the cache on: it is
+stored, reused, and invalidated correctly when you edit the configuration.
 
 **`parseConfig` cannot share a command with a build.** The task writes
 `app_version.properties` and `handling_link.properties` while it runs, and the

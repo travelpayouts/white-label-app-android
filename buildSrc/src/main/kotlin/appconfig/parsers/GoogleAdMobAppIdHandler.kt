@@ -117,10 +117,20 @@ object GoogleAdMobAppIdHandler {
         }
 
         // If Appodeal declarations we do not recognise are left, say so rather than stay
-        // silent: the partner has to remove them, otherwise the dependencies are declared twice
-        val leftovers = Regex(
-            "\\n[ \\t]*(implementation\\(libs\\.appodeal(\\.core)?\\s*[\\)\\{]|appodealNetworkWithoutAdmob\\s*\\()[^\\n]*"
-        ).findAll(cleaned).map { it.value.trim() }.toList()
+        // silent: the partner has to remove them, otherwise the dependencies are declared twice.
+        //
+        // The search is for the alias itself, wherever it stands. Matching whole lines missed
+        // the form that wraps across lines - implementation(\n    libs.appodeal\n) is valid
+        // Kotlin, survived the migration, and pulled 26 adapters into a build whose mode was
+        // none. The adapter aliases are libs.appodeal.<network>, so the lookahead keeps them
+        // out: only the bare alias and libs.appodeal.core are leftovers.
+        val leftovers = Regex("""libs\.appodeal(\.core)?(?![.\w])|appodealNetworkWithoutAdmob\s*\(""")
+            .findAll(cleaned)
+            .map { match ->
+                val line = cleaned.take(match.range.first).count { it == '\n' } + 1
+                "line $line: ${cleaned.lines()[line - 1].trim()}"
+            }
+            .toList()
         if (leftovers.isNotEmpty()) {
             throw org.gradle.api.GradleException(
                 "app/build.gradle.kts still declares Appodeal in a form this task does not " +

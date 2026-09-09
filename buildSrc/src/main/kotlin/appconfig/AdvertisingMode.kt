@@ -41,6 +41,16 @@ object AdvertisingMode {
     private const val KEY_HASH = "configHash"
     private const val CONFIG_PATH = "config/app_config.json"
 
+    /**
+     * The hash of the advertising block as it was when the mode was derived, kept
+     * so that the stale-resource guard checks the same snapshot the build was
+     * configured from. Set while Gradle configures the project, read when the task
+     * graph is ready. Null only when the mode came from an override, and then the
+     * guard falls back to reading the file.
+     */
+    @Volatile
+    private var snapshotHash: String? = null
+
     /** The mode implied by the configuration. Used both when writing and when checking. */
     fun modeOf(appodealApiKey: String?, googleAdmobAppId: String?): String = when {
         appodealApiKey.isNullOrBlank() -> NONE
@@ -154,8 +164,15 @@ object AdvertisingMode {
                         val configFile = project.rootProject.file(CONFIG_PATH)
                         if (configFile.exists()) {
                             val props = readProps(project)
-                            val advertising = advertisingBlock(configFile.readText())
-                            if (props[KEY_HASH] != hashOf(advertising)) {
+                            // The hash of the snapshot the mode was derived from, not of a fresh
+                            // read. This guard runs when the task graph is ready, which is long
+                            // after the mode was chosen at configuration time: re-reading the file
+                            // here compared one snapshot of the configuration against the resources
+                            // generated from another. Editing the file inside that window produced
+                            // a release APK whose configuration asked for ads while no adapter was
+                            // in the build - with this check green.
+                            val expected = snapshotHash ?: hashOf(advertisingBlock(configFile.readText()))
+                            if (props[KEY_HASH] != expected) {
                                 throw GradleException(
                                     "The advertising block in $CONFIG_PATH changed after the last " +
                                         "$GRADLE_TASK_NAME run, so the generated advertising " +
@@ -230,13 +247,13 @@ object AdvertisingMode {
      * on with a key that could not work - with every check green. The type is
      * checked explicitly.
      */
-    private fun stringField(obj: JsonObject?, name: String): String? {
+    private fun stringField(obj: JsonObject?, name: String, path: String = "advertising"): String? {
         val el = obj?.get(name) ?: return null
         if (el.isJsonNull) return null
         if (!el.isJsonPrimitive || !el.asJsonPrimitive.isString) {
             throw GradleException(
-                "advertising.$name in $CONFIG_PATH must be a string, not $el. Advertising keys " +
-                    "are written as strings, in quotes."
+                "$path.$name in $CONFIG_PATH must be a string, not $el. Advertising keys and " +
+                    "placement names are written as strings, in quotes."
             )
         }
         return el.asString
@@ -285,9 +302,50 @@ object AdvertisingMode {
         // Now there is one source: config/app_config.json. The properties file only records
         // whether the generated resources still match it.
         val advertising = advertisingBlock(configFile.readText())
-        return modeOf(
+        snapshotHash = hashOf(advertising)
+
+        val mode = modeOf(
             appodealApiKey = stringField(advertising, "appodeal_api_key"),
             googleAdmobAppId = stringField(advertising, "google_admob_app_id")
         )
+        if (mode != NONE) checkPlacements(project, advertising)
+        return mode
+    }
+
+    /**
+     * The placements, once advertising is on. A placement names the ad slot when
+     * the app asks Appodeal to show one, so an empty value means the adapters
+     * arrive, ads are cached and none is ever shown - with every check green.
+     *
+     * A wrong type is an error, the same as for the keys: Gson would coerce 123
+     * or true into the strings "123" and "true" and hand them to the SDK as if
+     * they were real placement names. An empty value is a warning rather than an
+     * error, because leaving out one of the two formats is a legitimate choice.
+     */
+    private fun checkPlacements(project: Project, advertising: JsonObject?) {
+        val element = advertising?.get("placements")
+        if (element == null || element.isJsonNull) {
+            project.logger.warn(
+                "WARNING: advertising.placements is missing in $CONFIG_PATH while the ad keys are " +
+                    "filled in. The adapters will be in the build and no ad will ever be shown."
+            )
+            return
+        }
+        if (!element.isJsonObject) {
+            throw GradleException(
+                "advertising.placements in $CONFIG_PATH must be an object holding the placement " +
+                    "names, not $element."
+            )
+        }
+        val placements = element.asJsonObject
+        for (name in listOf("air_ticket_placement_interstitial", "air_ticket_placement_banner")) {
+            val value = stringField(placements, name, path = "advertising.placements")
+            if (value.isNullOrBlank()) {
+                project.logger.warn(
+                    "WARNING: advertising.placements.$name is empty in $CONFIG_PATH while the ad " +
+                        "keys are filled in. That format will never be shown."
+                )
+            }
+        }
     }
 }
