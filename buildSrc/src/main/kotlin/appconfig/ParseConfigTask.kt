@@ -160,15 +160,15 @@ abstract class ParseConfigTask : DefaultTask() {
 
     @TaskAction
     fun parseConfig() {
-        // Задача обращается к project на этапе выполнения, а configuration cache
-        // это запрещает. Без явной проверки партнёр попадает в тупик: сборка
-        // требует запустить parseConfig, а parseConfig падает с «App module not
-        // found!», где про кэш нет ни слова.
+        // The task reaches for project while it runs, which the configuration cache forbids.
+        // Without this check the partner ends up in a dead end: the build asks them to run
+        // parseConfig, and parseConfig fails with "App module not found!", which says nothing
+        // about the cache.
         if (project.gradle.startParameter.isConfigurationCacheRequested) {
             throw GradleException(
-                "$GRADLE_TASK_NAME несовместим с configuration cache. Запустите " +
-                    "./gradlew $GRADLE_TASK_NAME --no-configuration-cache, а остальные " +
-                    "команды можно оставить с кэшем: обычная сборка с ним работает."
+                "$GRADLE_TASK_NAME does not work with the configuration cache. Run ./gradlew " +
+                    "$GRADLE_TASK_NAME --no-configuration-cache; every other command can keep " +
+                    "the cache on, an ordinary build works with it."
             )
         }
 
@@ -191,11 +191,13 @@ abstract class ParseConfigTask : DefaultTask() {
 
         AppConfigJsonParser.parse(buildSrcAppConfig, appModule)
 
-        // Из ТОГО ЖЕ текста, из которого получен buildSrcAppConfig. Повторное
-        // чтение файла давало ресурсы по одному снимку и отпечаток по другому.
+        // Taken from THE SAME text that produced buildSrcAppConfig. Reading the file again
+        // gave the resources one snapshot and the fingerprint another.
         val advertisingSnapshot = com.google.gson.Gson()
             .fromJson(jsonString, com.google.gson.JsonObject::class.java)
-            ?.getAsJsonObject("advertising")
+            ?.get("advertising")
+            ?.takeIf { it.isJsonObject }
+            ?.asJsonObject
 
         GoogleAdMobAppIdHandler.handleAdmobConfig(
             project = project,
@@ -270,14 +272,14 @@ abstract class ParseConfigTask : DefaultTask() {
 
         StringsHandler.copyStringsFiles(project, appModule)
 
-        // Файл режима рекламы пишем последним, когда вся генерация уже прошла.
-        // Иначе авария в середине задачи оставляет свежий отпечаток конфига при
-        // старых сгенерированных файлах — ровно то состояние, которое отпечаток
-        // и должен ловить: следующая сборка молча сочтёт всё согласованным.
-        // Отпечаток считаем по ТОМУ ЖЕ тексту, из которого сгенерированы ресурсы.
-        // Раньше файл читался заново, и правка конфига во время работы задачи
-        // (она идёт около семи секунд) давала ресурсы по одному снимку и хеш по
-        // другому — следующая сборка считала состояние согласованным.
+        // The advertising properties file is written last, once every generator has finished.
+        // Otherwise a failure in the middle of the task would leave a fresh fingerprint next to
+        // stale generated files - exactly the state the fingerprint exists to catch, and the
+        // next build would quietly consider everything consistent.
+        //
+        // The fingerprint is computed from THE SAME text the resources were generated from.
+        // The file used to be read again here, so editing the configuration while the task ran
+        // (it takes some seven seconds) gave the resources one snapshot and the hash another.
         GoogleAdMobAppIdHandler.writeAdvertisingProperties(
             project = project,
             advertising = advertisingSnapshot,

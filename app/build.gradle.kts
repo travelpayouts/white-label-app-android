@@ -20,27 +20,27 @@ plugins {
 private val FILE_NAME = "handling_link.properties"
 private val PROP_HANDLING_LINK = "handlingLink"
 
-// Режим рекламы из advertising.properties. Чтение проверяет, что файл на месте
-// и не разошёлся с config/app_config.json, иначе останавливает сборку.
+// The advertising mode implied by config/app_config.json, which is the only place that
+// decides which ad libraries enter the build.
 private val adsMode: String = appconfig.AdvertisingMode.read(project)
 
-// Строгие проверки вешаются на граф задач: командную строку разбирать нельзя,
-// её формы (сокращения, опции задач) обходят любую самодельную эвристику
+// The strict checks hang off the task graph. Parsing the command line does not work: its
+// forms - abbreviations, task options - get around any hand-written heuristic
 private val advertisingGuards = appconfig.AdvertisingMode.registerGuards(project)
 
 private val prop: Properties = Properties().apply {
-    // Путь от корня проекта, а не от рабочего каталога JVM. Относительное имя
-    // резолвится от каталога запуска и ломается вне корня. Одного этого места
-    // мало: configuration/ApplicationVersions читает app_version.properties так
-    // же, см. TAAD-1239
+    // Resolved against the project root rather than the JVM working directory. A relative
+    // name is resolved against the directory the build was started from and breaks outside
+    // the root. This place alone is not enough: configuration/ApplicationVersions reads
+    // app_version.properties the same way
     val fis = FileInputStream(rootProject.file(FILE_NAME))
     load(fis)
     fis.close()
 }
 
 
-// Проверка, что рекламные адаптеры реально доехали в сборку.
-// Запуск: ./gradlew verifyAdvertisingWiring -PadsMode=appodeal_admob
+// Checks that the ad adapters actually reached the build.
+// Run: ./gradlew verifyAdvertisingWiring
 verification.AdvertisingWiring.register(project)
 
 android {
@@ -134,9 +134,9 @@ dependencies {
     kapt(libs.dagger.compiler)
     compileOnly(libs.dagger.annotation)
 
-    // Реклама. Что подключать, решает блок advertising в config/app_config.json:
-    // задача parseConfig записывает режим в advertising.properties, а список
-    // зависимостей лежит здесь и генератором не правится.
+    // Advertising. What gets wired in is decided by the advertising block of
+    // config/app_config.json; the dependency list lives here, under a when, and no generator
+    // edits it.
     when (adsMode) {
         appconfig.AdvertisingMode.NONE -> Unit
         appconfig.AdvertisingMode.APPODEAL -> appodealNetworks()
@@ -169,8 +169,8 @@ fun EasyLauncherConfig.configure(icons: List<String>, ribbonColor: String) {
     )
 }
 
-// Набор рекламных сетей Appodeal. Ядро приезжает из модуля travel-sdk, здесь
-// объявляются только адаптеры. Версии — из каталога, парные ядру.
+// The Appodeal ad networks. The core arrives from the travel-sdk module; only the adapters
+// are declared here. Versions come from the catalog and are paired with the core.
 private fun DependencyHandlerScope.appodealNetworks() {
     implementation(libs.appodeal.amazon)
     implementation(libs.appodeal.applovin)

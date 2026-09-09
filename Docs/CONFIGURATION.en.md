@@ -38,7 +38,7 @@ language, `localized` holds the translations:
 
 | Field | Required | Purpose |
 |---|---|---|
-| `identifier.android.id` | yes | Your application id, e.g. `com.mycompany.travel`. `parseConfig` refuses to run if it is empty, has spaces or is not a valid Java package name |
+| `identifier.android.id` | yes | Your application id, e.g. `com.mycompany.travel`. Two or more dot-separated segments, each starting with a letter and holding only letters and digits. Underscores and dashes are rejected: the generators substitute this value into `app_version.properties` and into generated Kotlin with a `[0-9A-Za-z.]` pattern, and any other character would corrupt them. If your published app id contains an underscore, tell us before you migrate — the id cannot be changed once the app is in Play |
 | `identifier.android.versionName` | yes | Version name shown in the store, e.g. `1.0.0` |
 | `identifier.android.versionCode` | yes | Version code, a positive integer |
 | `display_name` | yes | App name under the launcher icon (localized) |
@@ -64,11 +64,16 @@ language, `localized` holds the translations:
 The whole block is optional — with an empty `appodeal_api_key` no ads are
 initialised and the app builds and runs without them.
 
-**After editing this block, running `./gradlew parseConfig` is required.** The
-task writes the resulting mode into `advertising.properties`, and that is what
-decides which ad libraries end up in the build. Edit the config without running
-the task and the build now stops and says so — it used to build quietly without
-ads instead.
+**After editing this block, running `./gradlew parseConfig` is required.** This
+block is what decides which ad libraries end up in the build — the build reads it
+directly. What `parseConfig` does is generate the advertising resources from it
+(the AdMob entry in the manifest and `appodeal_config.xml`) and record a
+fingerprint of the block in `advertising.properties`. Edit the config without
+running the task and the build stops, because those generated resources no longer
+match — it used to build quietly with stale ones instead.
+
+`advertising.properties` is generated, not a setting: the `adsMode` line in it is
+written for reference and editing it changes nothing.
 
 **`parseConfig` does not work with the configuration cache.** If you have
 `org.gradle.configuration-cache` on, run the task as
@@ -76,29 +81,42 @@ ads instead.
 it: an ordinary build works and is invalidated correctly when you edit the
 configuration.
 
-**`parseConfig` cannot share a command with a build.** The mode is chosen before
-the task gets a chance to write it, so such a command would use the previous
-value. The build stops if you try. If your CI ran something like
-`./gradlew parseConfig assembleRelease`, split it into two commands.
+**`parseConfig` cannot share a command with a build.** The task writes
+`app_version.properties` and `handling_link.properties` while it runs, and the
+build reads both while Gradle configures the project — which happens first, so
+such a command would build with the previous values. The build stops if you try.
+If your CI ran something like `./gradlew parseConfig assembleRelease`, split it
+into two commands.
 
 To confirm the ads are actually wired in, check the dependency graph rather than
 the fact that the task finished without errors:
 
 ```bash
-./gradlew verifyAdvertisingWiring -PadsMode=appodeal_admob
+./gradlew verifyAdvertisingWiring
 ```
 
-Modes: `none`, `appodeal`, `appodeal_admob`. `-PadsMode` exists for this check
-alone: it substitutes the mode without touching your configuration, so anything
-built with it does not match your settings. Any command that passes `-PadsMode`
-and asks for something other than `verifyAdvertisingWiring` is refused.
+The task resolves the dependency tree of a release build and reports which
+Appodeal adapters actually reached it, so it answers a question a green
+`parseConfig` does not.
+
+There is also `-PadsMode=none|appodeal|appodeal_admob`, which substitutes the
+mode for this one check without touching your configuration. It is meant for
+checking the wiring before your keys are filled in; with your own keys in place
+run the task without it, or you will be checking a substituted configuration
+rather than yours. Any command that passes `-PadsMode` and asks for something
+other than `verifyAdvertisingWiring` is refused.
 
 | Field | Purpose |
 |---|---|
 | `appodeal_api_key` | Appodeal key. Leave it empty and no ad network adapters enter the build. The Appodeal core itself always ships with the SDK, but without a key nothing is initialised |
 | `google_admob_app_id` | AdMob application id. It only works together with a filled `appodeal_api_key`: without one AdMob is not wired up, because all ads go through Appodeal |
-| `placements.air_ticket_placement_interstitial` | Interstitial placement for the flight search |
-| `placements.air_ticket_placement_banner` | Banner placement for the flight search |
+| `placements.air_ticket_placement_interstitial` | Interstitial placement for the flight search. Required once `appodeal_api_key` is filled in |
+| `placements.air_ticket_placement_banner` | Banner placement for the flight search. Required once `appodeal_api_key` is filled in |
+
+Both placements are required as soon as advertising is on. A filled
+`appodeal_api_key` with empty placements builds and runs, and every check stays
+green — the adapters arrive, the SDK initialises, and no ads are ever requested,
+because a placement is what identifies the ad slot to Appodeal.
 
 ## `style`
 

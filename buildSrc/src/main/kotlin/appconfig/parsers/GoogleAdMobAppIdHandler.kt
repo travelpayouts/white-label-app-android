@@ -43,8 +43,8 @@ object GoogleAdMobAppIdHandler {
     ) {
         print("Generating advertising config strings.xml... ")
 
-        // Сначала миграция: она может остановить задачу, а частичная генерация
-        // восстанавливается тяжелее, чем отказ стартовать
+        // Migration comes first: it can stop the task, and a partial generation is harder to
+        // recover from than a refusal to start
         migrateOldSubstitution(appModule)
 
 
@@ -68,9 +68,10 @@ object GoogleAdMobAppIdHandler {
     }
 
     /**
-     * Записывает режим рекламы в advertising.properties. Ничего в исходниках не
-     * ищет и не подменяет: список зависимостей живёт в app/build.gradle.kts под
-     * when, а сюда попадает только решение, какой из вариантов взять.
+     * Writes the advertising mode and the configuration fingerprint into
+     * advertising.properties. Nothing in the sources is searched for or
+     * substituted: the dependency list lives in app/build.gradle.kts under a
+     * when, and the mode only records which branch the configuration implies.
      */
     fun writeAdvertisingProperties(
         project: Project,
@@ -84,27 +85,27 @@ object GoogleAdMobAppIdHandler {
         )
         project.rootProject.file(AdvertisingMode.FILE_NAME)
             .writeText(AdvertisingMode.fileContent(mode, AdvertisingMode.hashOf(advertising)))
-        // Говорим вслух, что получилось: заполненный google_admob_app_id без
-        // appodeal_api_key даёт none, и без этой строки партнёр узнаёт об этом
-        // только по отсутствию рекламы
-        println("  режим рекламы: $mode")
+        // Say the outcome out loud: a filled google_admob_app_id without an appodeal_api_key
+        // yields none, and without this line the partner learns that only from the absence of
+        // ads
+        println("  advertising mode: $mode")
     }
 
     /**
-     * Одноразовая миграция. У партнёра, собиравшего приложение на прежней
-     * заготовке, в app/build.gradle.kts лежит результат старой подстановки:
-     * строка implementation(libs.appodeal.core), либо блок с AdMob, либо вызов
-     * appodealNetworkWithoutAdmob(). Теперь зависимости объявляются через when,
-     * и эти остатки надо убрать, иначе они задублируют объявление.
+     * A one-off migration. A partner who built the app from an earlier template
+     * carries the result of the old substitution in app/build.gradle.kts: the
+     * line implementation(libs.appodeal.core), or the AdMob block, or a call to
+     * appodealNetworkWithoutAdmob(). Dependencies are now declared through a
+     * when, so those leftovers have to go or they would declare them twice.
      *
-     * Удалить в релизе после того, как все партнёры обновятся.
+     * To be removed once every partner has updated.
      */
     private fun migrateOldSubstitution(module: Project) {
         val gradleFile = module.file(GRADLE_PATH)
         val text = gradleFile.readText()
-        // Удаляем только те формы, которые подставляла прежняя версия задачи.
-        // Всё остальное не трогаем: партнёр мог переформатировать объявление или
-        // дописать свои exclude, и слепая регулярка оставила бы висящие скобки.
+        // Only the forms the previous version of the task used to substitute are removed.
+        // Nothing else is touched: the partner may have reformatted the declaration or added
+        // their own excludes, and a blind regex would leave dangling brackets behind.
         val known = listOf(
             "implementation(libs.appodeal) { exclude(\"com.android.billingclient\", \"billing\") }",
             "implementation(libs.appodeal.core)",
@@ -115,24 +116,26 @@ object GoogleAdMobAppIdHandler {
             cleaned = cleaned.replace(Regex("\\n[ \\t]*" + Regex.escape(form) + "[ \\t]*(?=\\n)"), "")
         }
 
-        // Если остались объявления Appodeal, которых мы не узнали, — не молчим:
-        // партнёр должен убрать их сам, иначе зависимости задублируются
+        // If Appodeal declarations we do not recognise are left, say so rather than stay
+        // silent: the partner has to remove them, otherwise the dependencies are declared twice
         val leftovers = Regex(
             "\\n[ \\t]*(implementation\\(libs\\.appodeal(\\.core)?\\s*[\\)\\{]|appodealNetworkWithoutAdmob\\s*\\()[^\\n]*"
         ).findAll(cleaned).map { it.value.trim() }.toList()
         if (leftovers.isNotEmpty()) {
             throw org.gradle.api.GradleException(
-                "В app/build.gradle.kts остались объявления Appodeal в незнакомом виде:\n" +
+                "app/build.gradle.kts still declares Appodeal in a form this task does not " +
+                    "recognise:\n" +
                     leftovers.joinToString("\n") { "  $it" } +
-                    "\nЭто следы прежнего способа настройки рекламы. Удалите их вручную: " +
-                    "теперь зависимости объявляются автоматически по режиму из " +
-                    "${AdvertisingMode.FILE_NAME}, и дубли приведут к конфликту версий."
+                    "\nThese are leftovers of the previous way of configuring ads. Remove them " +
+                    "by hand: the dependencies are now declared by the when block in that same " +
+                    "file, chosen from your configuration, and duplicates lead to version " +
+                    "conflicts."
             )
         }
 
         if (cleaned != text) {
             gradleFile.writeText(cleaned)
-            println("  убраны остатки прежней подстановки зависимостей Appodeal")
+            println("  removed leftovers of the previous Appodeal dependency substitution")
         }
     }
 
