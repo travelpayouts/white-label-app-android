@@ -28,8 +28,6 @@
     <string name="ta_business">Бизнес</string>
     <string name="ta_first_class">Первый класс</string>
 
-    <!-- Hotel type -->
-
     <!--region Views-->
 
     <!-- AppBarView -->
@@ -37,7 +35,6 @@
     <string name="ta_appbar_subtitle">%1$s, %2$s</string>
     <string name="ta_filters_button_text">Фильтры</string>
     <string name="ta_chart_button_text">График цен</string>
-    <!-- HotelsAppBarView -->
     <string name="ta_on_map_button_text">На карте</string>
     <string name="ta_list_button_text">Списком</string>
     <!--  GuestsCountView  -->
@@ -367,32 +364,15 @@
 
     <!-- endregion -->
 
-    <!-- region Hotels SDK -->
-
-    <!--  SearchHotelsFragment  -->
     <!--  GuestsFragment  -->
     <!--  CalendarFragment  -->
-    <!-- SearchCityOrHotelFragment -->
     <!--  DotOnMapFragment  -->
     <string name="ta_dot_on_map_title">Выберите точку</string>
     <string name="ta_done_button_text">Готово</string>
-    <!--  HotelsSearchResultFragment  -->
-    <!--  HotelsFavoritesFragment  -->
     <string name="ta_dates_string">%1$s %2$s</string>
-    <!--  HotelsFragment  -->
     <!--    WebViewFragment-->
-    <!-- HotelMapDialog -->
-    <!-- HotelReviewsFragment -->
-    <!-- HotelRoomsDialog -->
-    <!-- HotelFiltersDialog -->
-    <!-- HotelChainFiltersFragment -->
-    <!-- HotelSortDialog -->
 
     <!-- RoomPhotosDialog -->
-
-    <!-- HotelRoomsFiltersDialog -->
-
-    <!-- SelectHotelDistanceToDialog -->
 
     <!-- endregion -->
 
