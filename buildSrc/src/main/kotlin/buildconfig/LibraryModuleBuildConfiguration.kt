@@ -12,7 +12,6 @@ import org.gradle.api.Project
 /**
  * Build configuration for android library module
  *
- * @author Anatoliy Shulipov (as@cleverpumpkin.ru)
  */
 class LibraryModuleBuildConfiguration(
     project: Project,

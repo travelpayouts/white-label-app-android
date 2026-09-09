@@ -19,7 +19,6 @@ import java.util.Properties
 /**
  * Build configuration for android app module
  *
- * @author Anatoliy Shulipov (as@cleverpumpkin.ru)
  */
 
 class AppModuleBuildConfiguration(

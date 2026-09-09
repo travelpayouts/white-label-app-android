@@ -5,7 +5,6 @@ import org.gradle.api.tasks.TaskAction
 import java.io.File
 
 /**
- * @author Anatolii Shulipov (as@cleverpumpkin.ru)
  */
 abstract class CleanBuildSrc : DefaultTask() {
 

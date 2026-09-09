@@ -8,7 +8,6 @@ import java.io.FileOutputStream
 import java.util.*
 
 /**
- * @author Anatolii Shulipov (as@cleverpumpkin.ru)
  */
 abstract class IncreaseAppVersionTask : DefaultTask() {
 

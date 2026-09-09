@@ -5,9 +5,8 @@ import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.TaskAction
 
 /**
- * Gradle task to print app version for setting TeamCity build number
- *
- * @author Anatolii Shulipov (as@cleverpumpkin.ru)
+ * Gradle task to print app version. Also emits TeamCity service messages, which
+ * a build server can pick up as the build number; harmless outside CI.
  */
 abstract class PrintAppVersionTask : DefaultTask() {
 

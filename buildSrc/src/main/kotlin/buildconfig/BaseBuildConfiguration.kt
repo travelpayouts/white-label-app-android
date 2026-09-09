@@ -14,7 +14,6 @@ import java.io.File
 /**
  * Base build configuration for android gradle module
  *
- * @author Anatoliy Shulipov (as@cleverpumpkin.ru)
  */
 abstract class BaseBuildConfiguration(
     private val project: Project,

@@ -1,7 +1,6 @@
 package configuration
 
 /**
- * @author Anatolii Shulipov (as@cleverpumpkin.ru)
  */
 
 sealed class BuildTypes(val name: String, val ribbonColor: String) {
