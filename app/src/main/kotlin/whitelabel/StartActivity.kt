@@ -18,10 +18,11 @@ class StartActivity : AppCompatActivity() {
         startMainActivity()
     }
 
-    // Параметр не-nullable намеренно: рекламные адаптеры Appodeal поднимают
-    // androidx.activity до 1.9.x, где ComponentActivity.onNewIntent объявлен с
-    // @NonNull. С Intent? сборка у партнёра, включившего рекламу, не проходит.
-    // Non-null совместим и со старой версией, где тип платформенный.
+    // The parameter is non-null on purpose: the Appodeal ad adapters raise
+    // androidx.activity to 1.9.x, where ComponentActivity.onNewIntent is declared
+    // @NonNull. With Intent? the build fails for any partner who turns ads on.
+    // Non-null also compiles against the older version, where the type is a
+    // platform type.
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
 

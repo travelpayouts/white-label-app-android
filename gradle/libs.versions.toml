@@ -13,11 +13,17 @@ flowbinding = "1.2.0"
 appdelegate = "4.3.2"
 coil = "2.7.0"
 skeleton = "6.0.0"
-# Версия ядра Appodeal задаётся модулем travel-sdk (см. travel-sdk/build.gradle.kts),
-# он поставляется вместе с .aar и является источником истины. Адаптеры обязаны
-# совпадать с ядром: на ветке 3.x они версионируются в связке.
-appodeal = "3.12.0.0"        # адаптеры com.appodeal.ads.sdk.networks:*
-appodeal-core = "3.12.0"     # ядро com.appodeal.ads.sdk:core, парное к appodeal
+# The Appodeal core version is set by the travel-sdk module (see
+# travel-sdk/build.gradle.kts), which ships with the .aar and is the source of
+# truth for it. The adapters have to match the core: on the 3.x line Appodeal
+# versions them together, so core 3.12.0 goes with adapters 3.12.0.0.
+#
+# The `appodeal` and `appodeal-core` libraries below are not used by this build.
+# They are kept because a template configured before this change may still
+# declare them, and removing the aliases would break such a project during
+# configuration - before parseConfig gets a chance to clean the declarations up.
+appodeal = "3.12.0.0"        # adapters, com.appodeal.ads.sdk.networks:*
+appodeal-core = "3.12.0"     # core, com.appodeal.ads.sdk:core, paired with the adapters
 lottie = "6.6.7"
 
 [libraries]

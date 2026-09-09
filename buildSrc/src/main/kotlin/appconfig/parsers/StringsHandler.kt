@@ -16,11 +16,11 @@ object StringsHandler {
 
         val stringsDir = project.layout.projectDirectory.file(stringsDirPath)
 
-        // Каталог необязательный: если партнёру хватает встроенных переводов,
-        // его может не быть. Без этой проверки задача падала здесь с голым
-        // NoSuchFileException, уже переписав половину проекта.
+        // The directory is optional: a partner happy with the bundled translations
+        // may not have one. Without this check the task failed here with a bare
+        // NoSuchFileException, having already rewritten half the project.
         if (!stringsDir.asFile.exists()) {
-            println("нет $stringsDirPath, пропускаем")
+            println("no $stringsDirPath, skipping")
             return
         }
 

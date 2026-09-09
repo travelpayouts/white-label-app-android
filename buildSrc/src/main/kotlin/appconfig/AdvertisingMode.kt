@@ -195,9 +195,10 @@ object AdvertisingMode {
      *
      * Both the type of the block and the types of the keys inside it are checked
      * here, because Gson would otherwise fail on a plain cast: a block written as
-     * null, a string or an array used to stop every command - help and IDE sync
-     * included - with a ClassCastException that named neither the file nor the
-     * field.
+     * a string or an array stopped every command - help and IDE sync included -
+     * with a ClassCastException that named neither the file nor the field. Such a
+     * block still stops the build, which is the point; what changed is that the
+     * message says which file and which entry to fix.
      *
      * Every path to the block goes through this function, parseConfig included,
      * so a malformed block is reported the same way wherever it is first read.

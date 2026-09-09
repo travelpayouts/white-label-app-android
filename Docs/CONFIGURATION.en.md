@@ -38,7 +38,7 @@ language, `localized` holds the translations:
 
 | Field | Required | Purpose |
 |---|---|---|
-| `identifier.android.id` | yes | Your application id, e.g. `com.mycompany.travel`. Two or more dot-separated segments, each starting with a letter and holding only letters and digits. Underscores and dashes are rejected: the generators substitute this value into `app_version.properties` and into generated Kotlin with a `[0-9A-Za-z.]` pattern, and any other character would corrupt them. If your published app id contains an underscore, tell us before you migrate — the id cannot be changed once the app is in Play |
+| `identifier.android.id` | yes | Your application id, e.g. `com.mycompany.travel`. Two or more dot-separated segments, each starting with a letter and holding only letters and digits. Underscores and dashes are rejected: the generators substitute this value with a `[0-9A-Za-z.]` pattern - into `app_version.properties`, into the `package` line of `StartActivity.kt` and into the import in `TravelAppMessagingService.kt` - and any other character would corrupt them on the next run. If your published app id contains an underscore, tell us before you migrate — the id cannot be changed once the app is in Play |
 | `identifier.android.versionName` | yes | Version name shown in the store, e.g. `1.0.0` |
 | `identifier.android.versionCode` | yes | Version code, a positive integer |
 | `display_name` | yes | App name under the launcher icon (localized) |
@@ -115,8 +115,9 @@ other than `verifyAdvertisingWiring` is refused.
 
 Both placements are required as soon as advertising is on. A filled
 `appodeal_api_key` with empty placements builds and runs, and every check stays
-green — the adapters arrive, the SDK initialises, and no ads are ever requested,
-because a placement is what identifies the ad slot to Appodeal.
+green — the adapters arrive, the SDK initialises and even caches ads, and none of
+them is ever shown, because a placement is what names the ad slot when the app
+asks to display one.
 
 ## `style`
 

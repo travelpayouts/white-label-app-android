@@ -181,7 +181,8 @@ instead of quietly building with stale advertising resources. And you can check
 the result rather than trust it: `./gradlew verifyAdvertisingWiring` resolves the
 dependency graph of a release build and fails if the adapters are not in it.
 Fill in both `placements` while you are there - with an empty placement the
-adapters arrive and no ad is ever requested, and every check stays green.
+adapters arrive, ads are even cached, and none is ever shown, with every check
+staying green.
 
 Appodeal adapter versions are now paired with the core the SDK ships (3.12.0).
 They had drifted to 3.7.0.0, which would not have registered the ad networks
@@ -200,7 +201,7 @@ them in `app/proguard-rules.pro`, and test a release build, not just a debug one
 **The bundled `travel-sdk-release.aar` is rebuilt.** Beside the R8 rules above,
 it brings the SDK changes made since the previous handover: the `Referrer` header
 now carries the application prefix taken from the `wlsdk` resource, navigation
-bar icons stay light in the dark theme on phones, the paths that end with an
+bar icons stay light in the dark theme on Android 8-14, the paths that end with an
 empty search screen file a non-fatal report so an empty result can be told apart
 from a failed request in Crashlytics, and the dead Google Maps metadata is gone
 from the archive - the empty `google_maps_api_key` resource and the
