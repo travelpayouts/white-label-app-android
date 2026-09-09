@@ -167,7 +167,7 @@ values.
 used to configure ads by finding a line in `app/build.gradle.kts` and replacing
 it. When the SDK dependencies moved into the `travel-sdk` module that line went
 away, the replacement quietly matched nothing, and filling in your Appodeal key
-stopped adding the ad adapters to the build - no error, no warning, no ads. It
+stopped adding the ad adapters to the build - no error, no warning, no ads. The
 dependency list now lives in `app/build.gradle.kts` under a `when`, and the
 branch is chosen from the `advertising` block of `config/app_config.json` itself.
 There is nothing to search for, so nothing to break. `parseConfig` still

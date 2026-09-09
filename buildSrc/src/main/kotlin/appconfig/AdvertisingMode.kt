@@ -198,8 +198,11 @@ object AdvertisingMode {
      * null, a string or an array used to stop every command - help and IDE sync
      * included - with a ClassCastException that named neither the file nor the
      * field.
+     *
+     * Every path to the block goes through this function, parseConfig included,
+     * so a malformed block is reported the same way wherever it is first read.
      */
-    private fun advertisingBlock(configText: String): JsonObject? {
+    fun advertisingBlock(configText: String): JsonObject? {
         val root = try {
             Gson().fromJson(configText, JsonObject::class.java)
         } catch (e: JsonSyntaxException) {

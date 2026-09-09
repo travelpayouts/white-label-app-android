@@ -192,12 +192,10 @@ abstract class ParseConfigTask : DefaultTask() {
         AppConfigJsonParser.parse(buildSrcAppConfig, appModule)
 
         // Taken from THE SAME text that produced buildSrcAppConfig. Reading the file again
-        // gave the resources one snapshot and the fingerprint another.
-        val advertisingSnapshot = com.google.gson.Gson()
-            .fromJson(jsonString, com.google.gson.JsonObject::class.java)
-            ?.get("advertising")
-            ?.takeIf { it.isJsonObject }
-            ?.asJsonObject
+        // gave the resources one snapshot and the fingerprint another. The block goes through
+        // the same validator the build uses, so a malformed one is reported by name here too
+        // rather than silently fingerprinted as empty.
+        val advertisingSnapshot = AdvertisingMode.advertisingBlock(jsonString)
 
         GoogleAdMobAppIdHandler.handleAdmobConfig(
             project = project,
