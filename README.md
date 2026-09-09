@@ -1,12 +1,12 @@
 # Travelpayouts White Label App for Android
 
-> **Template version:** 2026.08.21 · **Bundled SDK:** 1.7.2
+> **Template version:** 2026.09.10 · **Bundled SDK:** 1.7.2
 >
 > This is the version of the template itself, not of your app — your app's
 > version is what you set in `config/app_config.json`. If the header in your
 > copy shows an older date than the one here on GitHub, the changes listed
 > below are what you are missing. Each handover is also tagged, so you can
-> diff against a known state: `template-2026.08.21`.
+> diff against a known state: `template-2026.09.10`.
 
 A ready-to-build Android travel app (flight search) that you make your own —
 name, icon, colors, tabs — and publish under your own account.
@@ -116,7 +116,7 @@ without them. Fill them in only if you monetize with ads.
 
 ## What changed
 
-### Unreleased
+### 2026.09.10 (bundled SDK 1.7.2)
 
 **A full configuration guide.** [Docs/CONFIGURATION.en.md](Docs/CONFIGURATION.en.md)
 and [Docs/CONFIGURATION.ru.md](Docs/CONFIGURATION.ru.md) describe every field of
@@ -158,23 +158,30 @@ non-null now, which compiles against both versions. If you have your own
 **`parseConfig` can no longer share a command with a build.** If your CI ran
 `./gradlew parseConfig assembleRelease` in one line, split it in two - the
 combined form now stops with an explanation. It had been quietly wrong all
-along: the ad dependencies are chosen while Gradle configures the project, and
-the task writes the mode while it executes, so the build in that same command
-always used the previous value.
+along: the task writes `app_version.properties` and `handling_link.properties`
+while it executes, and the build reads both while Gradle configures the project,
+which happens first - so the build in that same command always used the previous
+values.
 
 **Advertising is wired up by data, not by text substitution.** `parseConfig`
 used to configure ads by finding a line in `app/build.gradle.kts` and replacing
 it. When the SDK dependencies moved into the `travel-sdk` module that line went
 away, the replacement quietly matched nothing, and filling in your Appodeal key
 stopped adding the ad adapters to the build - no error, no warning, no ads. It
-now writes the mode into `advertising.properties` and the dependency list lives
-in `app/build.gradle.kts` under a `when`, where there is nothing to search for.
+dependency list now lives in `app/build.gradle.kts` under a `when`, and the
+branch is chosen from the `advertising` block of `config/app_config.json` itself.
+There is nothing to search for, so nothing to break. `parseConfig` still
+generates the advertising resources from that block and records its fingerprint
+in `advertising.properties`, which is how the build knows those resources went
+stale.
 
 Two consequences for you. After editing the `advertising` block, running
 `./gradlew parseConfig` is required - the build stops and says so if you forget,
-instead of quietly building without ads. And you can check the result rather
-than trust it: `./gradlew verifyAdvertisingWiring -PadsMode=appodeal_admob`
-resolves the dependency graph and fails if the adapters are not in it.
+instead of quietly building with stale advertising resources. And you can check
+the result rather than trust it: `./gradlew verifyAdvertisingWiring` resolves the
+dependency graph of a release build and fails if the adapters are not in it.
+Fill in both `placements` while you are there - with an empty placement the
+adapters arrive and no ad is ever requested, and every check stays green.
 
 Appodeal adapter versions are now paired with the core the SDK ships (3.12.0).
 They had drifted to 3.7.0.0, which would not have registered the ad networks
@@ -189,6 +196,16 @@ name, such as a serialization library working off class names: those paths were
 covered by the blanket keep and are not covered now. Add your own keep rules for
 them in `app/proguard-rules.pro`, and test a release build, not just a debug one
 - the difference only shows after shrinking.
+
+**The bundled `travel-sdk-release.aar` is rebuilt.** Beside the R8 rules above,
+it brings the SDK changes made since the previous handover: the `Referrer` header
+now carries the application prefix taken from the `wlsdk` resource, navigation
+bar icons stay light in the dark theme on phones, the paths that end with an
+empty search screen file a non-fatal report so an empty result can be told apart
+from a failed request in Crashlytics, and the dead Google Maps metadata is gone
+from the archive - the empty `google_maps_api_key` resource and the
+`com.google.android.geo.API_KEY` manifest entry. The SDK version is unchanged,
+1.7.2.
 
 **No more Google Maps key.** The configuration no longer asks for
 `google_maps_api_key`, and the README no longer tells you to fill it in. The
