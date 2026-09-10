@@ -183,8 +183,9 @@ instead of quietly building with stale advertising resources. And you can check
 the result rather than trust it: `./gradlew verifyAdvertisingWiring` resolves the
 dependency graph of a release build and fails if the adapters are not in it.
 Fill in both `placements` while you are there - with an empty placement the
-adapters arrive, ads are even cached, and none is ever shown, with every check
-staying green.
+adapters arrive, ads are even cached, and that format is never shown, with every
+check staying green. The other format still runs if its own placement is filled
+in: the two are gated separately.
 
 Appodeal adapter versions are now paired with the core the SDK ships (3.12.0).
 They had drifted to 3.7.0.0, which would not have registered the ad networks

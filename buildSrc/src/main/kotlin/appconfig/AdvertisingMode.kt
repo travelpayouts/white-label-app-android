@@ -354,10 +354,19 @@ object AdvertisingMode {
         val placements = element.asJsonObject
         for (name in listOf("air_ticket_placement_interstitial", "air_ticket_placement_banner")) {
             val value = stringField(placements, name, path = "advertising.placements")
-            if (value.isNullOrBlank()) {
+            // Пустое имя и имя из одних пробелов ведут себя по-разному: SDK проверяет
+            // непустоту, а не пробельность, поэтому " " доезжает до Appodeal как имя
+            // площадки. Разные случаи - разные предупреждения, иначе текст врёт.
+            if (value.isNullOrEmpty()) {
                 project.logger.warn(
                     "WARNING: advertising.placements.$name is empty in $CONFIG_PATH while the ad " +
                         "keys are filled in. That format will not be shown at all."
+                )
+            } else if (value.isBlank()) {
+                project.logger.warn(
+                    "WARNING: advertising.placements.$name is only whitespace in $CONFIG_PATH. " +
+                        "The SDK treats it as a placement name and sends it to Appodeal as it is, " +
+                        "which is almost certainly not what you meant."
                 )
             }
         }
