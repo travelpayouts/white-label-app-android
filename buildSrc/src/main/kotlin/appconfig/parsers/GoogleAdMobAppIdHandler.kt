@@ -124,8 +124,8 @@ object GoogleAdMobAppIdHandler {
         // Kotlin, survived the migration, and pulled 26 adapters into a build whose mode was
         // none. The adapter aliases are libs.appodeal.<network>, so the lookahead keeps them
         // out: only the bare alias and libs.appodeal.core are leftovers.
-        val leftovers = Regex("""libs\.appodeal(\.core)?(?![.\w])|appodealNetworkWithoutAdmob\s*\(""")
-            .findAll(cleaned)
+        val leftovers = Regex("""libs\s*\.\s*appodeal(\s*\.\s*core)?(?![.\w])|(?<!\.)appodealNetworkWithoutAdmob\s*\(""")
+            .findAll(withoutCommentsAndStrings(cleaned))
             .map { match ->
                 val line = cleaned.take(match.range.first).count { it == '\n' } + 1
                 "line $line: ${cleaned.lines()[line - 1].trim()}"
@@ -147,6 +147,22 @@ object GoogleAdMobAppIdHandler {
             gradleFile.writeText(cleaned)
             println("  removed leftovers of the previous Appodeal dependency substitution")
         }
+    }
+
+    /**
+     * The same text with comments and string literals blanked out, newlines kept
+     * so that line numbers still match the original.
+     *
+     * Without this the search for the old alias fired on a partner's own comment
+     * or on a string that merely mentions it, and parseConfig refused to run over
+     * a line that changes nothing.
+     */
+    private fun withoutCommentsAndStrings(text: String): String {
+        fun blank(match: MatchResult) = match.value.map { if (it == '\n') '\n' else ' ' }.joinToString("")
+        return text
+            .replace(Regex("""/\*[\s\S]*?\*/"""), ::blank)
+            .replace(Regex("""//[^\n]*"""), ::blank)
+            .replace(Regex(""""(?:\\.|[^"\\\n])*""""), ::blank)
     }
 
     private fun handleManifest(

@@ -112,11 +112,17 @@ other than `verifyAdvertisingWiring` is refused.
 | `placements.air_ticket_placement_interstitial` | Interstitial placement for the flight search. Required once `appodeal_api_key` is filled in |
 | `placements.air_ticket_placement_banner` | Banner placement for the flight search. Required once `appodeal_api_key` is filled in |
 
-Both placements are required as soon as advertising is on. A filled
-`appodeal_api_key` with empty placements builds and runs, and every check stays
-green — the adapters arrive, the SDK initialises and even caches ads, and none of
-them is ever shown, because a placement is what names the ad slot when the app
-asks to display one.
+Fill both placements in as soon as advertising is on. A filled `appodeal_api_key`
+with an empty placement still builds: `parseConfig` warns and the build carries
+on, because shipping only one of the two ad formats is a legitimate choice. What
+you get with an empty one is the adapters in the build and no interstitial ever
+requested; for the banner the empty name is passed to Appodeal, which decides
+what to do with it.
+
+A placement that is not a string is an error, not a warning: `123` or `true`
+would reach the SDK as the placement names `"123"` and `"true"`. The message
+names the full path of the field, and it stops every Gradle command until you fix
+it — including the one your IDE runs to sync the project.
 
 ## `style`
 

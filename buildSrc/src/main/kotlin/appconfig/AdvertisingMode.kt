@@ -45,8 +45,14 @@ object AdvertisingMode {
      * The hash of the advertising block as it was when the mode was derived, kept
      * so that the stale-resource guard checks the same snapshot the build was
      * configured from. Set while Gradle configures the project, read when the task
-     * graph is ready. Null only when the mode came from an override, and then the
-     * guard falls back to reading the file.
+     * graph is ready.
+     *
+     * Cleared at the start of every read(), and that matters: Gradle reuses the
+     * buildSrc classloader between builds of the same daemon, so without the reset
+     * this field would still hold the hash from a previous build - and the guard
+     * would answer about someone else's configuration. Both directions were
+     * observed: a stale green in the daemon, and a "run parseConfig" right after
+     * parseConfig had been run in another JVM.
      */
     @Volatile
     private var snapshotHash: String? = null
@@ -269,6 +275,11 @@ object AdvertisingMode {
     }
 
     fun read(project: Project): String {
+        // Any hash left from an earlier build of this daemon is not ours - drop it before
+        // anything can read it. With an override no snapshot is taken at all, and the guard
+        // falls back to reading the file, which is what it should do.
+        snapshotHash = null
+
         // The command-line override wins over the configuration. It is allowed only for the
         // verification task, which the task graph guard enforces.
         override(project)?.let {
@@ -314,8 +325,10 @@ object AdvertisingMode {
 
     /**
      * The placements, once advertising is on. A placement names the ad slot when
-     * the app asks Appodeal to show one, so an empty value means the adapters
-     * arrive, ads are cached and none is ever shown - with every check green.
+     * the app asks Appodeal to show one. With an empty value the interstitial is
+     * never requested at all, and what happens to the banner is up to Appodeal -
+     * the SDK passes the empty name through. Either way the adapters are in the
+     * build and every check stays green.
      *
      * A wrong type is an error, the same as for the keys: Gson would coerce 123
      * or true into the strings "123" and "true" and hand them to the SDK as if
@@ -327,7 +340,8 @@ object AdvertisingMode {
         if (element == null || element.isJsonNull) {
             project.logger.warn(
                 "WARNING: advertising.placements is missing in $CONFIG_PATH while the ad keys are " +
-                    "filled in. The adapters will be in the build and no ad will ever be shown."
+                    "filled in. The adapters will be in the build, the interstitial will never be " +
+                    "requested, and the banner is left to Appodeal to decide."
             )
             return
         }
@@ -343,7 +357,7 @@ object AdvertisingMode {
             if (value.isNullOrBlank()) {
                 project.logger.warn(
                     "WARNING: advertising.placements.$name is empty in $CONFIG_PATH while the ad " +
-                        "keys are filled in. That format will never be shown."
+                        "keys are filled in. That format will not be requested by name."
                 )
             }
         }
