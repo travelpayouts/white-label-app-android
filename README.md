@@ -103,7 +103,9 @@ task stops and says what to fill in.
 
 Optional, alongside `app_config.json`: `config/icons/` (launcher and tab
 icons), `config/images/` (background), `config/strings/<lang>/strings.xml`
-(your own wording).
+(your own wording). These are copied into the app by `parseConfig` as well, so
+run it again after changing any of them — otherwise the build keeps the previous
+icons, background and texts.
 
 **Every field, in detail** — including the keys that look configurable but have
 no effect, and the limit of two `other` tabs:

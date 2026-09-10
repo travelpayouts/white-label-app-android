@@ -12,10 +12,16 @@ config/
   strings/                 your own wording for the SDK's texts
 ```
 
-The order matters: **fill in the config → put your Firebase file in place →
-run `./gradlew parseConfig` → build.** `parseConfig` generates the application
-id, names, colours, icons and tabs from your config. Editing `app_config.json`
-without running it changes nothing in the built app.
+The order matters: **create `signing.properties` → fill in the config → put
+your Firebase file in place → run `./gradlew parseConfig` → build.**
+`parseConfig` generates the application id, names, colours, icons and tabs from
+your config. Editing `app_config.json` without running it changes nothing in the
+built app.
+
+`signing.properties` comes first because Gradle reads it while it configures the
+project, which happens before any task runs — without the file even
+`./gradlew parseConfig` stops with `signing.properties (No such file or
+directory)`. See [Signing](../README.md#signing).
 
 ## How to read this guide
 
@@ -203,7 +209,9 @@ compile.
 **Their icons come from files, not from the config.** Put your own
 `config/icons/ic_other_1.xml` and `ic_other_2.xml` — the first file belongs to
 the first `other` tab in the list, the second to the second. Without a file the
-tab uses the SDK's default icon. Vector drawables (`.xml`) only.
+tab uses the SDK's default icon. Vector drawables (`.xml`) only. Run
+`./gradlew parseConfig` after adding or replacing them: the files reach the app
+through that task, not from the folder directly.
 
 A `type` the app does not know — `hotels`, for example, left over from when the
 SDK had hotel search — is skipped without an error. It will not appear as a tab.

@@ -2,12 +2,12 @@
 <!--
     Kept for compatibility only. The SDK used to declare a Google Maps API key
     in its manifest, for map screens that no longer exist, and every app built
-    on this template had to define this string. SDK versions after 1.7.2 no
-    longer reference it, and the configuration no longer asks for it.
+    on this template had to define this string. The .aar bundled here does not
+    reference it, and the configuration no longer asks for it.
 
-    If you build against an SDK newer than 1.7.2, this file can be deleted.
-    Keep it while you still build against 1.7.2 or older: their manifest
-    references this string, and the build fails without it.
+    You can delete this file unless you build against an older artifact: the
+    July build of 1.7.2 and everything before it still reference this string in
+    their manifest, and those builds fail without it.
 -->
 <resources>
     <string name="google_maps_api_key" translatable="false"></string>
