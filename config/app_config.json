@@ -5,10 +5,6 @@
         "id": "",
         "versionCode": 1,
         "versionName": "1.7.0"
-      },
-      "apple": {
-        "id": "",
-        "team_id": ""
       }
     },
     "display_name": {
@@ -29,8 +25,6 @@
     },
     "feedback_email": "test@test.com",
     "feedback_theme": null,
-    "google_maps_api_key": "",
-    "appstore_id": "",
     "app_store_link": "",
     "marker": "0",
     "client_device_host": "",
@@ -46,9 +40,7 @@
     "google_admob_app_id": "",
     "placements": {
       "air_ticket_placement_interstitial": "",
-      "air_ticket_placement_banner": "",
-      "hotels_placement_interstitial": "",
-      "hotels_placement_banner": ""
+      "air_ticket_placement_banner": ""
     }
   },
   "style": {
@@ -56,9 +48,7 @@
     "corners_type": "round",
     "icons_type": "tint",
     "palette": "lab",
-    "overridden_color": {
-
-    }
+    "overridden_color": {}
   },
   "info_screen_config": {
     "items_to_display": [
@@ -75,12 +65,6 @@
           "ru": "Описание приложения"
         }
       },
-      "developer": {
-        "base": "en",
-        "localized": {
-          "en": "CleverPumpkin Ltd."
-        }
-      },
       "partner_url": {
         "base": "en",
         "localized": {
@@ -95,12 +79,8 @@
         "type": "flights"
       },
       {
-        "type": "hotels"
-      },
-      {
         "type": "other",
         "parameters": {
-          "id": "Other1",
           "title": {
             "base": "en",
             "localized": {
@@ -120,7 +100,6 @@
       {
         "type": "other",
         "parameters": {
-          "id": "Other2",
           "title": {
             "base": "en",
             "localized": {

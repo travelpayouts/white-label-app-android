@@ -1,4 +1,4 @@
-package com.travelapp
+package com.example.travel
 
 import android.content.Intent
 import android.os.Bundle
@@ -18,7 +18,12 @@ class StartActivity : AppCompatActivity() {
         startMainActivity()
     }
 
-    override fun onNewIntent(intent: Intent?) {
+    // The parameter is non-null on purpose: the Appodeal ad adapters raise
+    // androidx.activity to 1.9.x, where ComponentActivity.onNewIntent is declared
+    // @NonNull. With Intent? the build fails for any partner who turns ads on.
+    // Non-null also compiles against the older version, where the type is a
+    // platform type.
+    override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
 
         startMainActivity()

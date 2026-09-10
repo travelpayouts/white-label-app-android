@@ -86,9 +86,6 @@ class Constants(
     @SerializedName("feedback_theme")
     val feedbackTheme: String?,
 
-    @SerializedName("google_maps_api_key")
-    val googleMapsApiKey: String,
-
     @SerializedName("app_store_link")
     val appStoreLink: String?,
 

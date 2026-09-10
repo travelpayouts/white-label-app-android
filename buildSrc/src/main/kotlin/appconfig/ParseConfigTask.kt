@@ -7,7 +7,6 @@ import appconfig.parsers.AppTabsParser
 import appconfig.parsers.AppVersionHandler
 import appconfig.parsers.BgImageParser
 import appconfig.parsers.GoogleAdMobAppIdHandler
-import appconfig.parsers.GoogleMapsApiKeyHandler
 import appconfig.parsers.GoogleServicesHandler
 import appconfig.parsers.HandlingLinkHandler
 import appconfig.parsers.HsvColorsHandler
@@ -101,12 +100,6 @@ abstract class ParseConfigTask : DefaultTask() {
                     "empty host in its requests."
             )
         }
-        if (constants.googleMapsApiKey.isNullOrBlank()) {
-            logger.warn(
-                "WARNING: constants.google_maps_api_key is not set in " +
-                    "config/app_config.json. Map screens will render blank."
-            )
-        }
     }
 
     /**
@@ -167,6 +160,18 @@ abstract class ParseConfigTask : DefaultTask() {
 
     @TaskAction
     fun parseConfig() {
+        // The task reaches for project while it runs, which the configuration cache forbids.
+        // Without this check the partner ends up in a dead end: the build asks them to run
+        // parseConfig, and parseConfig fails with "App module not found!", which says nothing
+        // about the cache.
+        if (project.gradle.startParameter.isConfigurationCacheRequested) {
+            throw GradleException(
+                "$GRADLE_TASK_NAME does not work with the configuration cache. Run ./gradlew " +
+                    "$GRADLE_TASK_NAME --no-configuration-cache; every other command can keep " +
+                    "the cache on, an ordinary build works with it."
+            )
+        }
+
 
         val appModule =
             project.childProjects["app"] ?: throw IllegalStateException("App module not found!")
@@ -186,8 +191,16 @@ abstract class ParseConfigTask : DefaultTask() {
 
         AppConfigJsonParser.parse(buildSrcAppConfig, appModule)
 
+        // Taken from THE SAME text that produced buildSrcAppConfig. Reading the file again
+        // gave the resources one snapshot and the fingerprint another. The block goes through
+        // the same validator the build uses, so a malformed one is reported by name here too
+        // rather than silently fingerprinted as empty.
+        val advertisingSnapshot = AdvertisingMode.advertisingBlock(jsonString)
+
         GoogleAdMobAppIdHandler.handleAdmobConfig(
+            project = project,
             appModule = appModule,
+            advertising = advertisingSnapshot,
             googleAdmobAppId = buildSrcAppConfig.advertising?.googleAdmobAppId?.trim().orEmpty(),
             isAppodealKeyEmpty = buildSrcAppConfig.advertising?.appodealApiKey.isNullOrBlank()
         )
@@ -223,7 +236,6 @@ abstract class ParseConfigTask : DefaultTask() {
             buildSrcAppConfig.infoScreenConfig.aboutAppInfo.partnerUrl
         )
 
-        GoogleMapsApiKeyHandler.generateXml(appModule, buildSrcAppConfig.constants.googleMapsApiKey)
 
         PolicyUrlHandler.generatePolicyUrlXml(appModule, buildSrcAppConfig.constants.policyUrl)
 
@@ -257,6 +269,21 @@ abstract class ParseConfigTask : DefaultTask() {
         BgImageParser.parseImage(project, appModule)
 
         StringsHandler.copyStringsFiles(project, appModule)
+
+        // The advertising properties file is written last, once every generator has finished.
+        // Otherwise a failure in the middle of the task would leave a fresh fingerprint next to
+        // stale generated files - exactly the state the fingerprint exists to catch, and the
+        // next build would quietly consider everything consistent.
+        //
+        // The fingerprint is computed from THE SAME text the resources were generated from.
+        // The file used to be read again here, so editing the configuration while the task ran
+        // (it takes some seven seconds) gave the resources one snapshot and the hash another.
+        GoogleAdMobAppIdHandler.writeAdvertisingProperties(
+            project = project,
+            advertising = advertisingSnapshot,
+            googleAdmobAppId = buildSrcAppConfig.advertising?.googleAdmobAppId?.trim().orEmpty(),
+            isAppodealKeyEmpty = buildSrcAppConfig.advertising?.appodealApiKey.isNullOrBlank()
+        )
 
         //TODO
         //OtherTabInfoParser.parseTabs(appModule, buildSrcAppConfig.whiteLabelConfig)

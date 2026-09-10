@@ -26,8 +26,8 @@ object GoogleServicesHandler {
         print("Copying 'google-services.json'...    ")
         val appModule = project.childProjects["app"] ?: throw GradleException("app module not found!")
 
-        // Наличие и содержимое файла проверяет ParseConfigTask до запуска
-        // парсеров, поэтому здесь только копирование.
+        // ParseConfigTask checks that the file exists and holds the right clients
+        // before any parser runs, so this only copies it.
         val srcFile = project.file(GOOGLE_SERVICES_JSON_PATH)
 
         TARGET_PATHS.forEach { path ->

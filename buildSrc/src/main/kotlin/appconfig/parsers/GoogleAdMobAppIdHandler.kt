@@ -1,5 +1,6 @@
 package appconfig.parsers
 
+import appconfig.AdvertisingMode
 import appconfig.GRADLE_TASK_NAME
 import org.gradle.api.Project
 
@@ -10,16 +11,6 @@ object GoogleAdMobAppIdHandler {
     private const val GRADLE_PATH = "build.gradle.kts"
 
     private const val MANIFEST_PATH = "src/main/AndroidManifest.xml"
-
-    private const val APPODEAL_WITH_ADMOB =
-        "implementation(libs.appodeal) { exclude(\"com.android.billingclient\", \"billing\") }"
-
-    private const val APPODEAL_CORE = "implementation(libs.appodeal.core)"
-
-    private const val APPODEAL_WITHOUT_ADMOB = """
-    implementation(libs.appodeal.core)
-    appodealNetworkWithoutAdmob()
-    """
 
     private const val ADMOB_FULL_INFO =
         """    <meta-data
@@ -44,17 +35,18 @@ object GoogleAdMobAppIdHandler {
     """.trimIndent()
 
     fun handleAdmobConfig(
+        project: Project,
         appModule: Project,
+        advertising: com.google.gson.JsonObject?,
         googleAdmobAppId: String,
         isAppodealKeyEmpty: Boolean
     ) {
         print("Generating advertising config strings.xml... ")
 
-        handleAppodealGradleDeps(
-            module = appModule,
-            googleAdmobIsEmpty = googleAdmobAppId.isBlank(),
-            isAppodealKeyEmpty = isAppodealKeyEmpty
-        )
+        // Migration comes first: it can stop the task, and a partial generation is harder to
+        // recover from than a refusal to start
+        migrateOldSubstitution(appModule)
+
 
         handleManifest(
             module = appModule,
@@ -75,40 +67,103 @@ object GoogleAdMobAppIdHandler {
         println("✅ ")
     }
 
-    private fun handleAppodealGradleDeps(
-        module: Project,
-        googleAdmobIsEmpty: Boolean,
+    /**
+     * Writes the advertising mode and the configuration fingerprint into
+     * advertising.properties. Nothing in the sources is searched for or
+     * substituted: the dependency list lives in app/build.gradle.kts under a
+     * when, and the mode only records which branch the configuration implies.
+     */
+    fun writeAdvertisingProperties(
+        project: Project,
+        advertising: com.google.gson.JsonObject?,
+        googleAdmobAppId: String,
         isAppodealKeyEmpty: Boolean
     ) {
-        val gradleFile = module.file(GRADLE_PATH)
-
-        // Сначала приводим объявление к общему виду и только потом применяем
-        // нужное. Без этого второй запуск задачи раздувает файл: блок
-        // APPODEAL_WITHOUT_ADMOB содержит внутри себя строку APPODEAL_CORE,
-        // и замена срабатывает по уже вставленному тексту.
-        val normalized = normalizeAppodealDeps(gradleFile.readText())
-
-        val editedGradleText = when {
-            isAppodealKeyEmpty -> normalized
-            googleAdmobIsEmpty -> normalized.replace(APPODEAL_CORE, APPODEAL_WITHOUT_ADMOB)
-            else -> normalized.replace(APPODEAL_CORE, APPODEAL_WITH_ADMOB)
-        }
-
-        gradleFile.writeText(editedGradleText)
+        val mode = AdvertisingMode.modeOf(
+            appodealApiKey = if (isAppodealKeyEmpty) null else "set",
+            googleAdmobAppId = googleAdmobAppId.ifBlank { null }
+        )
+        project.rootProject.file(AdvertisingMode.FILE_NAME)
+            .writeText(AdvertisingMode.fileContent(mode, AdvertisingMode.hashOf(advertising)))
+        // Say the outcome out loud: a filled google_admob_app_id without an appodeal_api_key
+        // yields none, and without this line the partner learns that only from the absence of
+        // ads
+        println("  advertising mode: $mode")
     }
 
     /**
-     * Возвращает объявление зависимостей Appodeal к базовому виду
-     * (одна строка APPODEAL_CORE), сколько бы раз задача ни отрабатывала до
-     * этого.
+     * A one-off migration. A partner who built the app from an earlier template
+     * carries the result of the old substitution in app/build.gradle.kts: the
+     * line implementation(libs.appodeal.core), or the AdMob block, or a call to
+     * appodealNetworkWithoutAdmob(). Dependencies are now declared through a
+     * when, so those leftovers have to go or they would declare them twice.
+     *
+     * To be removed once every partner has updated.
      */
-    private fun normalizeAppodealDeps(text: String): String = text
-        .replace(APPODEAL_WITH_ADMOB, APPODEAL_CORE)
-        .replace(Regex("""\n[ \t]*appodealNetworkWithoutAdmob\(\)"""), "")
-        .replace(
-            Regex("""(\n[ \t]*implementation\(libs\.appodeal\.core\))+"""),
-            "\n    " + APPODEAL_CORE
+    private fun migrateOldSubstitution(module: Project) {
+        val gradleFile = module.file(GRADLE_PATH)
+        val text = gradleFile.readText()
+        // Only the forms the previous version of the task used to substitute are removed.
+        // Nothing else is touched: the partner may have reformatted the declaration or added
+        // their own excludes, and a blind regex would leave dangling brackets behind.
+        val known = listOf(
+            "implementation(libs.appodeal) { exclude(\"com.android.billingclient\", \"billing\") }",
+            "implementation(libs.appodeal.core)",
+            "appodealNetworkWithoutAdmob()"
         )
+        var cleaned = text
+        for (form in known) {
+            cleaned = cleaned.replace(Regex("\\n[ \\t]*" + Regex.escape(form) + "[ \\t]*(?=\\n)"), "")
+        }
+
+        // If Appodeal declarations we do not recognise are left, say so rather than stay
+        // silent: the partner has to remove them, otherwise the dependencies are declared twice.
+        //
+        // The search is for the alias itself, wherever it stands. Matching whole lines missed
+        // the form that wraps across lines - implementation(\n    libs.appodeal\n) is valid
+        // Kotlin, survived the migration, and pulled 26 adapters into a build whose mode was
+        // none. The adapter aliases are libs.appodeal.<network>, so the lookahead keeps them
+        // out: only the bare alias and libs.appodeal.core are leftovers.
+        val leftovers = Regex("""libs\s*\.\s*appodeal(\s*\.\s*core)?(?![.\w])|(?<!\.)appodealNetworkWithoutAdmob\s*\(""")
+            .findAll(withoutCommentsAndStrings(cleaned))
+            .map { match ->
+                val line = cleaned.take(match.range.first).count { it == '\n' } + 1
+                "line $line: ${cleaned.lines()[line - 1].trim()}"
+            }
+            .toList()
+        if (leftovers.isNotEmpty()) {
+            throw org.gradle.api.GradleException(
+                "app/build.gradle.kts still declares Appodeal in a form this task does not " +
+                    "recognise:\n" +
+                    leftovers.joinToString("\n") { "  $it" } +
+                    "\nThese are leftovers of the previous way of configuring ads. Remove them " +
+                    "by hand: the dependencies are now declared by the when block in that same " +
+                    "file, chosen from your configuration, and duplicates lead to version " +
+                    "conflicts."
+            )
+        }
+
+        if (cleaned != text) {
+            gradleFile.writeText(cleaned)
+            println("  removed leftovers of the previous Appodeal dependency substitution")
+        }
+    }
+
+    /**
+     * The same text with comments and string literals blanked out, newlines kept
+     * so that line numbers still match the original.
+     *
+     * Without this the search for the old alias fired on a partner's own comment
+     * or on a string that merely mentions it, and parseConfig refused to run over
+     * a line that changes nothing.
+     */
+    private fun withoutCommentsAndStrings(text: String): String {
+        fun blank(match: MatchResult) = match.value.map { if (it == '\n') '\n' else ' ' }.joinToString("")
+        return text
+            .replace(Regex("""/\*[\s\S]*?\*/"""), ::blank)
+            .replace(Regex("""//[^\n]*"""), ::blank)
+            .replace(Regex(""""(?:\\.|[^"\\\n])*""""), ::blank)
+    }
 
     private fun handleManifest(
         module: Project,

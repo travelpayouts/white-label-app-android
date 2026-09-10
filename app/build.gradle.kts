@@ -20,12 +20,28 @@ plugins {
 private val FILE_NAME = "handling_link.properties"
 private val PROP_HANDLING_LINK = "handlingLink"
 
+// The advertising mode implied by config/app_config.json, which is the only place that
+// decides which ad libraries enter the build.
+private val adsMode: String = appconfig.AdvertisingMode.read(project)
+
+// The strict checks hang off the task graph. Parsing the command line does not work: its
+// forms - abbreviations, task options - get around any hand-written heuristic
+private val advertisingGuards = appconfig.AdvertisingMode.registerGuards(project)
+
 private val prop: Properties = Properties().apply {
-    val fis = FileInputStream(FILE_NAME)
+    // Resolved against the project root rather than the JVM working directory. A relative
+    // name is resolved against the directory the build was started from and breaks outside
+    // the root. This place alone is not enough: configuration/ApplicationVersions reads
+    // app_version.properties the same way
+    val fis = FileInputStream(rootProject.file(FILE_NAME))
     load(fis)
     fis.close()
 }
 
+
+// Checks that the ad adapters actually reached the build.
+// Run: ./gradlew verifyAdvertisingWiring
+verification.AdvertisingWiring.register(project)
 
 android {
     namespace = "com.travelapp"
@@ -34,6 +50,16 @@ android {
     defaultConfig {
         manifestPlaceholders["custom_app_id"] = configuration.ApplicationVersions.APPLICATION_ID
         manifestPlaceholders["intent_filter"] = prop.getProperty(PROP_HANDLING_LINK)
+    }
+
+    packaging {
+        resources {
+            // okhttp 5.3.2 brings org.jspecify:jspecify, and both jars carry
+            // this file. Without the exclude the build fails on
+            // mergeJavaResource. The same conflict is documented for
+            // integrators in the SDK integration guide.
+            excludes += "/META-INF/versions/9/OSGI-INF/MANIFEST.MF"
+        }
     }
 
     applicationVariants.all {
@@ -85,91 +111,42 @@ easylauncher {
 
 
 dependencies {
+    // Required by the SDK: it is compiled with core library desugaring, so the
+    // app that embeds it has to enable it too.
     coreLibraryDesugaring(libs.desugar.jdk.libs)
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 
-    // Travel SDK
+    // Travel SDK. The :travel-sdk module declares every dependency the SDK
+    // needs and exports them, so they are not repeated here. Versions come
+    // from there and match the SDK build — before, this module listed them
+    // again and they drifted: okhttp 5.1.0 against 5.3.2, firebase-bom 33.16.0
+    // against 34.9.0, dagger 2.56.2 against 2.59.1 and a dozen more.
     implementation(project(BuildModules.SDK))
     implementation(project(BuildModules.Common.DEBUG))
 
-    // AndroidX
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.fragment.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.androidx.recyclerview)
-    implementation(libs.androidx.constraintlayout)
-
-    implementation(libs.lifecycle.extensions)
-
-    // Navigation
-    implementation(libs.navigation.ui)
-    implementation(libs.navigation.fragment)
-
-    // Maps
-    implementation(libs.maps.services)
-    implementation(libs.maps.utils)
-    implementation(libs.maps.utils.ktx)
-    implementation(libs.play.services.maps)
-    implementation(libs.play.services.location)
-
-    // Retrofit
-    implementation(platform(libs.okhttp.bom))
-    implementation(libs.okhttp)
-    implementation(libs.loggin.interceptor)
-    implementation(libs.retrofit)
-    implementation(libs.retrofit.converter.gson)
-    implementation(libs.retrofit.converter.scalars)
-
-    // UI
-    implementation(libs.material.components)
-    implementation(libs.viewbinding.property.delegate)
-    implementation(libs.crunchycalendar)
-    implementation(libs.skeleton)
-    implementation(libs.lottie)
-    implementation(libs.adapterdelegate.core)
-    implementation(libs.adapterdelegate.dsl)
-    implementation(libs.adapterdelegate.layout.container)
-    implementation(libs.adapterdelegate.view.binding)
-
-    //Flow binding
-    implementation(libs.flowbinding.core)
-    implementation(libs.flowbinding.material)
-    implementation(libs.flowbinding.platform)
-    implementation(libs.flowbinding.appcompat)
-    implementation(libs.flowbinding.viewpager)
-    implementation(libs.flowbinding.recyclerview)
-
-    //Coil
-    implementation(libs.coil.base)
-    implementation(libs.coil)
-
-    // FIrebase
-    implementation(platform(libs.firebase.bom))
-    implementation(libs.firebase.analytics)
-    implementation(libs.firebase.crashlytics)
+    // Used by this app itself, not by the SDK
     implementation(libs.firebase.messaging)
+    implementation(libs.flowbinding.viewpager)
+    implementation(libs.seismic)
 
-    // Dagger
-    implementation(libs.dagger)
+    // Dagger: the app has its own graph, so it needs the compiler. The runtime
+    // library comes with the SDK.
     kapt(libs.dagger.compiler)
     compileOnly(libs.dagger.annotation)
 
-    //Tools
-    implementation(libs.timberkt)
-    implementation(libs.insetter)
-    implementation(libs.gson)
-    implementation(libs.seismic)
-
-    implementation(libs.appodeal.core)
-
-    // AppsFlyer
-    implementation(libs.appsflyer)
-
-    //InAppReview
-    implementation(libs.app.review)
-    implementation(libs.app.review.ktx)
-
+    // Advertising. What gets wired in is decided by the advertising block of
+    // config/app_config.json; the dependency list lives here, under a when, and no generator
+    // edits it.
+    when (adsMode) {
+        appconfig.AdvertisingMode.NONE -> Unit
+        appconfig.AdvertisingMode.APPODEAL -> appodealNetworks()
+        appconfig.AdvertisingMode.APPODEAL_ADMOB -> {
+            appodealNetworks()
+            implementation(libs.appodeal.admob)
+        }
+    }
 }
+
 
 //evaluationDependsOn(BuildModules.Config.LIBRARY)
 
@@ -192,7 +169,9 @@ fun EasyLauncherConfig.configure(icons: List<String>, ribbonColor: String) {
     )
 }
 
-private fun DependencyHandlerScope.appodealNetworkWithoutAdmob() {
+// The Appodeal ad networks. The core arrives from the travel-sdk module; only the adapters
+// are declared here. Versions come from the catalog and are paired with the core.
+private fun DependencyHandlerScope.appodealNetworks() {
     implementation(libs.appodeal.amazon)
     implementation(libs.appodeal.applovin)
     implementation(libs.appodeal.applovin.max)

@@ -13,7 +13,17 @@ flowbinding = "1.2.0"
 appdelegate = "4.3.2"
 coil = "2.7.0"
 skeleton = "6.0.0"
-appodeal = "3.7.0.0"
+# The Appodeal core version is set by the travel-sdk module (see
+# travel-sdk/build.gradle.kts), which ships with the .aar and is the source of
+# truth for it. The adapters have to match the core: on the 3.x line Appodeal
+# versions them together, so core 3.12.0 goes with adapters 3.12.0.0.
+#
+# The `appodeal` and `appodeal-core` libraries below are not used by this build.
+# They are kept because a template configured before this change may still
+# declare them, and removing the aliases would break such a project during
+# configuration - before parseConfig gets a chance to clean the declarations up.
+appodeal = "3.12.0.0"        # adapters, com.appodeal.ads.sdk.networks:*
+appodeal-core = "3.12.0"     # core, com.appodeal.ads.sdk:core, paired with the adapters
 lottie = "6.6.7"
 
 [libraries]
@@ -120,7 +130,8 @@ seismic = { group = "com.squareup", name = "seismic", version = "1.0.3" }
 app-review = { group = "com.google.android.play", name = "review", version = "2.0.2" }
 app-review-ktx = { group = "com.google.android.play", name = "review-ktx", version = "2.0.2" }
 appodeal = { group = "com.appodeal.ads", name = "sdk", version.ref = "appodeal" }
-appodeal-core = { group = "com.appodeal.ads.sdk", name = "core", version = "3.7.0" }
+appodeal-core = { group = "com.appodeal.ads.sdk", name = "core", version.ref = "appodeal-core" }
+appodeal-admob = { group = "com.appodeal.ads.sdk.networks", name = "admob", version.ref = "appodeal" }
 appodeal-amazon = { group = "com.appodeal.ads.sdk.networks", name = "amazon", version.ref = "appodeal" }
 appodeal-applovin = { group = "com.appodeal.ads.sdk.networks", name = "applovin", version.ref = "appodeal" }
 appodeal-applovin-max = { group = "com.appodeal.ads.sdk.networks", name = "applovin_max", version.ref = "appodeal" }
