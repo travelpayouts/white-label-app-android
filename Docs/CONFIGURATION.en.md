@@ -121,9 +121,9 @@ other than `verifyAdvertisingWiring` is refused.
 Fill both placements in as soon as advertising is on. A filled `appodeal_api_key`
 with an empty placement still builds: `parseConfig` warns and the build carries
 on, because shipping only one of the two ad formats is a legitimate choice. What
-you get with an empty one is the adapters in the build and no interstitial ever
-requested; for the banner the empty name is passed to Appodeal, which decides
-what to do with it.
+you get with an empty one is the adapters in the build and that format never
+shown: both the banner and the interstitial are gated on a non-empty placement
+name.
 
 A placement that is not a string is an error, not a warning: `123` or `true`
 would reach the SDK as the placement names `"123"` and `"true"`. The message

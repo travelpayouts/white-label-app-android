@@ -325,10 +325,10 @@ object AdvertisingMode {
 
     /**
      * The placements, once advertising is on. A placement names the ad slot when
-     * the app asks Appodeal to show one. With an empty value the interstitial is
-     * never requested at all, and what happens to the banner is up to Appodeal -
-     * the SDK passes the empty name through. Either way the adapters are in the
-     * build and every check stays green.
+     * the app asks Appodeal to show one. With an empty value that format is never
+     * shown: the SDK checks for a non-empty name before showing either the banner
+     * or the interstitial. The adapters are still in the build and the ads still
+     * load - autocache runs for both types - and every check stays green.
      *
      * A wrong type is an error, the same as for the keys: Gson would coerce 123
      * or true into the strings "123" and "true" and hand them to the SDK as if
@@ -340,8 +340,8 @@ object AdvertisingMode {
         if (element == null || element.isJsonNull) {
             project.logger.warn(
                 "WARNING: advertising.placements is missing in $CONFIG_PATH while the ad keys are " +
-                    "filled in. The adapters will be in the build, the interstitial will never be " +
-                    "requested, and the banner is left to Appodeal to decide."
+                    "filled in. The adapters will be in the build, but no ad will be shown: both " +
+                    "formats require a non-empty placement name."
             )
             return
         }
@@ -357,7 +357,7 @@ object AdvertisingMode {
             if (value.isNullOrBlank()) {
                 project.logger.warn(
                     "WARNING: advertising.placements.$name is empty in $CONFIG_PATH while the ad " +
-                        "keys are filled in. That format will not be requested by name."
+                        "keys are filled in. That format will not be shown at all."
                 )
             }
         }
